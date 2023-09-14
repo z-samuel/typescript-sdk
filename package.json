@@ -1,0 +1,23 @@
+{
+  "name": "typescript-sdk",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "https://github.com/storyprotocol/typescript-sdk",
+  "author": "storyprotocol engineering <eng@storyprotocol.xyz>",
+  "license": "MIT",
+  "scripts": {
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "fix": "turbo run fix",
+    "test": "turbo run test --no-cache",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.13"
+  },
+  "engines": {
+    "node": "^18.15.0"
+  },
+  "packageManager": "pnpm@8.7.5"
+}
