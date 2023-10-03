@@ -13,6 +13,9 @@ coverage
 out/
 build
 
+# typescript
+dist
+
 # misc
 .DS_Store
 *.pem

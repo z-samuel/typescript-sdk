@@ -1,0 +1,84 @@
+{
+  "name": "@story-protocol/core-sdk",
+  "version": "0.0.0",
+  "description": "Story Protocol Core SDK",
+  "main": "dist/story-protocol-core-sdk.cjs.js",
+  "module": "dist/story-protocol-core-sdk.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/story-protocol-core-sdk.esm.js",
+      "default": "./dist/story-protocol-core-sdk.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "preconstruct build",
+    "test": "TS_NODE_PROJECT='./tsconfig.test.json' c8 mocha -r ts-node/register './test/unit/**/*.test.ts'",
+    "test:integration": "TS_NODE_PROJECT='./tsconfig.test.json' c8 mocha -r ts-node/register './test/integration/**/*.test.ts' --timeout 30000",
+    "fix": "pnpm run format:fix && pnpm run lint:fix && pnpm run tsc",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint:fix": "pnpm run eslint --fix",
+    "lint": "eslint ./src",
+    "tsc": "tsc --noEmit",
+    "abigen": "typechain --target ethers-v5 './src/abi/**/*.json' --out-dir ./src/abi/generated"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "axios": "^1.5.0",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.18.6",
+    "@preconstruct/cli": "^2.8.1",
+    "@story-protocol/eslint-config": "workspace:*",
+    "@story-protocol/prettier-config": "workspace:*",
+    "@story-protocol/tsconfig": "workspace:*",
+    "@typechain/ethers-v5": "^11.1.1",
+    "@types/chai": "^4.3.6",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "^20.7.1",
+    "c8": "^8.0.1",
+    "chai": "^4.3.10",
+    "eslint": "^8.34.0",
+    "ethers": "^5.7.2",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.4",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.1",
+    "typescript": "^5.2.2"
+  },
+  "prettier": "@story-protocol/prettier-config",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ],
+    "exports": true
+  },
+  "c8": {
+    "exclude": [
+      "test/**/*",
+      "src/abi/**/*"
+    ]
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./tsconfig.json"
+  }
+}
