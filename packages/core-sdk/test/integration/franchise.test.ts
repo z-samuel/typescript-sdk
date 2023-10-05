@@ -9,13 +9,8 @@ describe("Franchise Functions", () => {
   let client: StoryClient;
 
   before(function () {
-    const provider = new ethers.providers.JsonRpcProvider(
-      process.env.RPC_PROVIDER_URL,
-    );
-    const wallet = new ethers.Wallet(
-      process.env.WALLET_PRIVATE_KEY as string,
-      provider,
-    );
+    const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_PROVIDER_URL);
+    const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY as string, provider);
 
     const config: StoryConfig = {
       environment: Environment.TEST,
@@ -42,7 +37,7 @@ describe("Franchise Functions", () => {
           franchiseName: "Star War",
           franchiseSymbol: "star",
           franchiseDescription:
-          "A timeless space opera franchise created by George Lucas, depicting the battle between the heroic Rebel Alliance and the evil Galactic Empire, entwined with themes of hope, destiny, and the enduring struggle between light and dark.",
+            "A timeless space opera franchise created by George Lucas, depicting the battle between the heroic Rebel Alliance and the evil Galactic Empire, entwined with themes of hope, destiny, and the enduring struggle between light and dark.",
         });
       } catch (error) {
         expect.fail(`Function should not have thrown any error, but it threw: ${error}`);

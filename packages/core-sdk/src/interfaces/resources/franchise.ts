@@ -1,6 +1,6 @@
 /**
- * Core data model for franchise. 
- * 
+ * Core data model for franchise.
+ *
  * @public
  */
 export interface Franchise {
@@ -11,8 +11,8 @@ export interface Franchise {
 }
 
 /**
- * Request interface for franchise.get method. 
- * 
+ * Request interface for franchise.get method.
+ *
  * @public
  */
 export interface GetFranchiseRequest {
@@ -20,7 +20,7 @@ export interface GetFranchiseRequest {
 }
 /**
  * Response interface for franchise.get method.
- * 
+ *
  * @public
  */
 export interface GetFranchiseResponse {
@@ -29,17 +29,17 @@ export interface GetFranchiseResponse {
 
 /**
  * Request interface for franchise.create method.
- * 
+ *
  * @public
  */
 export interface CreateFranchiseRequest {
-  franchiseName: string,
-  franchiseSymbol: string,
-  franchiseDescription: string,
+  franchiseName: string;
+  franchiseSymbol: string;
+  franchiseDescription: string;
 }
 /**
  * Response interface for franchise.create method.
- * 
+ *
  * @public
  */
 export interface CreateFranchiseResponse {

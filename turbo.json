@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["API_BASE_URL", "FRANCHISE_REGISTRY_CONTRACT"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],

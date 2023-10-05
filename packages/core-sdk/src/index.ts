@@ -1,7 +1,7 @@
 export { StoryClient } from "./client";
 export { Environment } from "./enums/environment";
 export type { StoryConfig } from "./interfaces/config";
-export type { 
+export type {
   Franchise,
   GetFranchiseRequest,
   GetFranchiseResponse,

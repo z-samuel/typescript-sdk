@@ -1,7 +1,7 @@
 import { StoryConfig } from "./interfaces/config";
 import { Environment } from "./enums/environment";
 import { FranchiseClient } from "./resources/franchise";
-import axios, { AxiosInstance } from "axios"; 
+import axios, { AxiosInstance } from "axios";
 import { HTTP_TIMEOUT } from "./constants/http";
 import { FranchiseRegistry__factory } from "./abi/generated/factories/FranchiseRegistry__factory";
 import * as dotenv from "dotenv";
@@ -20,19 +20,19 @@ export class StoryClient {
    */
   constructor(config: StoryConfig) {
     if (config.environment !== Environment.TEST) {
-      throw new Error("Invalid Environment: Only TEST environment is supported")
+      throw new Error("Invalid Environment: Only TEST environment is supported");
     }
     this.config = config;
     this.httpClient = axios.create({
-        baseURL: process.env.API_BASE_URL, 
-        timeout: HTTP_TIMEOUT,
-      });
+      baseURL: process.env.API_BASE_URL,
+      timeout: HTTP_TIMEOUT,
+    });
   }
 
   /**
-   * Getter for the franchise client. The client is lazily created when 
+   * Getter for the franchise client. The client is lazily created when
    * this method is called.
-   * 
+   *
    * @returns the FranchiseClient instance
    */
   public get franchise(): FranchiseClient {
@@ -41,8 +41,8 @@ export class StoryClient {
         process.env.FRANCHISE_REGISTRY_CONTRACT as string,
         this.config.signer,
       );
-      this._franchise = new FranchiseClient(this.httpClient, this.config.signer, franchiseRegistry)
+      this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry);
     }
-    return this._franchise
+    return this._franchise;
   }
 }
