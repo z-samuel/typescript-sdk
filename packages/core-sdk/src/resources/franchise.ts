@@ -33,7 +33,7 @@ export class FranchiseClient {
     try {
       if (!isIntegerString(request.franchiseId)) {
         throw new Error(
-          `Invalid franchise id. Must be an integer. But get: ${request.franchiseId}`,
+          `Invalid franchise id. Must be an integer. But got: ${request.franchiseId}`,
         );
       }
 

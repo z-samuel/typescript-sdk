@@ -57,6 +57,9 @@ importers:
       '@types/chai':
         specifier: ^4.3.6
         version: 4.3.6
+      '@types/chai-as-promised':
+        specifier: ^7.1.6
+        version: 7.1.6
       '@types/mocha':
         specifier: ^10.0.2
         version: 10.0.2
@@ -72,6 +75,9 @@ importers:
       chai:
         specifier: ^4.3.10
         version: 4.3.10
+      chai-as-promised:
+        specifier: ^7.1.1
+        version: 7.1.1(chai@4.3.10)
       eslint:
         specifier: ^8.50.0
         version: 8.50.0
@@ -1998,6 +2004,12 @@ packages:
       typescript: 5.2.2
     dev: true
 
+  /@types/chai-as-promised@7.1.6:
+    resolution: {integrity: sha512-cQLhk8fFarRVZAXUQV1xEnZgMoPxqKojBvRkqPCKPQCzEhpbbSKl1Uu75kDng7k5Ln6LQLUmNBjLlFthCgm1NA==}
+    dependencies:
+      '@types/chai': 4.3.6
+    dev: true
+
   /@types/chai@4.3.6:
     resolution: {integrity: sha512-VOVRLM1mBxIRxydiViqPcKn6MIxZytrbMpd6RJLIWKxUNr3zux8no0Oc7kJx0WAPIitgZ0gkrDS+btlqQpubpw==}
     dev: true
@@ -2522,6 +2534,15 @@ packages:
 
   /caniuse-lite@1.0.30001543:
     resolution: {integrity: sha512-qxdO8KPWPQ+Zk6bvNpPeQIOH47qZSYdFZd6dXQzb2KzhnSXju4Kd7H1PkSJx6NICSMgo/IhRZRhhfPTHYpJUCA==}
+    dev: true
+
+  /chai-as-promised@7.1.1(chai@4.3.10):
+    resolution: {integrity: sha512-azL6xMoi+uxu6z4rhWQ1jbdUhOMhis2PvscD/xjLqNMkv3BPPp2JyyuTHOrf9BOosGpNQ11v6BKv/g57RXbiaA==}
+    peerDependencies:
+      chai: '>= 2.1.2 < 5'
+    dependencies:
+      chai: 4.3.10
+      check-error: 1.0.3
     dev: true
 
   /chai@4.3.10:

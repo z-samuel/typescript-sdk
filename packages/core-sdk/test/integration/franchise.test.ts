@@ -1,9 +1,11 @@
-import { expect } from "chai";
+import chai, { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment } from "../../src/index";
 import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 
 dotenv.config();
+chai.use(chaiAsPromised);
 
 describe("Franchise Functions", () => {
   let client: StoryClient;
@@ -25,23 +27,21 @@ describe("Franchise Functions", () => {
       const response = await client.franchise.get({
         franchiseId: "7",
       });
+      // Only assert the immutable fields
       expect(response.franchise.franchiseId).to.equal("7");
-      expect(response.franchise.franchiseName).to.equal("Star Wars");
     });
   });
 
   describe("Create Franchise", async function () {
     it("should not throw error when creating a franchise", async () => {
-      try {
-        await client.franchise.create({
+      await expect(
+        client.franchise.create({
           franchiseName: "Star War",
           franchiseSymbol: "star",
           franchiseDescription:
             "A timeless space opera franchise created by George Lucas, depicting the battle between the heroic Rebel Alliance and the evil Galactic Empire, entwined with themes of hope, destiny, and the enduring struggle between light and dark.",
-        });
-      } catch (error) {
-        expect.fail(`Function should not have thrown any error, but it threw: ${error}`);
-      }
+        }),
+      ).to.not.be.rejected;
     });
   });
 });
