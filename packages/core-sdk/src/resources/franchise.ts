@@ -5,6 +5,7 @@ import {
   GetFranchiseResponse,
   CreateFranchiseRequest,
   CreateFranchiseResponse,
+  ListFranchiseResponse,
 } from "../interfaces/resources/franchise";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
@@ -44,6 +45,21 @@ export class FranchiseClient {
       };
     } catch (error: unknown) {
       handleError(error, "Failed to get franchise");
+    }
+  }
+  /**
+   * List all franchises.
+   * 
+   * @returns the response object that contains a list of franchises
+   */
+  public async list(): Promise<ListFranchiseResponse> {
+    try {
+      const response = await this.httpClient.get(`protocol/kbw/franchise`);
+      return {
+        franchises: response.data as Franchise[]
+      };
+    } catch (error: unknown) {
+      handleError(error, "Failed to list franchises.")
     }
   }
 
