@@ -44,4 +44,11 @@ describe("Franchise Functions", () => {
       ).to.not.be.rejected;
     });
   });
+
+  describe("List Franchises", async function () {
+    it ("should return a list of franchises successfully upon query", async () => {
+      const response = await client.franchise.list();
+      expect(response).is.not.null;
+    })
+  })
 });

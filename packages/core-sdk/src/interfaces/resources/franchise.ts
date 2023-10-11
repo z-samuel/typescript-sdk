@@ -45,3 +45,11 @@ export interface CreateFranchiseRequest {
 export interface CreateFranchiseResponse {
   txHash: string;
 }
+/**
+ * Response interface for franchise.list method.
+ * 
+ * @public
+ */
+export interface ListFranchiseResponse {
+  franchises: Franchise[];
+}

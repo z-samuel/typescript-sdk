@@ -87,4 +87,28 @@ describe("Test FranchiseClient", function () {
       ).to.be.rejectedWith("revert");
     });
   });
+
+  describe ("Test franchise.list", async function () {
+    it("should return franchises on a successful query", async function () {
+      axiosMock.get = sinon.stub().returns({
+        data: 
+          [
+            {
+              franchiseId: "6",
+              franchiseName: "AAA",
+            }
+          ]
+      });
+
+      const response = await franchise.list();
+
+      expect(response.franchises[0].franchiseId).to.equal("6");
+      expect(response.franchises[0].franchiseName).to.equal("AAA");
+    });
+
+    it("should throw error", async function () {
+      axiosMock.get = sinon.stub().rejects(new Error("HTTP 500"));
+      await expect(franchise.list()).to.be.rejectedWith("HTTP 500");
+    });
+  })
 });
