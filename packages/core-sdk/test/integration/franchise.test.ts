@@ -46,9 +46,21 @@ describe("Franchise Functions", () => {
   });
 
   describe("List Franchises", async function () {
-    it ("should return a list of franchises successfully upon query", async () => {
+    it("should return a list of franchises successfully upon query", async () => {
       const response = await client.franchise.list();
       expect(response).is.not.null;
-    })
-  })
+    });
+  });
+
+  // This test requires the wallet to be the same as the franchise owner. So not applicable to other developers.
+  // Will remove in next protocol version
+  describe.skip("Configure Franchise", async function () {
+    it("should not throw error when configuring a franchise", async () => {
+      await expect(
+        client.franchise.configure({
+          franchiseId: "66",
+        }),
+      ).to.not.be.rejected;
+    });
+  });
 });
