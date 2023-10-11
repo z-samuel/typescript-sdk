@@ -36,6 +36,7 @@ jobs:
           docker run --rm \
             -e API_BASE_URL="${{ secrets.API_BASE_URL }}" \
             -e FRANCHISE_REGISTRY_CONTRACT="${{ secrets.FRANCHISE_REGISTRY_CONTRACT }}" \
+            -e LICENSING_MODULE_CONTRACT="${{ secrets.LICENSING_MODULE_CONTRACT }}" \
             -e RPC_PROVIDER_URL="${{ secrets.RPC_PROVIDER_URL }}" \
             -e WALLET_PRIVATE_KEY="${{ secrets.WALLET_PRIVATE_KEY }}" \
            "${{ env.IMG_NAME }}" -- fix
@@ -44,6 +45,7 @@ jobs:
           docker run --rm \
             -e API_BASE_URL="${{ secrets.API_BASE_URL }}" \
             -e FRANCHISE_REGISTRY_CONTRACT="${{ secrets.FRANCHISE_REGISTRY_CONTRACT }}" \
+            -e LICENSING_MODULE_CONTRACT="${{ secrets.LICENSING_MODULE_CONTRACT }}" \
             -e RPC_PROVIDER_URL="${{ secrets.RPC_PROVIDER_URL }}" \
             -e WALLET_PRIVATE_KEY="${{ secrets.WALLET_PRIVATE_KEY }}" \
            "${{ env.IMG_NAME }}" -- test
@@ -52,6 +54,7 @@ jobs:
           docker run --rm \
             -e API_BASE_URL="${{ secrets.API_BASE_URL }}" \
             -e FRANCHISE_REGISTRY_CONTRACT="${{ secrets.FRANCHISE_REGISTRY_CONTRACT }}" \
+            -e LICENSING_MODULE_CONTRACT="${{ secrets.LICENSING_MODULE_CONTRACT }}" \
             -e RPC_PROVIDER_URL="${{ secrets.RPC_PROVIDER_URL }}" \
             -e WALLET_PRIVATE_KEY="${{ secrets.WALLET_PRIVATE_KEY }}" \
             "${{ env.IMG_NAME }}" -- build

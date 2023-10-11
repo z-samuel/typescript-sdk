@@ -3,7 +3,7 @@ import { Environment } from "./enums/environment";
 import { FranchiseClient } from "./resources/franchise";
 import axios, { AxiosInstance } from "axios";
 import { HTTP_TIMEOUT } from "./constants/http";
-import { FranchiseRegistry__factory } from "./abi/generated/factories/FranchiseRegistry__factory";
+import { FranchiseRegistry__factory, LicensingModule__factory } from "./abi/generated/factories";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -41,7 +41,11 @@ export class StoryClient {
         process.env.FRANCHISE_REGISTRY_CONTRACT as string,
         this.config.signer,
       );
-      this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry);
+      const licenseModule = LicensingModule__factory.connect(
+        process.env.LICENSING_MODULE_CONTRACT as string,
+        this.config.signer,
+      );
+      this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry, licenseModule);
     }
     return this._franchise;
   }

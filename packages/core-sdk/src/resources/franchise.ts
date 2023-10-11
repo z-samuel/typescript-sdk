@@ -6,10 +6,13 @@ import {
   CreateFranchiseRequest,
   CreateFranchiseResponse,
   ListFranchiseResponse,
+  ConfigureFranchiseRequest,
+  ConfigureFranchiseResponse,
 } from "../interfaces/resources/franchise";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
-import { FranchiseRegistry } from "../abi/generated/FranchiseRegistry";
+import { FranchiseRegistry, LicensingModule } from "../abi/generated";
+import { constants } from "ethers";
 
 /**
  * FranchiseClient allows you to create, update, view, search franchises on
@@ -18,10 +21,16 @@ import { FranchiseRegistry } from "../abi/generated/FranchiseRegistry";
 export class FranchiseClient {
   private readonly httpClient: AxiosInstance;
   private readonly franchiseRegistry: FranchiseRegistry;
+  private readonly licenseModule: LicensingModule;
 
-  constructor(httpClient: AxiosInstance, franchiseRegistry: FranchiseRegistry) {
+  constructor(
+    httpClient: AxiosInstance,
+    franchiseRegistry: FranchiseRegistry,
+    licenseModule: LicensingModule,
+  ) {
     this.httpClient = httpClient;
     this.franchiseRegistry = franchiseRegistry;
+    this.licenseModule = licenseModule;
   }
 
   /**
@@ -49,17 +58,17 @@ export class FranchiseClient {
   }
   /**
    * List all franchises.
-   * 
+   *
    * @returns the response object that contains a list of franchises
    */
   public async list(): Promise<ListFranchiseResponse> {
     try {
       const response = await this.httpClient.get(`protocol/kbw/franchise`);
       return {
-        franchises: response.data as Franchise[]
+        franchises: response.data as Franchise[],
       };
     } catch (error: unknown) {
-      handleError(error, "Failed to list franchises.")
+      handleError(error, "Failed to list franchises.");
     }
   }
 
@@ -86,6 +95,44 @@ export class FranchiseClient {
       };
     } catch (error: unknown) {
       handleError(error, "Failed to create franchise");
+    }
+  }
+
+  /**
+   * Configure a franchise on Story Protocol.
+   *
+   * @param request - the request object that contains all data needed to configure a franchise
+   * @returns the response object that contains results from the configure franchise action
+   */
+  public async configure(request: ConfigureFranchiseRequest): Promise<ConfigureFranchiseResponse> {
+    try {
+      const response = await this.licenseModule.configureFranchiseLicensing(request.franchiseId, {
+        nonCommercialConfig: {
+          canSublicense: true,
+          franchiseRootLicenseId: 0,
+        },
+        nonCommercialTerms: {
+          processor: constants.AddressZero,
+          data: [],
+        },
+        commercialConfig: {
+          canSublicense: false,
+          franchiseRootLicenseId: 0,
+        },
+        commercialTerms: {
+          processor: constants.AddressZero,
+          data: [],
+        },
+        commercialLicenseUri: "aaaa",
+        rootIpAssetHasCommercialRights: false,
+        revoker: "0xF33f05489d9708C2CA97944F2007d4E741D4DEe7",
+      });
+
+      return {
+        txHash: response.hash,
+      };
+    } catch (error: unknown) {
+      handleError(error, "Failed to configure franchise");
     }
   }
 }

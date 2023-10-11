@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import { FranchiseClient } from "../../../src/resources/franchise";
-import { FranchiseRegistry } from "../../../src/abi/generated/FranchiseRegistry";
+import { FranchiseRegistry, LicensingModule } from "../../../src/abi/generated";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
@@ -12,11 +12,13 @@ describe("Test FranchiseClient", function () {
   let franchise: FranchiseClient;
   let axiosMock: AxiosInstance;
   let franchiseRegistryMock: FranchiseRegistry;
+  let licenseModuleMock: LicensingModule;
 
   beforeEach(function () {
     axiosMock = createMock<AxiosInstance>();
     franchiseRegistryMock = createMock<FranchiseRegistry>();
-    franchise = new FranchiseClient(axiosMock, franchiseRegistryMock);
+    licenseModuleMock = createMock<LicensingModule>();
+    franchise = new FranchiseClient(axiosMock, franchiseRegistryMock, licenseModuleMock);
   });
 
   afterEach(function () {
@@ -75,7 +77,7 @@ describe("Test FranchiseClient", function () {
       ).not.to.be.rejected;
     });
 
-    it("should throw error", async function () {
+    it("should throw error when registerFranchise reverts", async function () {
       franchiseRegistryMock.registerFranchise = sinon.stub().rejects(new Error("revert"));
       await expect(
         franchise.create({
@@ -88,16 +90,15 @@ describe("Test FranchiseClient", function () {
     });
   });
 
-  describe ("Test franchise.list", async function () {
+  describe("Test franchise.list", async function () {
     it("should return franchises on a successful query", async function () {
       axiosMock.get = sinon.stub().returns({
-        data: 
-          [
-            {
-              franchiseId: "6",
-              franchiseName: "AAA",
-            }
-          ]
+        data: [
+          {
+            franchiseId: "6",
+            franchiseName: "AAA",
+          },
+        ],
       });
 
       const response = await franchise.list();
@@ -110,5 +111,25 @@ describe("Test FranchiseClient", function () {
       axiosMock.get = sinon.stub().rejects(new Error("HTTP 500"));
       await expect(franchise.list()).to.be.rejectedWith("HTTP 500");
     });
-  })
+  });
+
+  describe("Test franchise.configure", async function () {
+    it("should not throw error when configuring a franchise", async function () {
+      licenseModuleMock.configureFranchiseLicensing = sinon.stub().returns({});
+      await expect(
+        franchise.configure({
+          franchiseId: "66",
+        }),
+      ).not.to.be.rejected;
+    });
+
+    it("should throw error when configureFranchiseLicensing reverts", async function () {
+      licenseModuleMock.configureFranchiseLicensing = sinon.stub().rejects(new Error("revert"));
+      await expect(
+        franchise.configure({
+          franchiseId: "66",
+        }),
+      ).to.be.rejectedWith("revert");
+    });
+  });
 });
