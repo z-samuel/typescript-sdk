@@ -2,7 +2,6 @@ import { expect } from "chai";
 import { StoryClient } from "../../src/client";
 import { Environment } from "../../src/enums/environment";
 import { Wallet } from "ethers";
-import "mocha";
 
 describe("Test StoryClient", function () {
   describe("Test constructor", function () {
