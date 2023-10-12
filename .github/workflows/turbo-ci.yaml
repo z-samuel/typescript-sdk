@@ -1,0 +1,55 @@
+name: Turbo CI
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build:
+    name: Build and Test
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    env:
+      ## To use Remote Caching, uncomment the next lines and follow the steps below.
+      # TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      # TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      API_BASE_URL: ${{ secrets.API_BASE_URL }}
+      FRANCHISE_REGISTRY_CONTRACT: ${{ secrets.FRANCHISE_REGISTRY_CONTRACT }}
+      LICENSING_MODULE_CONTRACT: ${{ secrets.LICENSING_MODULE_CONTRACT }}
+      RPC_PROVIDER_URL: ${{ secrets.RPC_PROVIDER_URL }}
+      WALLET_PRIVATE_KEY: ${{ secrets.WALLET_PRIVATE_KEY }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 8.8.0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.0
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Fix
+        run: pnpm fix
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
