@@ -52,13 +52,12 @@ describe("Franchise Functions", () => {
     });
   });
 
-  // This test requires the wallet to be the same as the franchise owner. So not applicable to other developers.
-  // Will remove in next protocol version
-  describe.skip("Configure Franchise", async function () {
+  // This test requires the wallet to be the same as the franchise owner.
+  describe("Configure Franchise", async function () {
     it("should not throw error when configuring a franchise", async () => {
       await expect(
         client.franchise.configure({
-          franchiseId: "66",
+          franchiseId: "78",
         }),
       ).to.not.be.rejected;
     });
