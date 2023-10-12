@@ -3,6 +3,8 @@
 /* eslint-disable */
 export type { LicensingModule } from "./LicensingModule";
 export type { FranchiseRegistry } from "./FranchiseRegistry";
+export type { IpAssetRegistry } from "./IpAssetRegistry";
 export * as factories from "./factories";
 export { FranchiseRegistry__factory } from "./factories/FranchiseRegistry__factory";
 export { LicensingModule__factory } from "./factories/LicensingModule__factory";
+export { IpAssetRegistry__factory } from "./factories/IpAssetRegistry__factory";

@@ -43,4 +43,21 @@ describe("Test StoryClient", function () {
       expect(franchise1).to.be.equal(franchise2);
     });
   });
+
+  describe("Test license getter", function () {
+    let client: StoryClient;
+
+    beforeEach(function () {
+      client = new StoryClient({
+        environment: Environment.TEST,
+        signer: Wallet.createRandom(),
+      });
+    });
+
+    it("should return the same license when every time it's called", function () {
+      const license1 = client.license;
+      const license2 = client.license;
+      expect(license1).to.be.equal(license2);
+    });
+  });
 });
