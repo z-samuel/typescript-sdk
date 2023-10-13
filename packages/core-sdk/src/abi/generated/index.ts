@@ -2,9 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { LicensingModule } from "./LicensingModule";
+export type { CollectModule } from "./CollectModule";
 export type { FranchiseRegistry } from "./FranchiseRegistry";
 export type { IpAssetRegistry } from "./IpAssetRegistry";
 export * as factories from "./factories";
+export { CollectModule__factory } from "./factories/CollectModule__factory";
 export { FranchiseRegistry__factory } from "./factories/FranchiseRegistry__factory";
 export { LicensingModule__factory } from "./factories/LicensingModule__factory";
 export { IpAssetRegistry__factory } from "./factories/IpAssetRegistry__factory";

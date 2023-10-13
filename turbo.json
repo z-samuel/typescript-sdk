@@ -1,6 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["API_BASE_URL", "FRANCHISE_REGISTRY_CONTRACT", "LICENSING_MODULE_CONTRACT"],
+  "globalEnv": [
+    "API_BASE_URL",
+    "FRANCHISE_REGISTRY_CONTRACT",
+    "LICENSING_MODULE_CONTRACT",
+    "COLLECT_MODULE_CONTRACT"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
