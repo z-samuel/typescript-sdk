@@ -60,4 +60,21 @@ describe("Test StoryClient", function () {
       expect(license1).to.be.equal(license2);
     });
   });
+
+  describe("Test transactions getter", function () {
+    let client: StoryClient;
+
+    beforeEach(function () {
+      client = new StoryClient({
+        environment: Environment.TEST,
+        signer: Wallet.createRandom(),
+      });
+    });
+
+    it("should return the same transaction client when every time it's called", function () {
+      const transaction1 = client.transaction;
+      const transaction2 = client.transaction;
+      expect(transaction1).to.be.equal(transaction2);
+    });
+  });
 });
