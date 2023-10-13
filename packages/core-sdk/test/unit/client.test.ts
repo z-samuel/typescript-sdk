@@ -77,4 +77,21 @@ describe("Test StoryClient", function () {
       expect(transaction1).to.be.equal(transaction2);
     });
   });
+
+  describe("Test collect getter", function () {
+    let client: StoryClient;
+
+    beforeEach(function () {
+      client = new StoryClient({
+        environment: Environment.TEST,
+        signer: Wallet.createRandom(),
+      });
+    });
+
+    it("should return the same collect client when every time it's called", function () {
+      const collect1 = client.collect;
+      const collect2 = client.collect;
+      expect(collect1).to.be.equal(collect2);
+    });
+  });
 });

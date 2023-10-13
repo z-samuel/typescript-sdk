@@ -7,6 +7,8 @@ import axios, { AxiosInstance } from "axios";
 import { HTTP_TIMEOUT } from "./constants/http";
 import { FranchiseRegistry__factory, LicensingModule__factory } from "./abi/generated/factories";
 import * as dotenv from "dotenv";
+import { CollectClient } from "./resources/collect";
+import { CollectModule__factory } from "./abi/generated";
 
 dotenv.config();
 /**
@@ -18,6 +20,7 @@ export class StoryClient {
   private _franchise: FranchiseClient | null = null;
   private _license: LicenseClient | null = null;
   private _transaction: TransactionClient | null = null;
+  private _collect: CollectClient | null = null;
 
   /**
    * @param config - the configuration for the SDK client
@@ -82,5 +85,22 @@ export class StoryClient {
       this._transaction = new TransactionClient(this.httpClient);
     }
     return this._transaction;
+  }
+
+  /**
+   * Getter for the collect module client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the CollectClient instance
+   */
+  public get collect(): CollectClient {
+    if (this._collect === null) {
+      const collectModule = CollectModule__factory.connect(
+        process.env.COLLECT_MODULE_CONTRACT as string,
+        this.config.signer,
+      );
+      this._collect = new CollectClient(this.httpClient, this.config.signer, collectModule);
+    }
+    return this._collect;
   }
 }
