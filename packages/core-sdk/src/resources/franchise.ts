@@ -1,4 +1,6 @@
 import { AxiosInstance } from "axios";
+import { constants } from "ethers";
+
 import {
   Franchise,
   GetFranchiseRequest,
@@ -12,7 +14,6 @@ import {
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
 import { FranchiseRegistry, LicensingModule } from "../abi/generated";
-import { constants } from "ethers";
 
 /**
  * FranchiseClient allows you to create, update, view, search franchises on

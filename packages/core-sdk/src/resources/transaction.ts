@@ -1,4 +1,5 @@
 import { AxiosInstance, AxiosResponse } from "axios";
+
 import { handleError } from "../utils/errors";
 import {
   GetTransactionRequest,

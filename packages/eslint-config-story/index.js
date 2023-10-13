@@ -26,5 +26,12 @@ module.exports = {
         "import/newline-after-import": "error",
         "import/no-cycle": "error",
         "import/no-useless-path-segments": "error",
+        "import/order": [
+          "error",
+          {
+            "groups": ["builtin", "external", "internal"],
+            "newlines-between": "always"
+          }
+        ]
     }
 }

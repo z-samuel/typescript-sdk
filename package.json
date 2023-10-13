@@ -9,8 +9,7 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "fix": "turbo run fix",
-    "test": "turbo run test --no-cache",
-    "format": "turbo run prettier"
+    "test": "turbo run test --no-cache"
   },
   "devDependencies": {
     "turbo": "^1.10.13"
