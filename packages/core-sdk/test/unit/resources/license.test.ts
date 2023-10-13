@@ -152,7 +152,7 @@ describe("Test LicenseClient", function () {
           hash: "0xHashValue",
         });
 
-        sinon.stub(IpAssetRegistry__factory, "connect").returns({
+        IpAssetRegistry__factory.connect = sinon.stub().returns({
           getLicenseIdByTokenId: getLicenseIdByTokenIdStub,
           createLicense: createLicenseStub,
         } as any);
@@ -190,7 +190,7 @@ describe("Test LicenseClient", function () {
 
       const createLicenseStub = sinon.stub().rejects(new Error("revert"));
 
-      sinon.stub(IpAssetRegistry__factory, "connect").returns({
+      IpAssetRegistry__factory.connect = sinon.stub().returns({
         getLicenseIdByTokenId: getLicenseIdByTokenIdStub,
         createLicense: createLicenseStub,
       } as any);

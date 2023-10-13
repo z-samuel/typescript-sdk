@@ -15,12 +15,7 @@ import type {
 } from "ethers";
 import type { FunctionFragment, Result } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-} from "./common";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 
 export declare namespace IERC5218 {
   export type TermsProcessorConfigStruct = {
@@ -36,14 +31,19 @@ export declare namespace IERC5218 {
 
 export interface IpAssetRegistryInterface extends utils.Interface {
   functions: {
+    "createIPAsset(uint8,string,string,string,address,uint256)": FunctionFragment;
     "createLicense(uint256,uint256,address,string,address,bool,bool,(address,bytes))": FunctionFragment;
     "getLicenseIdByTokenId(uint256,bool)": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "createLicense" | "getLicenseIdByTokenId"
+    nameOrSignatureOrTopic: "createIPAsset" | "createLicense" | "getLicenseIdByTokenId",
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "createIPAsset",
+    values: [BigNumberish, string, string, string, string, BigNumberish],
+  ): string;
   encodeFunctionData(
     functionFragment: "createLicense",
     values: [
@@ -54,22 +54,17 @@ export interface IpAssetRegistryInterface extends utils.Interface {
       string,
       boolean,
       boolean,
-      IERC5218.TermsProcessorConfigStruct
-    ]
+      IERC5218.TermsProcessorConfigStruct,
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "getLicenseIdByTokenId",
-    values: [BigNumberish, boolean]
+    values: [BigNumberish, boolean],
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "createLicense",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getLicenseIdByTokenId",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "createIPAsset", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "createLicense", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getLicenseIdByTokenId", data: BytesLike): Result;
 
   events: {};
 }
@@ -84,16 +79,14 @@ export interface IpAssetRegistry extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
+    eventFilter?: TypedEventFilter<TEvent>,
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -101,6 +94,16 @@ export interface IpAssetRegistry extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    createIPAsset(
+      ipAssetType: BigNumberish,
+      name: string,
+      _description: string,
+      mediaUrl: string,
+      to: string,
+      parentIpAssetId: BigNumberish,
+      overrides?: Overrides & { from?: string },
+    ): Promise<ContractTransaction>;
+
     createLicense(
       _tokenId: BigNumberish,
       _parentLicenseId: BigNumberish,
@@ -110,15 +113,25 @@ export interface IpAssetRegistry extends BaseContract {
       _commercial: boolean,
       _canSublicense: boolean,
       _terms: IERC5218.TermsProcessorConfigStruct,
-      overrides?: Overrides & { from?: string }
+      overrides?: Overrides & { from?: string },
     ): Promise<ContractTransaction>;
 
     getLicenseIdByTokenId(
       _tokenId: BigNumberish,
       _commercial: boolean,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
   };
+
+  createIPAsset(
+    ipAssetType: BigNumberish,
+    name: string,
+    _description: string,
+    mediaUrl: string,
+    to: string,
+    parentIpAssetId: BigNumberish,
+    overrides?: Overrides & { from?: string },
+  ): Promise<ContractTransaction>;
 
   createLicense(
     _tokenId: BigNumberish,
@@ -129,16 +142,26 @@ export interface IpAssetRegistry extends BaseContract {
     _commercial: boolean,
     _canSublicense: boolean,
     _terms: IERC5218.TermsProcessorConfigStruct,
-    overrides?: Overrides & { from?: string }
+    overrides?: Overrides & { from?: string },
   ): Promise<ContractTransaction>;
 
   getLicenseIdByTokenId(
     _tokenId: BigNumberish,
     _commercial: boolean,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   callStatic: {
+    createIPAsset(
+      ipAssetType: BigNumberish,
+      name: string,
+      _description: string,
+      mediaUrl: string,
+      to: string,
+      parentIpAssetId: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<BigNumber>;
+
     createLicense(
       _tokenId: BigNumberish,
       _parentLicenseId: BigNumberish,
@@ -148,19 +171,29 @@ export interface IpAssetRegistry extends BaseContract {
       _commercial: boolean,
       _canSublicense: boolean,
       _terms: IERC5218.TermsProcessorConfigStruct,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getLicenseIdByTokenId(
       _tokenId: BigNumberish,
       _commercial: boolean,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
+    createIPAsset(
+      ipAssetType: BigNumberish,
+      name: string,
+      _description: string,
+      mediaUrl: string,
+      to: string,
+      parentIpAssetId: BigNumberish,
+      overrides?: Overrides & { from?: string },
+    ): Promise<BigNumber>;
+
     createLicense(
       _tokenId: BigNumberish,
       _parentLicenseId: BigNumberish,
@@ -170,17 +203,27 @@ export interface IpAssetRegistry extends BaseContract {
       _commercial: boolean,
       _canSublicense: boolean,
       _terms: IERC5218.TermsProcessorConfigStruct,
-      overrides?: Overrides & { from?: string }
+      overrides?: Overrides & { from?: string },
     ): Promise<BigNumber>;
 
     getLicenseIdByTokenId(
       _tokenId: BigNumberish,
       _commercial: boolean,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    createIPAsset(
+      ipAssetType: BigNumberish,
+      name: string,
+      _description: string,
+      mediaUrl: string,
+      to: string,
+      parentIpAssetId: BigNumberish,
+      overrides?: Overrides & { from?: string },
+    ): Promise<PopulatedTransaction>;
+
     createLicense(
       _tokenId: BigNumberish,
       _parentLicenseId: BigNumberish,
@@ -190,13 +233,13 @@ export interface IpAssetRegistry extends BaseContract {
       _commercial: boolean,
       _canSublicense: boolean,
       _terms: IERC5218.TermsProcessorConfigStruct,
-      overrides?: Overrides & { from?: string }
+      overrides?: Overrides & { from?: string },
     ): Promise<PopulatedTransaction>;
 
     getLicenseIdByTokenId(
       _tokenId: BigNumberish,
       _commercial: boolean,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }
