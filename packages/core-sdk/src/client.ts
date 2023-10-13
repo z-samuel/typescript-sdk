@@ -7,6 +7,7 @@ import axios, { AxiosInstance } from "axios";
 import { HTTP_TIMEOUT } from "./constants/http";
 import { FranchiseRegistry__factory, LicensingModule__factory } from "./abi/generated/factories";
 import * as dotenv from "dotenv";
+import { IpAssetClient } from "./resources/ipAsset";
 import { CollectClient } from "./resources/collect";
 import { CollectModule__factory } from "./abi/generated";
 
@@ -18,6 +19,7 @@ export class StoryClient {
   private readonly config: StoryConfig;
   private readonly httpClient: AxiosInstance;
   private _franchise: FranchiseClient | null = null;
+  private _ipAsset: IpAssetClient | null = null;
   private _license: LicenseClient | null = null;
   private _transaction: TransactionClient | null = null;
   private _collect: CollectClient | null = null;
@@ -55,6 +57,23 @@ export class StoryClient {
       this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry, licenseModule);
     }
     return this._franchise;
+  }
+
+  /**
+   * Getter for the IP Asset client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the IpAssetClient instance
+   */
+  public get ipAsset(): IpAssetClient {
+    if (this._ipAsset === null) {
+      const franchiseRegistry = FranchiseRegistry__factory.connect(
+        process.env.FRANCHISE_REGISTRY_CONTRACT as string,
+        this.config.signer,
+      );
+      this._ipAsset = new IpAssetClient(this.httpClient, franchiseRegistry, this.config.signer);
+    }
+    return this._ipAsset;
   }
 
   /**

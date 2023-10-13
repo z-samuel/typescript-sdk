@@ -15,12 +15,7 @@ import type {
 } from "ethers";
 import type { FunctionFragment, Result } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-} from "./common";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 
 export declare namespace FranchiseRegistry {
   export type FranchiseCreationParamsStruct = {
@@ -30,12 +25,12 @@ export declare namespace FranchiseRegistry {
     tokenURI: string;
   };
 
-  export type FranchiseCreationParamsStructOutput = [
-    string,
-    string,
-    string,
-    string
-  ] & { name: string; symbol: string; description: string; tokenURI: string };
+  export type FranchiseCreationParamsStructOutput = [string, string, string, string] & {
+    name: string;
+    symbol: string;
+    description: string;
+    tokenURI: string;
+  };
 }
 
 export interface FranchiseRegistryInterface extends utils.Interface {
@@ -45,26 +40,17 @@ export interface FranchiseRegistryInterface extends utils.Interface {
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "registerFranchise" | "ipAssetRegistryForId"
+    nameOrSignatureOrTopic: "registerFranchise" | "ipAssetRegistryForId",
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "registerFranchise",
-    values: [FranchiseRegistry.FranchiseCreationParamsStruct]
+    values: [FranchiseRegistry.FranchiseCreationParamsStruct],
   ): string;
-  encodeFunctionData(
-    functionFragment: "ipAssetRegistryForId",
-    values: [BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: "ipAssetRegistryForId", values: [BigNumberish]): string;
 
-  decodeFunctionResult(
-    functionFragment: "registerFranchise",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "ipAssetRegistryForId",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "registerFranchise", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ipAssetRegistryForId", data: BytesLike): Result;
 
   events: {};
 }
@@ -79,16 +65,14 @@ export interface FranchiseRegistry extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
+    eventFilter?: TypedEventFilter<TEvent>,
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -98,35 +82,26 @@ export interface FranchiseRegistry extends BaseContract {
   functions: {
     registerFranchise(
       params: FranchiseRegistry.FranchiseCreationParamsStruct,
-      overrides?: Overrides & { from?: string }
+      overrides?: Overrides & { from?: string },
     ): Promise<ContractTransaction>;
 
-    ipAssetRegistryForId(
-      franchiseId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    ipAssetRegistryForId(franchiseId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
   };
 
   registerFranchise(
     params: FranchiseRegistry.FranchiseCreationParamsStruct,
-    overrides?: Overrides & { from?: string }
+    overrides?: Overrides & { from?: string },
   ): Promise<ContractTransaction>;
 
-  ipAssetRegistryForId(
-    franchiseId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  ipAssetRegistryForId(franchiseId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
     registerFranchise(
       params: FranchiseRegistry.FranchiseCreationParamsStruct,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, string]>;
 
-    ipAssetRegistryForId(
-      franchiseId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    ipAssetRegistryForId(franchiseId: BigNumberish, overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
@@ -134,24 +109,21 @@ export interface FranchiseRegistry extends BaseContract {
   estimateGas: {
     registerFranchise(
       params: FranchiseRegistry.FranchiseCreationParamsStruct,
-      overrides?: Overrides & { from?: string }
+      overrides?: Overrides & { from?: string },
     ): Promise<BigNumber>;
 
-    ipAssetRegistryForId(
-      franchiseId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ipAssetRegistryForId(franchiseId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     registerFranchise(
       params: FranchiseRegistry.FranchiseCreationParamsStruct,
-      overrides?: Overrides & { from?: string }
+      overrides?: Overrides & { from?: string },
     ): Promise<PopulatedTransaction>;
 
     ipAssetRegistryForId(
       franchiseId: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

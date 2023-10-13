@@ -44,6 +44,22 @@ describe("Test StoryClient", function () {
     });
   });
 
+  describe("Test IP Asset getter", function () {
+    let client: StoryClient;
+    beforeEach(function () {
+      client = new StoryClient({
+        environment: Environment.TEST,
+        signer: Wallet.createRandom(),
+      });
+    });
+
+    it("should return the same franchise when every time it's called", function () {
+      const ipAsset1 = client.ipAsset;
+      const ipAsset2 = client.ipAsset;
+      expect(ipAsset1).to.be.equal(ipAsset2);
+    });
+  });
+
   describe("Test license getter", function () {
     let client: StoryClient;
 
