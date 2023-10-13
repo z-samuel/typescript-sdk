@@ -1,4 +1,6 @@
 import { AxiosInstance, AxiosResponse } from "axios";
+import { Signer, ContractTransaction, constants } from "ethers";
+
 import {
   GetLicenseRequest,
   GetLicenseResponse,
@@ -8,9 +10,7 @@ import {
   ListLicenseRequest,
 } from "../interfaces/resources/license";
 import { FranchiseRegistry, IpAssetRegistry__factory } from "../abi/generated";
-
 import { handleError } from "../utils/errors";
-import { Signer, ContractTransaction, constants } from "ethers";
 import { isIntegerString } from "../utils/utils";
 
 /**

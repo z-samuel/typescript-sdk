@@ -1,13 +1,14 @@
+import axios, { AxiosInstance } from "axios";
+import * as dotenv from "dotenv";
+
 import { StoryConfig } from "./interfaces/config";
 import { Environment } from "./enums/environment";
 import { FranchiseClient } from "./resources/franchise";
 import { LicenseClient } from "./resources/license";
 import { TransactionClient } from "./resources/transaction";
-import axios, { AxiosInstance } from "axios";
+import { IpAssetClient } from "./resources/ipAsset";
 import { HTTP_TIMEOUT } from "./constants/http";
 import { FranchiseRegistry__factory, LicensingModule__factory } from "./abi/generated/factories";
-import * as dotenv from "dotenv";
-import { IpAssetClient } from "./resources/ipAsset";
 import { CollectClient } from "./resources/collect";
 import { CollectModule__factory } from "./abi/generated";
 

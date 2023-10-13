@@ -1,10 +1,11 @@
 import { AxiosInstance, AxiosResponse } from "axios";
+import { ContractTransaction, Signer } from "ethers";
+
 import {
   CollectIPAssetRequest,
   CollectIPAssetResponse,
   ListCollectionsResponse,
 } from "../interfaces/resources/collect";
-import { ContractTransaction, Signer } from "ethers";
 import { CollectModule } from "../abi/generated";
 import { handleError } from "../utils/errors";
 
