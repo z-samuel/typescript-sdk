@@ -7,6 +7,7 @@ import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
 import { handleError } from "../../../src/utils/errors";
 import { FranchiseRegistry } from "../../../src/abi/generated";
+import { ethers } from "ethers";
 
 chai.use(chaiAsPromised);
 
@@ -16,13 +17,78 @@ describe("Test RelationshipClient", function () {
   let franchiseRegistryMock: FranchiseRegistry;
 
   beforeEach(function () {
-    relationshipModuleMock = createMock<RelationshipModule>();
+    relationshipModuleMock = createMock<RelationshipModule>({
+      relate: (args: any) => ({ args }),
+    });
     franchiseRegistryMock = createMock<FranchiseRegistry>();
     relationshipClient = new RelationshipClient(relationshipModuleMock, franchiseRegistryMock);
   });
 
   afterEach(function () {
     sinon.restore();
+  });
+
+  describe("test getRegistryAddresses", () => {
+    const mockRelateRequest = {
+      sourceIPAsset: {
+        franchiseId: "6",
+        ipAssetId: "1",
+      },
+      destIPAsset: {
+        franchiseId: "6",
+        ipAssetId: "2",
+      },
+      ttl: "123",
+    };
+
+    it("should resolve with the registry addresses", async () => {
+      franchiseRegistryMock.ipAssetRegistryForId = sinon
+        .stub()
+        .withArgs(mockRelateRequest.sourceIPAsset.franchiseId)
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002");
+
+      relationshipModuleMock.getRelationshipId = sinon
+        .stub()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d");
+
+      // Call the method and await the result
+      const relateSpy = sinon.spy(relationshipModuleMock, "relate");
+
+      const mockRelationshipData = ethers.utils.formatBytes32String("");
+
+      const response = await relationshipClient.relate(mockRelateRequest);
+
+      // Assertions
+      expect(relateSpy.calledOnce).to.be.true;
+      expect(
+        relateSpy.calledWith(
+          {
+            sourceContract: "0x00000000000000000000000000000000000000001",
+            sourceId: "1",
+            destContract: "0x00000000000000000000000000000000000000002",
+            destId: "2",
+            relationshipId: "0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d",
+            ttl: "0",
+          },
+          mockRelationshipData,
+        ),
+      ).to.be.true;
+    });
+
+    it("should handle errors", async () => {
+      // Stub the async method to simulate an error
+      franchiseRegistryMock.ipAssetRegistryForId = sinon
+        .stub()
+        .rejects(new Error("Simulated error"));
+
+      // Call the relate method and check that it handles the error
+      await expect(relationshipClient.relate(mockRelateRequest)).to.be.rejectedWith(
+        "Simulated error",
+      );
+    });
   });
 
   describe("Test RelationshipClient.relate", function () {

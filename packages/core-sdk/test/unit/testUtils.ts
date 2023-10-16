@@ -1,4 +1,4 @@
-export function createMock<T>(): T {
-  const obj: any = {};
-  return obj;
+export function createMock<T>(obj = {}): T {
+  const mockObj: any = obj;
+  return mockObj;
 }
