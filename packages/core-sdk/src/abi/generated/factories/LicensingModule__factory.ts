@@ -4,7 +4,10 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type { LicensingModule, LicensingModuleInterface } from "../LicensingModule";
+import type {
+  LicensingModule,
+  LicensingModuleInterface,
+} from "../LicensingModule";
 
 const _abi = [
   {
@@ -117,7 +120,10 @@ export class LicensingModule__factory {
   static createInterface(): LicensingModuleInterface {
     return new utils.Interface(_abi) as LicensingModuleInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): LicensingModule {
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): LicensingModule {
     return new Contract(address, _abi, signerOrProvider) as LicensingModule;
   }
 }

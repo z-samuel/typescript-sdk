@@ -15,7 +15,12 @@ import type {
 } from "ethers";
 import type { FunctionFragment, Result } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
-import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+import type {
+  TypedEventFilter,
+  TypedEvent,
+  TypedListener,
+  OnEvent,
+} from "./common";
 
 export declare namespace ILicensingModule {
   export type IpAssetConfigStruct = {
@@ -45,7 +50,7 @@ export declare namespace ILicensingModule {
     IERC5218.TermsProcessorConfigStructOutput,
     boolean,
     string,
-    string,
+    string
   ] & {
     nonCommercialConfig: ILicensingModule.IpAssetConfigStructOutput;
     nonCommercialTerms: IERC5218.TermsProcessorConfigStructOutput;
@@ -74,14 +79,19 @@ export interface LicensingModuleInterface extends utils.Interface {
     "configureFranchiseLicensing(uint256,((bool,uint256),(address,bytes),(bool,uint256),(address,bytes),bool,address,string))": FunctionFragment;
   };
 
-  getFunction(nameOrSignatureOrTopic: "configureFranchiseLicensing"): FunctionFragment;
+  getFunction(
+    nameOrSignatureOrTopic: "configureFranchiseLicensing"
+  ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "configureFranchiseLicensing",
-    values: [BigNumberish, ILicensingModule.FranchiseConfigStruct],
+    values: [BigNumberish, ILicensingModule.FranchiseConfigStruct]
   ): string;
 
-  decodeFunctionResult(functionFragment: "configureFranchiseLicensing", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "configureFranchiseLicensing",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -96,14 +106,16 @@ export interface LicensingModule extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>,
+    eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+  removeAllListeners<TEvent extends TypedEvent>(
+    eventFilter: TypedEventFilter<TEvent>
+  ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -114,21 +126,21 @@ export interface LicensingModule extends BaseContract {
     configureFranchiseLicensing(
       franchiseId: BigNumberish,
       config: ILicensingModule.FranchiseConfigStruct,
-      overrides?: Overrides & { from?: string },
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
   };
 
   configureFranchiseLicensing(
     franchiseId: BigNumberish,
     config: ILicensingModule.FranchiseConfigStruct,
-    overrides?: Overrides & { from?: string },
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     configureFranchiseLicensing(
       franchiseId: BigNumberish,
       config: ILicensingModule.FranchiseConfigStruct,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
   };
 
@@ -138,7 +150,7 @@ export interface LicensingModule extends BaseContract {
     configureFranchiseLicensing(
       franchiseId: BigNumberish,
       config: ILicensingModule.FranchiseConfigStruct,
-      overrides?: Overrides & { from?: string },
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
   };
 
@@ -146,7 +158,7 @@ export interface LicensingModule extends BaseContract {
     configureFranchiseLicensing(
       franchiseId: BigNumberish,
       config: ILicensingModule.FranchiseConfigStruct,
-      overrides?: Overrides & { from?: string },
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
   };
 }
