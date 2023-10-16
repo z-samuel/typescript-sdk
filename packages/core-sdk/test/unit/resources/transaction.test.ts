@@ -26,7 +26,7 @@ describe("Test TransactionClient", function () {
     it("should get transaction ", async function () {
       axiosMock.get = sinon.stub().resolves({
         data: {
-          Data: {
+          data: {
             txId: "1",
             txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
             createdAt: "0001-01-01T00:00:00Z",
@@ -40,17 +40,17 @@ describe("Test TransactionClient", function () {
 
       const response = await transactionClient.get({ txId: "1" });
 
-      expect(response.Data.txId).to.be.equal("1");
-      expect(response.Data.txHash).to.be.equal(
+      expect(response.data.txId).to.be.equal("1");
+      expect(response.data.txHash).to.be.equal(
         "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
       );
-      expect(response.Data.createdAt).to.be.equal("0001-01-01T00:00:00Z");
-      expect(response.Data.creatorAddress).to.be.equal(
+      expect(response.data.createdAt).to.be.equal("0001-01-01T00:00:00Z");
+      expect(response.data.creatorAddress).to.be.equal(
         "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
       );
-      expect(response.Data.type).to.be.equal("IP_ASSET");
-      expect(response.Data.resourceId).to.be.equal("1");
-      expect(response.Data.franchiseId).to.be.equal("7");
+      expect(response.data.type).to.be.equal("IP_ASSET");
+      expect(response.data.resourceId).to.be.equal("1");
+      expect(response.data.franchiseId).to.be.equal("7");
     });
 
     it("should be able to throw an error", async function () {
@@ -63,7 +63,7 @@ describe("Test TransactionClient", function () {
     it("should return list of collections", async function () {
       axiosMock.get = sinon.stub().resolves({
         data: {
-          Data: [
+          data: [
             {
               txId: "1",
               txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
@@ -87,7 +87,7 @@ describe("Test TransactionClient", function () {
       });
 
       const response = await transactionClient.list();
-      const transactions = response.Data;
+      const transactions = response.data;
 
       // First transaction in array
       expect(transactions[0].txId).to.be.equal("1");

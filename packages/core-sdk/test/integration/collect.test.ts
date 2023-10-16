@@ -37,11 +37,13 @@ describe("Collect client integration tests", () => {
 
   describe("List Collections", async function () {
     it("should return array of collections from the Collect Module", async () => {
-      const response = await client.collect.list();
-      expect(response).to.have.property("Data");
-      expect(response.Data).to.be.an("array"); // Collection[]
+      const response = await client.collect.list({
+        franchiseId: "78",
+      });
+      expect(response).to.have.property("data");
+      expect(response.data).to.be.an("array"); // Collection[]
 
-      const collection = response.Data[0];
+      const collection = response.data[0];
       expect(collection).to.have.property("ipAssetId");
       expect(collection).to.have.property("franchiseId");
       expect(collection).to.have.property("totalCollected");

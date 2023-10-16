@@ -24,7 +24,7 @@ export interface GetFranchiseRequest {
  * @public
  */
 export interface GetFranchiseResponse {
-  franchise: Franchise;
+  data: Franchise;
 }
 
 /**
@@ -52,7 +52,7 @@ export interface CreateFranchiseResponse {
  * @public
  */
 export interface ListFranchiseResponse {
-  franchises: Franchise[];
+  data: Franchise[];
 }
 
 /**

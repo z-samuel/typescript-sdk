@@ -62,7 +62,7 @@ describe("Test CollectClient", function () {
     it("should return list of collections", async function () {
       axiosMock.get = sinon.stub().resolves({
         data: {
-          Data: [
+          data: [
             {
               franchiseId: "1",
               ipAssetId: "1",
@@ -77,21 +77,27 @@ describe("Test CollectClient", function () {
         },
       });
 
-      const response = await collectClient.list();
+      const response = await collectClient.list({
+        franchiseId: "78",
+      });
 
-      expect(response.Data).to.be.an("array");
-      expect(response.Data).to.have.lengthOf(2);
-      expect(response.Data[0].franchiseId).to.equal("1");
-      expect(response.Data[0].ipAssetId).to.equal("1");
-      expect(response.Data[0].totalCollected).to.equal(100);
-      expect(response.Data[1].franchiseId).to.equal("100");
-      expect(response.Data[1].ipAssetId).to.equal("5000");
-      expect(response.Data[1].totalCollected).to.equal(1);
+      expect(response.data).to.be.an("array");
+      expect(response.data).to.have.lengthOf(2);
+      expect(response.data[0].franchiseId).to.equal("1");
+      expect(response.data[0].ipAssetId).to.equal("1");
+      expect(response.data[0].totalCollected).to.equal(100);
+      expect(response.data[1].franchiseId).to.equal("100");
+      expect(response.data[1].ipAssetId).to.equal("5000");
+      expect(response.data[1].totalCollected).to.equal(1);
     });
 
     it("should throw an error", async function () {
       axiosMock.get = sinon.stub().rejects(new Error("HTTP 500"));
-      await expect(collectClient.list()).to.be.rejectedWith("HTTP 500");
+      await expect(
+        collectClient.list({
+          franchiseId: "78",
+        }),
+      ).to.be.rejectedWith("HTTP 500");
     });
   });
 });

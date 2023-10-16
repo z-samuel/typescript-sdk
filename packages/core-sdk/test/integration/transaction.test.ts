@@ -7,7 +7,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 chai.use(chaiAsPromised);
 
-describe("Collect client integration tests", () => {
+describe("Transaction client integration tests", () => {
   let client: StoryClient;
 
   beforeEach(function () {
@@ -25,10 +25,10 @@ describe("Collect client integration tests", () => {
   describe("List Transactions", async function () {
     it("should return array of transactions", async () => {
       const response = await client.transaction.list();
-      expect(response).to.have.property("Data");
-      expect(response.Data).to.be.an("array"); // Collection[]
+      expect(response).to.have.property("data");
+      expect(response.data).to.be.an("array"); // Collection[]
 
-      const transaction = response.Data[0];
+      const transaction = response.data[0];
       expect(transaction).to.have.property("txId");
       expect(transaction).to.have.property("txHash");
       expect(transaction).to.have.property("createdAt");
@@ -44,7 +44,7 @@ describe("Collect client integration tests", () => {
       expect(transaction.resourceId).to.be.a("string");
       expect(transaction.franchiseId).to.be.a("string");
 
-      const transaction2 = response.Data[1];
+      const transaction2 = response.data[1];
       expect(transaction2).to.have.property("txId");
       expect(transaction2).to.have.property("txHash");
       expect(transaction2).to.have.property("createdAt");
@@ -64,10 +64,12 @@ describe("Collect client integration tests", () => {
 
   describe("Get Transaction", async function () {
     it("should return transaction from request transaction id", async () => {
-      const response = await client.transaction.get({ txId: "1" });
-      expect(response).to.have.property("Data");
+      const response = await client.transaction.get({
+        txId: "0x00c62c845575624b335c705b783e174a426fdec472a532e00a42ea36c86c2ace0d000000",
+      });
+      expect(response).to.have.property("data");
 
-      const transaction = response.Data;
+      const transaction = response.data;
       expect(transaction).to.have.property("txId");
       expect(transaction).to.have.property("txHash");
       expect(transaction).to.have.property("createdAt");

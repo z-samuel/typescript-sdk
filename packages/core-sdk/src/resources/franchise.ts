@@ -2,7 +2,6 @@ import { AxiosInstance } from "axios";
 import { constants } from "ethers";
 
 import {
-  Franchise,
   GetFranchiseRequest,
   GetFranchiseResponse,
   CreateFranchiseRequest,
@@ -48,11 +47,8 @@ export class FranchiseClient {
         );
       }
 
-      const response = await this.httpClient.get(`/protocol/kbw/franchise/${request.franchiseId}`);
-
-      return {
-        franchise: response.data as Franchise,
-      };
+      const response = await this.httpClient.get(`/franchise/${request.franchiseId}`);
+      return response.data as GetFranchiseResponse;
     } catch (error: unknown) {
       handleError(error, "Failed to get franchise");
     }
@@ -64,10 +60,8 @@ export class FranchiseClient {
    */
   public async list(): Promise<ListFranchiseResponse> {
     try {
-      const response = await this.httpClient.get(`protocol/kbw/franchise`);
-      return {
-        franchises: response.data as Franchise[],
-      };
+      const response = await this.httpClient.get(`/franchise`);
+      return response.data as ListFranchiseResponse;
     } catch (error: unknown) {
       handleError(error, "Failed to list franchises.");
     }

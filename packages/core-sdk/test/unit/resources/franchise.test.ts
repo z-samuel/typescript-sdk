@@ -29,10 +29,12 @@ describe("Test FranchiseClient", function () {
     it("should return franchise when the franchise id is valid", async function () {
       axiosMock.get = sinon.stub().returns({
         data: {
-          franchiseId: "6",
-          franchiseName: "AAA",
-          franchiseSymbol: "A",
-          tokenUri: "asfddsf",
+          data: {
+            franchiseId: "6",
+            franchiseName: "AAA",
+            franchiseSymbol: "A",
+            tokenUri: "asfddsf",
+          },
         },
       });
 
@@ -40,8 +42,8 @@ describe("Test FranchiseClient", function () {
         franchiseId: "6",
       });
 
-      expect(response.franchise.franchiseId).to.equal("6");
-      expect(response.franchise.franchiseName).to.equal("AAA");
+      expect(response.data.franchiseId).to.equal("6");
+      expect(response.data.franchiseName).to.equal("AAA");
     });
 
     it("should throw error", async function () {
@@ -93,18 +95,20 @@ describe("Test FranchiseClient", function () {
   describe("Test franchise.list", async function () {
     it("should return franchises on a successful query", async function () {
       axiosMock.get = sinon.stub().returns({
-        data: [
-          {
-            franchiseId: "6",
-            franchiseName: "AAA",
-          },
-        ],
+        data: {
+          data: [
+            {
+              franchiseId: "6",
+              franchiseName: "AAA",
+            },
+          ],
+        },
       });
 
       const response = await franchise.list();
 
-      expect(response.franchises[0].franchiseId).to.equal("6");
-      expect(response.franchises[0].franchiseName).to.equal("AAA");
+      expect(response.data[0].franchiseId).to.equal("6");
+      expect(response.data[0].franchiseName).to.equal("AAA");
     });
 
     it("should throw error", async function () {

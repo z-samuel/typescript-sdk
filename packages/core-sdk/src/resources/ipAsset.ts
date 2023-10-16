@@ -1,17 +1,18 @@
 import { AxiosInstance } from "axios";
+import { Signer } from "ethers";
+
 import {
-  ipAsset,
   GetIpAssetRequest,
   GetIpAssetResponse,
   CreateIpAssetRequest,
   CreateIpAssetResponse,
+  ListIpAssetRequest,
   ListIpAssetResponse,
 } from "../interfaces/resources/ipAsset";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
 import { FranchiseRegistry, IpAssetRegistry__factory } from "../abi/generated";
 import { IpAssetRegistry } from "../abi/generated";
-import { Signer } from "ethers";
 
 /**
  * IpAssetClient allows you to create, view, and list IP Assets on Story Protocol.
@@ -38,7 +39,7 @@ export class IpAssetClient {
       const ipAssetRegistry = IpAssetRegistry__factory.connect(address, this.signer);
       return ipAssetRegistry;
     } catch (error) {
-      handleError(error, "Failed to retrieve IP Asset Registry.");
+      handleError(error, "Failed to retrieve IP Asset Registry");
     }
   }
 
@@ -54,12 +55,12 @@ export class IpAssetClient {
         throw new Error(`Invalid IP Asset id. Must be an integer. But get: ${request.ipAssetId}`);
       }
 
-      const response = await this.httpClient.get(`/ipasset/${request.ipAssetId}`);
-      return {
-        ipAsset: response.data as ipAsset,
-      };
+      const response = await this.httpClient.get(
+        `/ipasset/${request.ipAssetId}?franchiseId=${request.franchiseId}`,
+      );
+      return response.data as GetIpAssetResponse;
     } catch (error: unknown) {
-      handleError(error, "Failed to get IP Asset.");
+      handleError(error, "Failed to get IP Asset");
     }
   }
 
@@ -91,7 +92,7 @@ export class IpAssetClient {
         txHash: response.hash,
       };
     } catch (error) {
-      handleError(error, "");
+      handleError(error, "Failed to create IP Asset");
     }
   }
 
@@ -100,14 +101,12 @@ export class IpAssetClient {
    *
    * @returns the response object that contains results from listing query.
    */
-  public async list(): Promise<ListIpAssetResponse> {
+  public async list(request: ListIpAssetRequest): Promise<ListIpAssetResponse> {
     try {
-      const response = await this.httpClient.get(`/ipasset`);
-      return {
-        ipAssets: response.data as ipAsset[],
-      };
+      const response = await this.httpClient.get(`/ipasset?franchiseId=${request.franchiseId}`);
+      return response.data as ListIpAssetResponse;
     } catch (error) {
-      handleError(error, "Failed to create IP Asset.");
+      handleError(error, "Failed to list IP Asset.");
     }
   }
 }
