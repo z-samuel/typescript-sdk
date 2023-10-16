@@ -35,17 +35,14 @@ describe("Relationship Functions", () => {
 
   describe("Relate", async function () {
     it("should create a relationship and return txHash", async () => {
-      const response = await client.relationship.relate(mockRequest);
-      console.log({ response });
+      await client.relationship.relate(mockRequest);
       await expect(client.relationship.relate(mockRequest)).to.not.be.rejected;
     });
   });
 
   describe.skip("Unrelate", async function () {
     it("should unrelate and return txHash", async () => {
-      const response = await client.relationship.unrelate(mockRequest);
-      console.log({ response });
-      // await expect(client.relationship.unrelate(mockRequest)).to.not.be.rejected;
+      await client.relationship.unrelate(mockRequest);
     });
   });
 

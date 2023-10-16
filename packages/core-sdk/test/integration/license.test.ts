@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment } from "../../src/index";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 
 dotenv.config();

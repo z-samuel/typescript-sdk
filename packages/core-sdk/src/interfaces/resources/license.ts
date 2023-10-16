@@ -29,7 +29,7 @@ export interface GetLicenseRequest {
  * @public
  */
 export interface GetLicenseResponse {
-  Data: License;
+  data: License;
 }
 
 export interface ListLicenseRequest {
@@ -43,7 +43,7 @@ export interface ListLicenseRequest {
  * @public
  */
 export interface ListLicenseResponse {
-  Data: License[]; // An array of licenses to be listed.
+  data: License[]; // An array of licenses to be listed.
 }
 
 /**

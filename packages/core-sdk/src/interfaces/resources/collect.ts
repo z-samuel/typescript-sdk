@@ -30,10 +30,19 @@ export interface CollectIPAssetResponse {
 }
 
 /**
+ * Request interface for collect.list method.
+ *
+ * @public
+ */
+export interface ListCollectionsRequest {
+  franchiseId: string;
+}
+
+/**
  * Response interface for collect.list method.
  *
  * @public
  */
 export interface ListCollectionsResponse {
-  Data: Collection[];
+  data: Collection[];
 }

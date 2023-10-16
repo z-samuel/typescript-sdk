@@ -4,6 +4,7 @@ import { ContractTransaction, Signer } from "ethers";
 import {
   CollectIPAssetRequest,
   CollectIPAssetResponse,
+  ListCollectionsRequest,
   ListCollectionsResponse,
 } from "../interfaces/resources/collect";
 import { CollectModule } from "../abi/generated";
@@ -25,9 +26,11 @@ export class CollectClient {
    *
    * @returns A Promise that resolves to the ListLicenseResponse.
    */
-  public async list(): Promise<ListCollectionsResponse> {
+  public async list(request: ListCollectionsRequest): Promise<ListCollectionsResponse> {
     try {
-      const response: AxiosResponse = await this.httpClient.get(`/collection`);
+      const response: AxiosResponse = await this.httpClient.get(
+        `/collection?franchiseId=${request.franchiseId}`,
+      );
       return response.data as ListCollectionsResponse;
     } catch (error: unknown) {
       handleError(error, `Failed to get collections`);

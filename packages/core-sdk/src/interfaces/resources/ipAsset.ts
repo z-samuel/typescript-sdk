@@ -21,6 +21,7 @@ export interface ipAsset {
  */
 export interface GetIpAssetRequest {
   ipAssetId: string;
+  franchiseId: string;
 }
 
 /**
@@ -29,7 +30,7 @@ export interface GetIpAssetRequest {
  * @public
  */
 export interface GetIpAssetResponse {
-  ipAsset: ipAsset;
+  data: ipAsset;
 }
 
 /**
@@ -57,10 +58,19 @@ export interface CreateIpAssetResponse {
 }
 
 /**
+ * Request interface for ipAsset.list method.
+ *
+ * @public
+ */
+export interface ListIpAssetRequest {
+  franchiseId: string;
+}
+
+/**
  * Response interface for ipAsset.list method.
  *
  * @public
  */
 export interface ListIpAssetResponse {
-  ipAssets: ipAsset[];
+  data: ipAsset[];
 }

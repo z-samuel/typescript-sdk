@@ -36,7 +36,7 @@ export interface GetTransactionRequest {
  * @public
  */
 export interface GetTransactionResponse {
-  Data: Transaction;
+  data: Transaction;
 }
 
 /**
@@ -45,5 +45,5 @@ export interface GetTransactionResponse {
  * @public
  */
 export interface ListTransactionResponse {
-  Data: Transaction[];
+  data: Transaction[];
 }

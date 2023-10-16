@@ -26,9 +26,10 @@ describe("IP Asset Functions", () => {
   describe("Get IP Asset", async function () {
     it("should return asset when the asset id is valid", async () => {
       const response = await client.ipAsset.get({
-        ipAssetId: "7",
+        ipAssetId: "1",
+        franchiseId: "78",
       });
-      expect(response.ipAsset).is.not.null;
+      expect(response.data).is.not.null;
     });
   });
 
@@ -50,7 +51,9 @@ describe("IP Asset Functions", () => {
 
   describe("List IP assets", async function () {
     it("should return a list of IP assets successfully upon query", async () => {
-      const response = await client.ipAsset.list();
+      const response = await client.ipAsset.list({
+        franchiseId: "78",
+      });
       expect(response).is.not.null;
     });
   });

@@ -25,10 +25,10 @@ describe("Franchise Functions", () => {
   describe("Get Franchise", async function () {
     it("should return franchise when the franchise id is valid", async () => {
       const response = await client.franchise.get({
-        franchiseId: "7",
+        franchiseId: "78",
       });
       // Only assert the immutable fields
-      expect(response.franchise.franchiseId).to.equal("7");
+      expect(response.data.franchiseId).to.equal("78");
     });
   });
 
