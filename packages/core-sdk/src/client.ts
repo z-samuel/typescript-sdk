@@ -6,11 +6,14 @@ import { Environment } from "./enums/environment";
 import { FranchiseClient } from "./resources/franchise";
 import { LicenseClient } from "./resources/license";
 import { TransactionClient } from "./resources/transaction";
+import { RelationshipClient } from "./resources/relationship";
 import { IpAssetClient } from "./resources/ipAsset";
 import { HTTP_TIMEOUT } from "./constants/http";
-import { FranchiseRegistry__factory, LicensingModule__factory } from "./abi/generated/factories";
 import { CollectClient } from "./resources/collect";
-import { CollectModule__factory } from "./abi/generated";
+import { CollectModule__factory } from "./abi/generated/factories/CollectModule__factory";
+import { LicensingModule__factory } from "./abi/generated/factories/LicensingModule__factory";
+import { FranchiseRegistry__factory } from "./abi/generated/factories/FranchiseRegistry__factory";
+import { RelationshipModule__factory } from "./abi/generated/factories/RelationshipModule__factory";
 
 dotenv.config();
 /**
@@ -20,6 +23,7 @@ export class StoryClient {
   private readonly config: StoryConfig;
   private readonly httpClient: AxiosInstance;
   private _franchise: FranchiseClient | null = null;
+  private _relationship: RelationshipClient | null = null;
   private _ipAsset: IpAssetClient | null = null;
   private _license: LicenseClient | null = null;
   private _transaction: TransactionClient | null = null;
@@ -58,6 +62,29 @@ export class StoryClient {
       this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry, licenseModule);
     }
     return this._franchise;
+  }
+
+  /**
+   * Getter for the relationship client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the RelationshipClient instance
+   */
+  public get relationship(): RelationshipClient {
+    if (this._relationship === null) {
+      const franchiseRegistry = FranchiseRegistry__factory.connect(
+        process.env.FRANCHISE_REGISTRY_CONTRACT as string,
+        this.config.signer,
+      );
+
+      const relationshipModule = RelationshipModule__factory.connect(
+        process.env.RELATIONSHIP_MODULE_CONTRACT as string,
+        this.config.signer,
+      );
+
+      this._relationship = new RelationshipClient(relationshipModule, franchiseRegistry);
+    }
+    return this._relationship;
   }
 
   /**
