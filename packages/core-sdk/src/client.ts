@@ -38,7 +38,7 @@ export class StoryClient {
     }
     this.config = config;
     this.httpClient = axios.create({
-      baseURL: process.env.API_BASE_URL,
+      baseURL: process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL,
       timeout: HTTP_TIMEOUT,
     });
   }
@@ -51,12 +51,15 @@ export class StoryClient {
    */
   public get franchise(): FranchiseClient {
     if (this._franchise === null) {
+      const franchiseRegistryContract = process.env.FRANCHISE_REGISTRY_CONTRACT || process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT
       const franchiseRegistry = FranchiseRegistry__factory.connect(
-        process.env.FRANCHISE_REGISTRY_CONTRACT as string,
+        franchiseRegistryContract as string,
         this.config.signer,
       );
+
+      const licenseModuleContract = process.env.LICENSING_MODULE_CONTRACT || process.env.NEXT_PUBLIC_LICENSING_MODULE_CONTRACT 
       const licenseModule = LicensingModule__factory.connect(
-        process.env.LICENSING_MODULE_CONTRACT as string,
+        licenseModuleContract as string,
         this.config.signer,
       );
       this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry, licenseModule);
@@ -72,13 +75,15 @@ export class StoryClient {
    */
   public get relationship(): RelationshipClient {
     if (this._relationship === null) {
+      const franchiseRegistryContract = process.env.FRANCHISE_REGISTRY_CONTRACT || process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT 
       const franchiseRegistry = FranchiseRegistry__factory.connect(
-        process.env.FRANCHISE_REGISTRY_CONTRACT as string,
+        franchiseRegistryContract as string,
         this.config.signer,
       );
 
+      const relationshipModuleContract = process.env.RELATIONSHIP_MODULE_CONTRACT || process.env.NEXT_PUBLIC_RELATIONSHIP_MODULE_CONTRACT 
       const relationshipModule = RelationshipModule__factory.connect(
-        process.env.RELATIONSHIP_MODULE_CONTRACT as string,
+        relationshipModuleContract as string,
         this.config.signer,
       );
 
@@ -94,9 +99,10 @@ export class StoryClient {
    * @returns the IpAssetClient instance
    */
   public get ipAsset(): IpAssetClient {
+    const franchiseRegistryContract = process.env.FRANCHISE_REGISTRY_CONTRACT || process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT
     if (this._ipAsset === null) {
       const franchiseRegistry = FranchiseRegistry__factory.connect(
-        process.env.FRANCHISE_REGISTRY_CONTRACT as string,
+        franchiseRegistryContract as string,
         this.config.signer,
       );
       this._ipAsset = new IpAssetClient(this.httpClient, franchiseRegistry, this.config.signer);
@@ -112,8 +118,9 @@ export class StoryClient {
    */
   public get license(): LicenseClient {
     if (this._license === null) {
+      const franchiseRegistryContract = process.env.FRANCHISE_REGISTRY_CONTRACT || process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT 
       const franchiseRegistry = FranchiseRegistry__factory.connect(
-        process.env.FRANCHISE_REGISTRY_CONTRACT as string,
+        franchiseRegistryContract as string,
         this.config.signer,
       );
       this._license = new LicenseClient(this.httpClient, this.config.signer, franchiseRegistry);
@@ -142,8 +149,9 @@ export class StoryClient {
    */
   public get collect(): CollectClient {
     if (this._collect === null) {
+      const collectModuleContract = process.env.COLLECT_MODULE_CONTRACT || process.env.NEXT_PUBLIC_COLLECT_MODULE_CONTRACT 
       const collectModule = CollectModule__factory.connect(
-        process.env.COLLECT_MODULE_CONTRACT as string,
+        collectModuleContract as string,
         this.config.signer,
       );
       this._collect = new CollectClient(this.httpClient, this.config.signer, collectModule);
