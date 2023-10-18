@@ -8,6 +8,7 @@ export interface Franchise {
   franchiseName: string;
   ownerAddress: string;
   tokenUri: string;
+  txHash: string;
 }
 
 /**
