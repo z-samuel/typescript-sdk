@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { StoryClient } from "../../src/client";
-import { Environment } from "../../src/enums/environment";
+import { Environment } from "../../src/enums/Environment";
 import { Wallet } from "ethers";
 
 describe("Test StoryClient", function () {

@@ -5,7 +5,7 @@ import {
   GetTransactionRequest,
   GetTransactionResponse,
   ListTransactionResponse,
-} from "../interfaces/resources/transaction";
+} from "../types/resources/transaction";
 
 /**
  * TransactionClient allows you to view and monitor transactions on

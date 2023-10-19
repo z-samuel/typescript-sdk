@@ -1,8 +1,9 @@
 export { StoryClient } from "./client";
-export { Environment } from "./enums/environment";
-export { ipAssetType } from "./enums/ipAssetType";
+export { Environment } from "./enums/Environment";
+export { IPAssetType } from "./enums/IPAssetType";
+export { ResourceType } from "./enums/ResourceType";
 
-export type { StoryConfig } from "./interfaces/config";
+export type { StoryConfig } from "./types/config";
 
 export type {
   Franchise,
@@ -13,17 +14,17 @@ export type {
   ListFranchiseResponse,
   ConfigureFranchiseRequest,
   ConfigureFranchiseResponse,
-} from "./interfaces/resources/franchise";
+} from "./types/resources/franchise";
 
 export type {
-  ipAsset,
+  IPAsset,
   GetIpAssetRequest,
   GetIpAssetResponse,
   CreateIpAssetRequest,
   CreateIpAssetResponse,
   ListIpAssetRequest,
   ListIpAssetResponse,
-} from "./interfaces/resources/ipAsset";
+} from "./types/resources/ipAsset";
 
 export type {
   License,
@@ -34,19 +35,19 @@ export type {
   CreateLicenseRequestOptions,
   ListLicenseRequest,
   ListLicenseResponse,
-} from "./interfaces/resources/license";
+} from "./types/resources/license";
 
 export type {
-  IPAsset,
+  IPAssetId,
   RelationshipRelateRequest,
-  RelationshipRelateResponse, 
+  RelationshipRelateResponse,
   RelationshipUnrelateRequest,
   RelationshipUnrelateResponse,
   RelationshipIsRelationshipExpiredRequest,
   RelationshipIsRelationshipExpiredResponse,
   RelationshipIsRelatedRequest,
   RelationshipIsRelatedResponse,
-} from "./interfaces/resources/relationship";
+} from "./types/resources/relationship";
 
 export type {
   Collection,
@@ -54,12 +55,11 @@ export type {
   CollectIPAssetResponse,
   ListCollectionsRequest,
   ListCollectionsResponse,
-} from "./interfaces/resources/collect";
+} from "./types/resources/collect";
 
 export type {
   Transaction,
-  ResourceType,
   GetTransactionRequest,
   GetTransactionResponse,
   ListTransactionResponse,
-} from "./interfaces/resources/transaction";
+} from "./types/resources/transaction";

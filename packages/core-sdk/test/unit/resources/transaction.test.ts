@@ -5,7 +5,6 @@ import chai from "chai";
 import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { TransactionClient } from "../../../src/resources/transaction";
-import { ResourceType } from "../../../src/interfaces/resources/transaction";
 
 chai.use(chaiAsPromised);
 

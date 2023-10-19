@@ -10,7 +10,7 @@ import {
   RelationshipRelateResponse,
   RelationshipUnrelateRequest,
   RelationshipUnrelateResponse,
-} from "../interfaces/resources/relationship";
+} from "../types/resources/relationship";
 import { handleError } from "../utils/errors";
 import { FranchiseRegistry } from "../abi/generated";
 

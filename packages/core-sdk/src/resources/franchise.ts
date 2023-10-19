@@ -9,7 +9,7 @@ import {
   ListFranchiseResponse,
   ConfigureFranchiseRequest,
   ConfigureFranchiseResponse,
-} from "../interfaces/resources/franchise";
+} from "../types/resources/franchise";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
 import { FranchiseRegistry, LicensingModule } from "../abi/generated";

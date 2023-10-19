@@ -8,7 +8,7 @@ import {
   CreateIpAssetResponse,
   ListIpAssetRequest,
   ListIpAssetResponse,
-} from "../interfaces/resources/ipAsset";
+} from "../types/resources/ipAsset";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
 import { FranchiseRegistry, IpAssetRegistry__factory } from "../abi/generated";
@@ -17,7 +17,7 @@ import { IpAssetRegistry } from "../abi/generated";
 /**
  * IpAssetClient allows you to create, view, and list IP Assets on Story Protocol.
  */
-export class IpAssetClient {
+export class IPAssetClient {
   private readonly httpClient: AxiosInstance;
   private readonly franchiseRegistry: FranchiseRegistry;
   private readonly signer: Signer;

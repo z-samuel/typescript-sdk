@@ -6,7 +6,7 @@ import {
   CollectIPAssetResponse,
   ListCollectionsRequest,
   ListCollectionsResponse,
-} from "../interfaces/resources/collect";
+} from "../types/resources/collect";
 import { CollectModule } from "../abi/generated";
 import { handleError } from "../utils/errors";
 
