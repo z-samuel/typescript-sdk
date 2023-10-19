@@ -1,8 +1,7 @@
 /**
- *
  * @public
  */
-export enum ipAssetType {
+export enum IPAssetType {
   STORY = 1,
   CHARACTER = 2,
   ART = 3,

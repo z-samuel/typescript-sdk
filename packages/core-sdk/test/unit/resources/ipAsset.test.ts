@@ -1,11 +1,11 @@
 import { expect } from "chai";
-import { IpAssetClient } from "../../../src/resources/ipAsset";
+import { IPAssetClient } from "../../../src/resources/ipAsset";
 import { FranchiseRegistry } from "../../../src/abi/generated/FranchiseRegistry";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import { Wallet } from "ethers";
-import { ipAssetType } from "../../../src/enums/ipAssetType";
+import { IPAssetType } from "../../../src/enums/IPAssetType";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { IpAssetRegistry, IpAssetRegistry__factory } from "../../../src/abi/generated";
@@ -13,7 +13,7 @@ import { IpAssetRegistry, IpAssetRegistry__factory } from "../../../src/abi/gene
 chai.use(chaiAsPromised);
 
 describe("Test IpAssetClient", function () {
-  let ipAssetClient: IpAssetClient;
+  let ipAssetClient: IPAssetClient;
   let axiosMock: AxiosInstance;
   let franchiseRegistryMock: FranchiseRegistry;
   let ipAssetRegistryMock: IpAssetRegistry;
@@ -21,7 +21,7 @@ describe("Test IpAssetClient", function () {
   beforeEach(function () {
     axiosMock = createMock<AxiosInstance>();
     franchiseRegistryMock = createMock<FranchiseRegistry>();
-    ipAssetClient = new IpAssetClient(axiosMock, franchiseRegistryMock, Wallet.createRandom());
+    ipAssetClient = new IPAssetClient(axiosMock, franchiseRegistryMock, Wallet.createRandom());
     ipAssetRegistryMock = createMock<IpAssetRegistry>();
   });
 
@@ -37,7 +37,7 @@ describe("Test IpAssetClient", function () {
             franchiseId: "6",
             ipAssetId: "6",
             ipAssetName: "test",
-            ipAssetType: ipAssetType.CHARACTER,
+            ipAssetType: IPAssetType.CHARACTER,
           },
         },
       });
@@ -49,7 +49,7 @@ describe("Test IpAssetClient", function () {
 
       expect(response.data.franchiseId).to.equal("6");
       expect(response.data.ipAssetName).to.equal("test");
-      expect(response.data.ipAssetType).to.equal(ipAssetType.CHARACTER);
+      expect(response.data.ipAssetType).to.equal(IPAssetType.CHARACTER);
     });
 
     it("should throw error", async function () {
@@ -83,7 +83,7 @@ describe("Test IpAssetClient", function () {
 
         await ipAssetClient.create({
           franchiseId: "78",
-          ipAssetType: ipAssetType.CHARACTER,
+          ipAssetType: IPAssetType.CHARACTER,
           ipAssetName: "Darth Vader",
           description: "fake desc",
           mediaUrl: "/",
@@ -102,7 +102,7 @@ describe("Test IpAssetClient", function () {
       await expect(
         ipAssetClient.create({
           franchiseId: "78",
-          ipAssetType: ipAssetType.CHARACTER,
+          ipAssetType: IPAssetType.CHARACTER,
           ipAssetName: "Darth Vader",
           description: "fake desc",
           mediaUrl: "/",
@@ -117,7 +117,7 @@ describe("Test IpAssetClient", function () {
         await expect(
           ipAssetClient.create({
             franchiseId: "invalid ID",
-            ipAssetType: ipAssetType.CHARACTER,
+            ipAssetType: IPAssetType.CHARACTER,
             ipAssetName: "Darth Vader",
             description: "fake desc",
             mediaUrl: "/",
@@ -151,14 +151,14 @@ describe("Test IpAssetClient", function () {
           data: [
             {
               franchiseId: "6",
-              ipAssetType: ipAssetType.CHARACTER,
+              ipAssetType: IPAssetType.CHARACTER,
               ipAssetName: "Darth Vader",
               description: "fake desc",
               mediaUrl: "/",
             },
             {
               franchiseId: "6",
-              ipAssetType: ipAssetType.CHARACTER,
+              ipAssetType: IPAssetType.CHARACTER,
               ipAssetName: "Luke Skywalker",
               description: "fake desc",
               mediaUrl: "/",

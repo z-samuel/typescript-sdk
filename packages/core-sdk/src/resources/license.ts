@@ -8,7 +8,7 @@ import {
   CreateLicenseRequest,
   CreateLicenseResponse,
   ListLicenseRequest,
-} from "../interfaces/resources/license";
+} from "../types/resources/license";
 import { FranchiseRegistry, IpAssetRegistry__factory } from "../abi/generated";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
