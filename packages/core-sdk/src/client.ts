@@ -15,7 +15,7 @@ import { LicensingModule__factory } from "./abi/generated/factories/LicensingMod
 import { FranchiseRegistry__factory } from "./abi/generated/factories/FranchiseRegistry__factory";
 import { RelationshipModule__factory } from "./abi/generated/factories/RelationshipModule__factory";
 
-if (typeof process !== 'undefined') {
+if (typeof process !== "undefined") {
   dotenv.config();
 }
 /**
