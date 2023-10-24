@@ -6,15 +6,15 @@ Install the SDK and ethers.js
 
 npm
 ```shell
-npm i @story-protocol/core-sdk ethers
+npm i @story-protocol/core-sdk ethers@^5.7.2
 ```
 pnpm
 ```shell
-pnpm i @story-protocol/core-sdk ethers
+pnpm i @story-protocol/core-sdk ethers@^5.7.2
 ```
 yarn
 ```shell
-yarn add @story-protocol/core-sdk ethers
+yarn add @story-protocol/core-sdk ethers@^5.7.2
 ```
 
 ## Set up `.env` file
@@ -37,7 +37,9 @@ import { StoryClient } from "@story-protocol/core-sdk"
 import ethers from "ethers" 
 
 // Signer from browser wallet (i.e Metamask)
-const provider = new ethers.BrowserProvider(window.ethereum);
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+// request wallet permissions
+await provider.send("eth_requestAccounts", []);
 const signer = await provider.getSigner();
 
 // Instantiate the Story Client
@@ -60,7 +62,7 @@ const client = new StoryClient( { signer } )
 
 ## Use SDK client
 
-```Text Typescript
+```typescript
 // Create a new franchise
 const response = await client.franchise.create({
     franchiseName: "Alice in Wonderland",
