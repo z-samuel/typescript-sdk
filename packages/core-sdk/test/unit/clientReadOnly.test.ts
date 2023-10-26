@@ -1,16 +1,15 @@
 import { expect } from "chai";
 import { StoryClient } from "../../src/client";
 import { Environment } from "../../src/enums/Environment";
-import { Wallet } from "ethers";
-import { Client } from "../../src/types/client";
+import { providers } from "ethers";
+import { ReadOnlyClient } from "../../src/types/client";
 
-describe("Test StoryClient", function () {
+describe("Test StoryReadOnlyClient", function () {
   describe("Test constructor", function () {
     it("should throw error when environment is not test", function () {
       try {
-        StoryClient.newClient({
+        StoryClient.newReadOnlyClient({
           environment: Environment.PROD,
-          signer: Wallet.createRandom(),
         });
         expect.fail(`Function should not get here, it should throw an error `);
       } catch (error) {}
@@ -18,9 +17,19 @@ describe("Test StoryClient", function () {
 
     it("should succeed when passing in valid params", function () {
       try {
-        StoryClient.newClient({
+        StoryClient.newReadOnlyClient({
           environment: Environment.TEST,
-          signer: Wallet.createRandom(),
+        });
+      } catch (error) {
+        expect.fail(`Function should not have thrown any error, but it threw: ${error}`);
+      }
+    });
+
+    it("should succeed when passing in valid params w/ provider", function () {
+      try {
+        StoryClient.newReadOnlyClient({
+          environment: Environment.TEST,
+          provider: new providers.JsonRpcProvider(),
         });
       } catch (error) {
         expect.fail(`Function should not have thrown any error, but it threw: ${error}`);
@@ -29,12 +38,11 @@ describe("Test StoryClient", function () {
   });
 
   describe("Test getters", function () {
-    let client: Client;
+    let client: ReadOnlyClient;
 
     beforeEach(function () {
-      client = StoryClient.newClient({
+      client = StoryClient.newReadOnlyClient({
         environment: Environment.TEST,
-        signer: Wallet.createRandom(),
       });
     });
 
@@ -87,8 +95,28 @@ describe("Test StoryClient", function () {
     });
   });
 
+  // describe("Test getters w/ provider", function () {
+  //   let client: ReadOnlyClient;
+
+  //   beforeEach(function () {
+  //     client = StoryClient.newReadOnlyClient({
+  //       environment: Environment.TEST,
+  //       provider: new providers.JsonRpcProvider(),
+  //     });
+  //   });
+
+  //   describe("Test franchise getter w/ provider", function () {
+  //     it("should return the same franchise when every time it's called", function () {
+  //       const franchise1 = client.franchise;
+  //       const franchise2 = client.franchise;
+  //       expect(franchise1).to.be.equal(franchise2);
+  //     });
+  //   });
+  // });
+
   // describe("Test franchise getter w/o creating a client", function () {
-  //   let client: Client;
+  //   let client: ReadOnlyClient;
+
   //   it("should throw error when a client hasn't been created", function () {
   //     try {
   //       client.franchise;

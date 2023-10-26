@@ -1,25 +1,21 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryConfig, Environment } from "../../src/index";
-import { ethers } from "ethers";
+import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src/index";
 import * as dotenv from "dotenv";
+import { ReadOnlyClient } from "../../src/types/client";
 
 dotenv.config();
 chai.use(chaiAsPromised);
 
-describe("Transaction client integration tests", () => {
-  let client: StoryClient;
+describe("Collect client integration tests", () => {
+  let client: ReadOnlyClient;
 
   beforeEach(function () {
-    const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_PROVIDER_URL);
-    const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY as string, provider);
-
-    const config: StoryConfig = {
+    const config: StoryReadOnlyConfig = {
       environment: Environment.TEST,
-      signer: wallet,
     };
 
-    client = new StoryClient(config);
+    client = StoryClient.newReadOnlyClient(config);
   });
 
   describe("List Transactions", async function () {

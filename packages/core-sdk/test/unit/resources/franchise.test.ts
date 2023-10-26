@@ -8,7 +8,7 @@ import chaiAsPromised from "chai-as-promised";
 
 chai.use(chaiAsPromised);
 
-describe("Test FranchiseClient", function () {
+describe(`Test FranchiseClient`, function () {
   let franchise: FranchiseClient;
   let axiosMock: AxiosInstance;
   let franchiseRegistryMock: FranchiseRegistry;
@@ -23,45 +23,6 @@ describe("Test FranchiseClient", function () {
 
   afterEach(function () {
     sinon.restore();
-  });
-
-  describe("Test franchise.get", function () {
-    it("should return franchise when the franchise id is valid", async function () {
-      axiosMock.get = sinon.stub().returns({
-        data: {
-          data: {
-            franchiseId: "6",
-            franchiseName: "AAA",
-            franchiseSymbol: "A",
-            tokenUri: "asfddsf",
-          },
-        },
-      });
-
-      const response = await franchise.get({
-        franchiseId: "6",
-      });
-
-      expect(response.data.franchiseId).to.equal("6");
-      expect(response.data.franchiseName).to.equal("AAA");
-    });
-
-    it("should throw error", async function () {
-      axiosMock.get = sinon.stub().rejects(new Error("http 500"));
-      await expect(
-        franchise.get({
-          franchiseId: "6",
-        }),
-      ).to.be.rejectedWith("http 500");
-    });
-
-    it("should throw error when the franchise id is invalid", async function () {
-      await expect(
-        franchise.get({
-          franchiseId: "abc",
-        }),
-      ).to.be.rejectedWith(`Invalid franchise id. Must be an integer. But got: abc`);
-    });
   });
 
   describe("Test franchise.create", async function () {

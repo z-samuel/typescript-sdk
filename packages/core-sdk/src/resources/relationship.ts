@@ -13,22 +13,19 @@ import {
 } from "../types/resources/relationship";
 import { handleError } from "../utils/errors";
 import { FranchiseRegistry } from "../abi/generated";
+import { RelationshipReadOnlyClient } from "./relationshipReadOnly";
 
 /**
  * Client for managing relationships.
  */
-export class RelationshipClient {
-  private readonly relationshipModule: RelationshipModule;
-  private readonly franchiseRegistry: FranchiseRegistry;
-
+export class RelationshipClient extends RelationshipReadOnlyClient {
   /**
    * Creates a new RelationshipClient instance.
    * @param relationshipModule - The relationship module to interact with.
    * @param franchiseRegistry - The franchise registry to interact with.
    */
   constructor(relationshipModule: RelationshipModule, franchiseRegistry: FranchiseRegistry) {
-    this.relationshipModule = relationshipModule;
-    this.franchiseRegistry = franchiseRegistry;
+    super(relationshipModule, franchiseRegistry);
   }
 
   /**

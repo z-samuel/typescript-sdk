@@ -3,7 +3,7 @@ export { Environment } from "./enums/Environment";
 export { IPAssetType } from "./enums/IPAssetType";
 export { ResourceType } from "./enums/ResourceType";
 
-export type { StoryConfig } from "./types/config";
+export type { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 
 export type {
   Franchise,

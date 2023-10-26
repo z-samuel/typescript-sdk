@@ -3,12 +3,13 @@ import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment } from "../../src/index";
 import { ethers } from "ethers";
 import * as dotenv from "dotenv";
+import { Client } from "../../src/types/client";
 
 dotenv.config();
 chai.use(chaiAsPromised);
 
 describe("Collect client integration tests", () => {
-  let client: StoryClient;
+  let client: Client;
 
   beforeEach(function () {
     const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_PROVIDER_URL);
@@ -19,7 +20,7 @@ describe("Collect client integration tests", () => {
       signer: wallet,
     };
 
-    client = new StoryClient(config);
+    client = StoryClient.newClient(config);
   });
 
   describe("Collect an IP Asset", async function () {
@@ -32,25 +33,6 @@ describe("Collect client integration tests", () => {
 
       expect(response).to.have.property("txHash");
       expect(response.txHash).to.be.a("string");
-    });
-  });
-
-  describe("List Collections", async function () {
-    it("should return array of collections from the Collect Module", async () => {
-      const response = await client.collect.list({
-        franchiseId: "78",
-      });
-      expect(response).to.have.property("data");
-      expect(response.data).to.be.an("array"); // Collection[]
-
-      const collection = response.data[0];
-      expect(collection).to.have.property("ipAssetId");
-      expect(collection).to.have.property("franchiseId");
-      expect(collection).to.have.property("totalCollected");
-
-      expect(collection.ipAssetId).to.be.a("string");
-      expect(collection.franchiseId).to.be.a("string");
-      expect(collection.totalCollected).to.be.a("number");
     });
   });
 });

@@ -1,69 +1,22 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance } from "axios";
 import { Signer, ContractTransaction, constants } from "ethers";
 
-import {
-  GetLicenseRequest,
-  GetLicenseResponse,
-  ListLicenseResponse,
-  CreateLicenseRequest,
-  CreateLicenseResponse,
-  ListLicenseRequest,
-} from "../types/resources/license";
+import { CreateLicenseRequest, CreateLicenseResponse } from "../types/resources/license";
 import { FranchiseRegistry, IpAssetRegistry__factory } from "../abi/generated";
 import { handleError } from "../utils/errors";
-import { isIntegerString } from "../utils/utils";
+import { LicenseReadOnlyClient } from "./licenseReadOnly";
 
 /**
  * A class representing License operations.
  *
  * @public
  */
-export class LicenseClient {
-  private readonly httpClient: AxiosInstance;
+export class LicenseClient extends LicenseReadOnlyClient {
   private readonly signer: Signer;
-  private readonly franchiseRegistry: FranchiseRegistry;
 
   constructor(httpClient: AxiosInstance, signer: Signer, franchiseRegistry: FranchiseRegistry) {
-    this.httpClient = httpClient;
+    super(httpClient, franchiseRegistry);
     this.signer = signer;
-    this.franchiseRegistry = franchiseRegistry;
-  }
-
-  /**
-   * Get a license by its ID.
-   *
-   * @param licenseId - The ID of the license to retrieve.
-   * @returns A Promise that resolves to the GetLicenseResponse.
-   */
-  public async get(request: GetLicenseRequest): Promise<GetLicenseResponse> {
-    try {
-      if (!isIntegerString(request.licenseId)) {
-        throw new Error(`Invalid licenseId. Must be an integer. But got: ${request.licenseId}`);
-      }
-
-      const response: AxiosResponse = await this.httpClient.get(`/license/${request.licenseId}`);
-
-      return response.data as GetLicenseResponse;
-    } catch (error: unknown) {
-      handleError(error, `Failed to get license`);
-    }
-  }
-
-  /**
-   * List all licenses.
-   *
-   * @returns A Promise that resolves to the ListLicenseResponse.
-   */
-  public async list(request: ListLicenseRequest): Promise<ListLicenseResponse> {
-    try {
-      const response: AxiosResponse = await this.httpClient.get(
-        `/license?franchiseId=${request.franchiseId}&ipAssetId=${request.ipAssetId}`,
-      );
-
-      return response.data as ListLicenseResponse;
-    } catch (error: unknown) {
-      handleError(error, `Failed to get licenses`);
-    }
   }
 
   /**

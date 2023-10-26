@@ -5,11 +5,13 @@ import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 import { IPAssetType } from "../../src/enums/IPAssetType";
 
+import { Client } from "../../src/types/client";
+
 dotenv.config();
 chai.use(chaiAsPromised);
 
 describe("IP Asset Functions", () => {
-  let client: StoryClient;
+  let client: Client;
 
   before(function () {
     const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_PROVIDER_URL);
@@ -20,17 +22,7 @@ describe("IP Asset Functions", () => {
       signer: wallet,
     };
 
-    client = new StoryClient(config);
-  });
-
-  describe("Get IP Asset", async function () {
-    it("should return asset when the asset id is valid", async () => {
-      const response = await client.ipAsset.get({
-        ipAssetId: "1",
-        franchiseId: "78",
-      });
-      expect(response.data).is.not.null;
-    });
+    client = StoryClient.newClient(config);
   });
 
   describe("Create IP Asset", async function () {
@@ -46,15 +38,6 @@ describe("IP Asset Functions", () => {
           parentIpAssetId: "0",
         }),
       ).to.not.be.rejected;
-    });
-  });
-
-  describe("List IP assets", async function () {
-    it("should return a list of IP assets successfully upon query", async () => {
-      const response = await client.ipAsset.list({
-        franchiseId: "78",
-      });
-      expect(response).is.not.null;
     });
   });
 });
