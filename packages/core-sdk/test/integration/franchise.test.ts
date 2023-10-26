@@ -1,3 +1,4 @@
+import { Client } from "../../src/types/client";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment } from "../../src/index";
@@ -8,7 +9,7 @@ dotenv.config();
 chai.use(chaiAsPromised);
 
 describe("Franchise Functions", () => {
-  let client: StoryClient;
+  let client: Client;
 
   before(function () {
     const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_PROVIDER_URL);
@@ -19,17 +20,7 @@ describe("Franchise Functions", () => {
       signer: wallet,
     };
 
-    client = new StoryClient(config);
-  });
-
-  describe("Get Franchise", async function () {
-    it("should return franchise when the franchise id is valid", async () => {
-      const response = await client.franchise.get({
-        franchiseId: "78",
-      });
-      // Only assert the immutable fields
-      expect(response.data.franchiseId).to.equal("78");
-    });
+    client = StoryClient.newClient(config);
   });
 
   describe("Create Franchise", async function () {

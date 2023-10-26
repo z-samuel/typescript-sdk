@@ -1,16 +1,25 @@
 import axios, { AxiosInstance } from "axios";
+import { Signer, ethers } from "ethers";
+import { Provider } from "@ethersproject/providers";
 import * as dotenv from "dotenv";
 
-import { StoryConfig } from "./types/config";
+import { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 import { Environment } from "./enums/Environment";
 import { FranchiseClient } from "./resources/franchise";
-import { LicenseClient } from "./resources/license";
-import { TransactionClient } from "./resources/transaction";
+import { FranchiseReadOnlyClient } from "./resources/franchiseReadOnly";
 import { RelationshipClient } from "./resources/relationship";
+import { RelationshipReadOnlyClient } from "./resources/relationshipReadOnly";
 import { IPAssetClient } from "./resources/ipAsset";
-import { HTTP_TIMEOUT } from "./constants/http";
+import { IPAssetReadOnlyClient } from "./resources/ipAssetReadOnly";
+import { LicenseClient } from "./resources/license";
+import { LicenseReadOnlyClient } from "./resources/licenseReadOnly";
+import { TransactionClient } from "./resources/transaction";
+import { TransactionReadOnlyClient } from "./resources/transactionReadOnly";
 import { CollectClient } from "./resources/collect";
-import { CollectModule__factory } from "./abi/generated/factories/CollectModule__factory";
+import { CollectReadOnlyClient } from "./resources/collectReadOnly";
+import { HTTP_TIMEOUT } from "./constants/http";
+import { CollectModule__factory } from "./abi/generated";
+import { ReadOnlyClient, Client } from "./types/client";
 import { LicensingModule__factory } from "./abi/generated/factories/LicensingModule__factory";
 import { FranchiseRegistry__factory } from "./abi/generated/factories/FranchiseRegistry__factory";
 import { RelationshipModule__factory } from "./abi/generated/factories/RelationshipModule__factory";
@@ -22,23 +31,33 @@ if (typeof process !== "undefined") {
  * The StoryClient is the main entry point for the SDK.
  */
 export class StoryClient {
-  private readonly config: StoryConfig;
+  private readonly config: StoryConfig | StoryReadOnlyConfig;
   private readonly httpClient: AxiosInstance;
-  private _franchise: FranchiseClient | null = null;
-  private _relationship: RelationshipClient | null = null;
-  private _ipAsset: IPAssetClient | null = null;
-  private _license: LicenseClient | null = null;
-  private _transaction: TransactionClient | null = null;
-  private _collect: CollectClient | null = null;
+  private readonly isReadOnly: boolean = false;
+  private readonly signerOrProvider: Signer | Provider;
+
+  private _franchise: FranchiseClient | FranchiseReadOnlyClient | null = null;
+  private _license: LicenseClient | LicenseReadOnlyClient | null = null;
+  private _transaction: TransactionClient | TransactionReadOnlyClient | null = null;
+  private _ipAsset: IPAssetClient | IPAssetReadOnlyClient | null = null;
+  private _collect: CollectClient | CollectReadOnlyClient | null = null;
+  private _relationship: RelationshipClient | RelationshipReadOnlyClient | null = null;
 
   /**
    * @param config - the configuration for the SDK client
    */
-  constructor(config: StoryConfig) {
+  private constructor(config: StoryConfig | StoryReadOnlyConfig, isReadOnly: boolean = false) {
     if (config.environment !== Environment.TEST) {
       throw new Error("Invalid Environment: Only TEST environment is supported");
     }
+
     this.config = config;
+    this.isReadOnly = isReadOnly;
+
+    this.signerOrProvider = isReadOnly
+      ? (this.config as StoryReadOnlyConfig).provider || new ethers.providers.JsonRpcProvider()
+      : (this.config as StoryConfig).signer;
+
     this.httpClient = axios.create({
       baseURL: process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL,
       timeout: HTTP_TIMEOUT,
@@ -46,30 +65,160 @@ export class StoryClient {
   }
 
   /**
+   * Factory method for creating a read only SDK client.
+   *
+   * @param config - the configuration for a read only SDK client
+   */
+  static newReadOnlyClient(config: StoryReadOnlyConfig): ReadOnlyClient {
+    return new StoryClient(config, true) as ReadOnlyClient;
+  }
+
+  /**
+   * Factory method for creating a SDK client with a signer.
+   *
+   * @param config - the configuration for a new read/write SDK client
+   */
+  static newClient(config: StoryConfig): Client {
+    return new StoryClient(config, false) as Client;
+  }
+
+  private initFranchise(): void {
+    const franchiseRegistryContract =
+      process.env.FRANCHISE_REGISTRY_CONTRACT ||
+      process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
+
+    const licenseModuleContract =
+      process.env.LICENSING_MODULE_CONTRACT || process.env.NEXT_PUBLIC_LICENSING_MODULE_CONTRACT;
+
+    const franchiseRegistry = FranchiseRegistry__factory.connect(
+      franchiseRegistryContract as string,
+      this.signerOrProvider,
+    );
+
+    const licenseModule = LicensingModule__factory.connect(
+      licenseModuleContract as string,
+      this.signerOrProvider,
+    );
+
+    if (this.isReadOnly) {
+      this._franchise = new FranchiseReadOnlyClient(
+        this.httpClient,
+        franchiseRegistry,
+        licenseModule,
+      );
+    } else {
+      this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry, licenseModule);
+    }
+  }
+
+  private initRelationship(): void {
+    const franchiseRegistryContract =
+      process.env.FRANCHISE_REGISTRY_CONTRACT ||
+      process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
+
+    const relationshipModuleContract =
+      process.env.RELATIONSHIP_MODULE_CONTRACT ||
+      process.env.NEXT_PUBLIC_RELATIONSHIP_MODULE_CONTRACT;
+
+    const franchiseRegistry = FranchiseRegistry__factory.connect(
+      franchiseRegistryContract as string,
+      this.signerOrProvider,
+    );
+
+    const relationshipModule = RelationshipModule__factory.connect(
+      relationshipModuleContract as string,
+      this.signerOrProvider,
+    );
+
+    if (this.isReadOnly) {
+      this._relationship = new RelationshipReadOnlyClient(relationshipModule, franchiseRegistry);
+    } else {
+      this._relationship = new RelationshipClient(relationshipModule, franchiseRegistry);
+    }
+  }
+
+  private initIpAsset(): void {
+    const franchiseRegistryContract =
+      process.env.FRANCHISE_REGISTRY_CONTRACT ||
+      process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
+
+    const franchiseRegistry = FranchiseRegistry__factory.connect(
+      franchiseRegistryContract as string,
+      this.signerOrProvider,
+    );
+
+    if (this.isReadOnly) {
+      this._ipAsset = new IPAssetReadOnlyClient(this.httpClient, franchiseRegistry);
+    } else {
+      this._ipAsset = new IPAssetClient(
+        this.httpClient,
+        franchiseRegistry,
+        this.signerOrProvider as Signer,
+      );
+    }
+  }
+
+  private initLicense(): void {
+    const franchiseRegistryContract =
+      process.env.FRANCHISE_REGISTRY_CONTRACT ||
+      process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
+
+    const franchiseRegistry = FranchiseRegistry__factory.connect(
+      franchiseRegistryContract as string,
+      this.signerOrProvider,
+    );
+
+    if (this.isReadOnly) {
+      this._license = new LicenseReadOnlyClient(this.httpClient, franchiseRegistry);
+    } else {
+      this._license = new LicenseClient(
+        this.httpClient,
+        this.signerOrProvider as Signer,
+        franchiseRegistry,
+      );
+    }
+  }
+
+  private initTransaction(): void {
+    if (this.isReadOnly) {
+      this._transaction = new TransactionReadOnlyClient(this.httpClient);
+    } else {
+      this._transaction = new TransactionClient(this.httpClient);
+    }
+  }
+
+  private initCollect(): void {
+    const collectModuleContract =
+      process.env.COLLECT_MODULE_CONTRACT || process.env.NEXT_PUBLIC_COLLECT_MODULE_CONTRACT;
+
+    const collectModule = CollectModule__factory.connect(
+      collectModuleContract as string,
+      this.signerOrProvider,
+    );
+
+    if (this.isReadOnly) {
+      this._collect = new CollectReadOnlyClient(this.httpClient, collectModule);
+    } else {
+      this._collect = new CollectClient(
+        this.httpClient,
+        this.signerOrProvider as Signer,
+        collectModule,
+      );
+    }
+  }
+
+  /**
    * Getter for the franchise client. The client is lazily created when
    * this method is called.
    *
-   * @returns the FranchiseClient instance
+   * @returns the FranchiseClient or FranchiseReadOnlyClient instance
    */
-  public get franchise(): FranchiseClient {
+  public get franchise(): FranchiseClient | FranchiseReadOnlyClient {
     if (this._franchise === null) {
-      const franchiseRegistryContract =
-        process.env.FRANCHISE_REGISTRY_CONTRACT ||
-        process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
-      const franchiseRegistry = FranchiseRegistry__factory.connect(
-        franchiseRegistryContract as string,
-        this.config.signer,
-      );
-
-      const licenseModuleContract =
-        process.env.LICENSING_MODULE_CONTRACT || process.env.NEXT_PUBLIC_LICENSING_MODULE_CONTRACT;
-      const licenseModule = LicensingModule__factory.connect(
-        licenseModuleContract as string,
-        this.config.signer,
-      );
-      this._franchise = new FranchiseClient(this.httpClient, franchiseRegistry, licenseModule);
+      this.initFranchise();
     }
-    return this._franchise;
+
+    return this._franchise as FranchiseClient | FranchiseReadOnlyClient;
   }
 
   /**
@@ -78,27 +227,12 @@ export class StoryClient {
    *
    * @returns the RelationshipClient instance
    */
-  public get relationship(): RelationshipClient {
+  public get relationship(): RelationshipClient | RelationshipReadOnlyClient {
     if (this._relationship === null) {
-      const franchiseRegistryContract =
-        process.env.FRANCHISE_REGISTRY_CONTRACT ||
-        process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
-      const franchiseRegistry = FranchiseRegistry__factory.connect(
-        franchiseRegistryContract as string,
-        this.config.signer,
-      );
-
-      const relationshipModuleContract =
-        process.env.RELATIONSHIP_MODULE_CONTRACT ||
-        process.env.NEXT_PUBLIC_RELATIONSHIP_MODULE_CONTRACT;
-      const relationshipModule = RelationshipModule__factory.connect(
-        relationshipModuleContract as string,
-        this.config.signer,
-      );
-
-      this._relationship = new RelationshipClient(relationshipModule, franchiseRegistry);
+      this.initRelationship();
     }
-    return this._relationship;
+
+    return this._relationship as RelationshipClient | RelationshipReadOnlyClient;
   }
 
   /**
@@ -107,18 +241,11 @@ export class StoryClient {
    *
    * @returns the IpAssetClient instance
    */
-  public get ipAsset(): IPAssetClient {
-    const franchiseRegistryContract =
-      process.env.FRANCHISE_REGISTRY_CONTRACT ||
-      process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
+  public get ipAsset(): IPAssetClient | IPAssetReadOnlyClient {
     if (this._ipAsset === null) {
-      const franchiseRegistry = FranchiseRegistry__factory.connect(
-        franchiseRegistryContract as string,
-        this.config.signer,
-      );
-      this._ipAsset = new IPAssetClient(this.httpClient, franchiseRegistry, this.config.signer);
+      this.initIpAsset();
     }
-    return this._ipAsset;
+    return this._ipAsset as IPAssetClient | IPAssetReadOnlyClient;
   }
 
   /**
@@ -127,18 +254,12 @@ export class StoryClient {
    *
    * @returns the FranchiseClient instance
    */
-  public get license(): LicenseClient {
+  public get license(): LicenseClient | LicenseReadOnlyClient {
     if (this._license === null) {
-      const franchiseRegistryContract =
-        process.env.FRANCHISE_REGISTRY_CONTRACT ||
-        process.env.NEXT_PUBLIC_FRANCHISE_REGISTRY_CONTRACT;
-      const franchiseRegistry = FranchiseRegistry__factory.connect(
-        franchiseRegistryContract as string,
-        this.config.signer,
-      );
-      this._license = new LicenseClient(this.httpClient, this.config.signer, franchiseRegistry);
+      this.initLicense();
     }
-    return this._license;
+
+    return this._license as LicenseClient | LicenseReadOnlyClient;
   }
 
   /**
@@ -147,11 +268,12 @@ export class StoryClient {
    *
    * @returns the TransactionClient instance
    */
-  public get transaction(): TransactionClient {
+  public get transaction(): TransactionClient | TransactionReadOnlyClient {
     if (this._transaction === null) {
-      this._transaction = new TransactionClient(this.httpClient);
+      this.initTransaction();
     }
-    return this._transaction;
+
+    return this._transaction as TransactionClient | TransactionReadOnlyClient;
   }
 
   /**
@@ -160,16 +282,12 @@ export class StoryClient {
    *
    * @returns the CollectClient instance
    */
-  public get collect(): CollectClient {
+
+  public get collect(): CollectClient | CollectReadOnlyClient {
     if (this._collect === null) {
-      const collectModuleContract =
-        process.env.COLLECT_MODULE_CONTRACT || process.env.NEXT_PUBLIC_COLLECT_MODULE_CONTRACT;
-      const collectModule = CollectModule__factory.connect(
-        collectModuleContract as string,
-        this.config.signer,
-      );
-      this._collect = new CollectClient(this.httpClient, this.config.signer, collectModule);
+      this.initCollect();
     }
-    return this._collect;
+
+    return this._collect as CollectClient | CollectReadOnlyClient;
   }
 }

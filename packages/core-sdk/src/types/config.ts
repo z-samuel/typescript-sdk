@@ -1,3 +1,4 @@
+import { Provider } from "@ethersproject/providers";
 import { Signer } from "ethers";
 
 import { Environment } from "../enums/Environment";
@@ -7,7 +8,14 @@ import { Environment } from "../enums/Environment";
  *
  * @public
  */
-export type StoryConfig = {
+export interface StoryCommonConfig {
   readonly environment: Environment;
+}
+
+export interface StoryConfig extends StoryCommonConfig {
   readonly signer: Signer;
-};
+}
+
+export interface StoryReadOnlyConfig extends StoryCommonConfig {
+  readonly provider?: Provider;
+}
