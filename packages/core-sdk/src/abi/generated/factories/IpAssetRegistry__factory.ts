@@ -4,7 +4,10 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type { IpAssetRegistry, IpAssetRegistryInterface } from "../IpAssetRegistry";
+import type {
+  IpAssetRegistry,
+  IpAssetRegistryInterface,
+} from "../IpAssetRegistry";
 
 const _abi = [
   {
@@ -148,7 +151,10 @@ export class IpAssetRegistry__factory {
   static createInterface(): IpAssetRegistryInterface {
     return new utils.Interface(_abi) as IpAssetRegistryInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): IpAssetRegistry {
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): IpAssetRegistry {
     return new Contract(address, _abi, signerOrProvider) as IpAssetRegistry;
   }
 }
