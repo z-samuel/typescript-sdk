@@ -70,7 +70,10 @@ export class CollectModule__factory {
   static createInterface(): CollectModuleInterface {
     return new utils.Interface(_abi) as CollectModuleInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): CollectModule {
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): CollectModule {
     return new Contract(address, _abi, signerOrProvider) as CollectModule;
   }
 }

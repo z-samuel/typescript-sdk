@@ -15,7 +15,12 @@ import type {
 } from "ethers";
 import type { FunctionFragment, Result } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
-import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+import type {
+  TypedEventFilter,
+  TypedEvent,
+  TypedListener,
+  OnEvent,
+} from "./common";
 
 export type CollectParamsStruct = {
   franchiseId: BigNumberish;
@@ -26,7 +31,14 @@ export type CollectParamsStruct = {
   collectNFTData: BytesLike;
 };
 
-export type CollectParamsStructOutput = [BigNumber, BigNumber, string, string, string, string] & {
+export type CollectParamsStructOutput = [
+  BigNumber,
+  BigNumber,
+  string,
+  string,
+  string,
+  string
+] & {
   franchiseId: BigNumber;
   ipAssetId: BigNumber;
   collector: string;
@@ -42,7 +54,10 @@ export interface CollectModuleInterface extends utils.Interface {
 
   getFunction(nameOrSignatureOrTopic: "collect"): FunctionFragment;
 
-  encodeFunctionData(functionFragment: "collect", values: [CollectParamsStruct]): string;
+  encodeFunctionData(
+    functionFragment: "collect",
+    values: [CollectParamsStruct]
+  ): string;
 
   decodeFunctionResult(functionFragment: "collect", data: BytesLike): Result;
 
@@ -59,14 +74,16 @@ export interface CollectModule extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>,
+    eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+  removeAllListeners<TEvent extends TypedEvent>(
+    eventFilter: TypedEventFilter<TEvent>
+  ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -76,20 +93,22 @@ export interface CollectModule extends BaseContract {
   functions: {
     collect(
       collectParams: CollectParamsStruct,
-      overrides?: Overrides & { from?: string },
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
   };
 
   collect(
     collectParams: CollectParamsStruct,
-    overrides?: Overrides & { from?: string },
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     collect(
       collectParams: CollectParamsStruct,
-      overrides?: CallOverrides,
-    ): Promise<[string, BigNumber] & { collectNFT: string; collectNFTId: BigNumber }>;
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber] & { collectNFT: string; collectNFTId: BigNumber }
+    >;
   };
 
   filters: {};
@@ -97,14 +116,14 @@ export interface CollectModule extends BaseContract {
   estimateGas: {
     collect(
       collectParams: CollectParamsStruct,
-      overrides?: Overrides & { from?: string },
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     collect(
       collectParams: CollectParamsStruct,
-      overrides?: Overrides & { from?: string },
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
   };
 }
