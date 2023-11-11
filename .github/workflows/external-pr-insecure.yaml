@@ -1,0 +1,16 @@
+name: External PR Insecure 
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  check_external:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+    steps:
+      - name: Print message 
+        run: echo "This is an external PR" 

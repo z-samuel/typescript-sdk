@@ -1,14 +1,22 @@
-name: Turbo CI
+name: Build and Test
 
 on:
-  push:
-    branches:
-      - main
-      - dev
-  pull_request:
-    branches:
-      - main
-      - dev
+  workflow_call:
+    secrets:
+      API_BASE_URL:
+        required: true
+      FRANCHISE_REGISTRY_CONTRACT:
+        required: true
+      RELATIONSHIP_MODULE_CONTRACT:
+        required: true
+      LICENSING_MODULE_CONTRACT:
+        required: true
+      COLLECT_MODULE_CONTRACT:
+        required: true
+      RPC_PROVIDER_URL:
+        required: true
+      WALLET_PRIVATE_KEY:
+        required: true
 
 jobs:
   build:
@@ -31,7 +39,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 2
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
 
       - uses: pnpm/action-setup@v2.0.1
         with:

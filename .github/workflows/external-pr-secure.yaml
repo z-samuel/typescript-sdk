@@ -1,0 +1,19 @@
+name: External PR Secure
+
+on:
+  workflow_run:
+    workflows: ["External PR Insecure"]
+    types:
+      - completed
+
+jobs:
+  build_and_test:
+    uses: ./.github/workflows/build-and-test.yaml 
+    secrets:
+      api_base_url: ${{ secrets.API_BASE_URL }} 
+      FRANCHISE_REGISTRY_CONTRACT: ${{ secrets.FRANCHISE_REGISTRY_CONTRACT }}
+      RELATIONSHIP_MODULE_CONTRACT: ${{ secrets.RELATIONSHIP_MODULE_CONTRACT }}
+      LICENSING_MODULE_CONTRACT: ${{ secrets.LICENSING_MODULE_CONTRACT }}
+      COLLECT_MODULE_CONTRACT: ${{ secrets.COLLECT_MODULE_CONTRACT }}
+      RPC_PROVIDER_URL: ${{ secrets.RPC_PROVIDER_URL }}
+      WALLET_PRIVATE_KEY: ${{ secrets.WALLET_PRIVATE_KEY }}
