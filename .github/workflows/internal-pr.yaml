@@ -1,0 +1,24 @@
+name: Internal PR 
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build_and_test:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    uses: ./.github/workflows/build-and-test.yaml 
+    secrets:
+      api_base_url: ${{ secrets.API_BASE_URL }} 
+      FRANCHISE_REGISTRY_CONTRACT: ${{ secrets.FRANCHISE_REGISTRY_CONTRACT }}
+      RELATIONSHIP_MODULE_CONTRACT: ${{ secrets.RELATIONSHIP_MODULE_CONTRACT }}
+      LICENSING_MODULE_CONTRACT: ${{ secrets.LICENSING_MODULE_CONTRACT }}
+      COLLECT_MODULE_CONTRACT: ${{ secrets.COLLECT_MODULE_CONTRACT }}
+      RPC_PROVIDER_URL: ${{ secrets.RPC_PROVIDER_URL }}
+      WALLET_PRIVATE_KEY: ${{ secrets.WALLET_PRIVATE_KEY }}
