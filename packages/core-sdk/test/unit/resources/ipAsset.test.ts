@@ -1,28 +1,27 @@
 import { expect } from "chai";
 import { IPAssetClient } from "../../../src/resources/ipAsset";
-import { FranchiseRegistry } from "../../../src/abi/generated/FranchiseRegistry";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
-import { Wallet } from "ethers";
-import { IPAssetType } from "../../../src/enums/IPAssetType";
+import { IPAssetType } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { IpAssetRegistry, IpAssetRegistry__factory } from "../../../src/abi/generated";
+import {PublicClient, WalletClient} from "viem";
+import {AddressZero} from "../../../src/constants/addresses";
 
 chai.use(chaiAsPromised);
 
 describe("Test IpAssetClient", function () {
   let ipAssetClient: IPAssetClient;
   let axiosMock: AxiosInstance;
-  let franchiseRegistryMock: FranchiseRegistry;
-  let ipAssetRegistryMock: IpAssetRegistry;
+  let rpcMock: PublicClient;
+  let walletMock: WalletClient;
 
   beforeEach(function () {
     axiosMock = createMock<AxiosInstance>();
-    franchiseRegistryMock = createMock<FranchiseRegistry>();
-    ipAssetClient = new IPAssetClient(axiosMock, franchiseRegistryMock, Wallet.createRandom());
-    ipAssetRegistryMock = createMock<IpAssetRegistry>();
+    rpcMock = createMock<PublicClient>();
+    walletMock = createMock<WalletClient>();
+    ipAssetClient = new IPAssetClient(axiosMock, rpcMock, walletMock);
   });
 
   afterEach(function () {
@@ -32,11 +31,9 @@ describe("Test IpAssetClient", function () {
   describe("Test ipAssetClient.create", async function () {
     it("should not throw error when creating a franchise", async function () {
       try {
-        franchiseRegistryMock.ipAssetRegistryForId = sinon.stub().returns("6");
-        IpAssetRegistry__factory.connect = sinon.stub().returns(ipAssetRegistryMock);
-        ipAssetRegistryMock.createIPAsset = sinon.stub().returns({
-          hash: "0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997",
-        });
+        rpcMock.readContract = sinon.stub().resolves(AddressZero)
+        rpcMock.simulateContract = sinon.stub().resolves({request: null})
+        walletMock.writeContract = sinon.stub().resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
 
         await ipAssetClient.create({
           franchiseId: "78",
@@ -53,9 +50,9 @@ describe("Test IpAssetClient", function () {
     });
 
     it("should throw error when request fails", async function () {
-      franchiseRegistryMock.ipAssetRegistryForId = sinon.stub().returns("6");
-      IpAssetRegistry__factory.connect = sinon.stub().returns(ipAssetRegistryMock);
-      ipAssetRegistryMock.createIPAsset = sinon.stub().rejects(new Error("http 500"));
+      rpcMock.readContract = sinon.stub().rejects(new Error("http 500"))
+      rpcMock.simulateContract = sinon.stub().resolves({request: null})
+      walletMock.writeContract = sinon.stub().resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
       await expect(
         ipAssetClient.create({
           franchiseId: "78",
@@ -71,7 +68,7 @@ describe("Test IpAssetClient", function () {
 
     it("should throw error when invalid franchise ID is provided", async function () {
       try {
-        await expect(
+        expect(
           ipAssetClient.create({
             franchiseId: "invalid ID",
             ipAssetType: IPAssetType.CHARACTER,
@@ -91,8 +88,8 @@ describe("Test IpAssetClient", function () {
   describe("Test ipAssetClient.getRegistry", async function () {
     it("should throw an error if retrieving the registry fails", async function () {
       try {
-        franchiseRegistryMock.ipAssetRegistryForId = sinon.stub().returns("0xacbdef");
-        IpAssetRegistry__factory.connect = sinon.stub().throws("no registry for you.");
+        rpcMock.readContract = sinon.stub().throws("no registry for you.");
+        //@ts-ignore
         await ipAssetClient["getRegistry"]("6");
         expect.fail(`Function should not get here, it should throw an error `);
       } catch (error) {

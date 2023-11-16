@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { PublicClient } from "viem";
 
 import {
   GetFranchiseRequest,
@@ -7,7 +8,6 @@ import {
 } from "../types/resources/franchise";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
-import { FranchiseRegistry, LicensingModule } from "../abi/generated";
 
 /**
  * FranchiseReadOnlyClient allows you to view, search franchises on
@@ -15,17 +15,11 @@ import { FranchiseRegistry, LicensingModule } from "../abi/generated";
  */
 export class FranchiseReadOnlyClient {
   protected readonly httpClient: AxiosInstance;
-  protected readonly franchiseRegistry: FranchiseRegistry;
-  protected readonly licenseModule: LicensingModule;
+  protected readonly rpcClient: PublicClient;
 
-  constructor(
-    httpClient: AxiosInstance,
-    franchiseRegistry: FranchiseRegistry,
-    licenseModule: LicensingModule,
-  ) {
+  constructor(httpClient: AxiosInstance, rpcClient: PublicClient) {
     this.httpClient = httpClient;
-    this.franchiseRegistry = franchiseRegistry;
-    this.licenseModule = licenseModule;
+    this.rpcClient = rpcClient;
   }
 
   /**

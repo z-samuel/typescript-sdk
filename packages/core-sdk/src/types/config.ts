@@ -1,5 +1,4 @@
-import { Provider } from "@ethersproject/providers";
-import { Signer } from "ethers";
+import { Account, Chain, Transport } from "viem";
 
 import { Environment } from "../enums/Environment";
 
@@ -12,10 +11,11 @@ export interface StoryCommonConfig {
   readonly environment: Environment;
 }
 
-export interface StoryConfig extends StoryCommonConfig {
-  readonly signer: Signer;
+export interface StoryConfig extends StoryReadOnlyConfig {
+  readonly account: Account;
 }
 
 export interface StoryReadOnlyConfig extends StoryCommonConfig {
-  readonly provider?: Provider;
+  readonly chain?: Chain;
+  readonly transport?: Transport;
 }

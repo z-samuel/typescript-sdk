@@ -1,5 +1,3 @@
-import { BytesLike } from "ethers";
-
 /**
  * Represents the core data model for a License, containing essential information.
  *
@@ -59,7 +57,7 @@ export type CreateLicenseRequestOptions = {
   isSublicensable?: boolean; // Indicates whether sublicensing is allowed for the license. Defaults to `false` if not specified.
   terms?: {
     processor: string; // The terms processor's name or identifier.
-    data: BytesLike | string; // Data associated with the license's terms.
+    data: Uint8Array | string; // Data associated with the license's terms.
   };
 };
 

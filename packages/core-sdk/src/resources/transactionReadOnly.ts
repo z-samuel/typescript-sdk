@@ -1,4 +1,5 @@
 import { AxiosInstance, AxiosResponse } from "axios";
+import { PublicClient } from "viem";
 
 import { handleError } from "../utils/errors";
 import {
@@ -13,9 +14,11 @@ import {
  */
 export class TransactionReadOnlyClient {
   protected readonly httpClient: AxiosInstance;
+  protected readonly rpcClient: PublicClient;
 
-  constructor(httpClient: AxiosInstance) {
+  constructor(httpClient: AxiosInstance, rpcClient: PublicClient) {
     this.httpClient = httpClient;
+    this.rpcClient = rpcClient;
   }
 
   /**

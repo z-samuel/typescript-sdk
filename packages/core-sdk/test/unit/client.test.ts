@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import { StoryClient } from "../../src/client";
-import { Environment } from "../../src/enums/Environment";
-import { Wallet } from "ethers";
+import { StoryClient, Environment } from "../../src";
 import { Client } from "../../src/types/client";
+import { privateKeyToAccount, generatePrivateKey } from "viem/accounts";
+import {Account} from "viem";
 
 describe("Test StoryClient", function () {
   describe("Test constructor", function () {
@@ -10,7 +10,7 @@ describe("Test StoryClient", function () {
       try {
         StoryClient.newClient({
           environment: Environment.PROD,
-          signer: Wallet.createRandom(),
+          account: privateKeyToAccount(generatePrivateKey()),
         });
         expect.fail(`Function should not get here, it should throw an error `);
       } catch (error) {}
@@ -20,11 +20,21 @@ describe("Test StoryClient", function () {
       try {
         StoryClient.newClient({
           environment: Environment.TEST,
-          signer: Wallet.createRandom(),
+          account: privateKeyToAccount(generatePrivateKey()),
         });
       } catch (error) {
         expect.fail(`Function should not have thrown any error, but it threw: ${error}`);
       }
+    });
+
+    it("throw error when wallet account is null", function () {
+      try {
+        StoryClient.newClient({
+          environment: Environment.TEST,
+          account: null as any as Account,
+        });
+        expect.fail(`Function should not get here, it should throw an error `);
+      } catch (error) {}
     });
   });
 
@@ -34,7 +44,7 @@ describe("Test StoryClient", function () {
     beforeEach(function () {
       client = StoryClient.newClient({
         environment: Environment.TEST,
-        signer: Wallet.createRandom(),
+        account: privateKeyToAccount(generatePrivateKey()),
       });
     });
 

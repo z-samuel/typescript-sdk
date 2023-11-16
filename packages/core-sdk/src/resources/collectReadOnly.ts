@@ -1,17 +1,16 @@
 import { AxiosInstance, AxiosResponse } from "axios";
+import { PublicClient } from "viem";
 
-import { ListCollectionsResponse, ListCollectionsRequest } from "../types/resources/collect";
-import { CollectModule } from "../abi/generated";
+import { ListCollectionsRequest, ListCollectionsResponse } from "../types/resources/collect";
 import { handleError } from "../utils/errors";
 
 export class CollectReadOnlyClient {
   protected readonly httpClient: AxiosInstance;
-  protected readonly collectModuleContract: CollectModule;
+  protected readonly rpcClient: PublicClient;
 
-  constructor(httpClient: AxiosInstance, collectModule: CollectModule) {
+  constructor(httpClient: AxiosInstance, rpcClient: PublicClient) {
     this.httpClient = httpClient;
-
-    this.collectModuleContract = collectModule;
+    this.rpcClient = rpcClient;
   }
 
   /**

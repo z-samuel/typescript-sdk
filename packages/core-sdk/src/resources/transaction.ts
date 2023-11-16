@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { PublicClient, WalletClient } from "viem";
 
 import { TransactionReadOnlyClient } from "./transactionReadOnly";
 
@@ -7,7 +8,10 @@ import { TransactionReadOnlyClient } from "./transactionReadOnly";
  * Story Protocol.
  */
 export class TransactionClient extends TransactionReadOnlyClient {
-  constructor(httpClient: AxiosInstance) {
-    super(httpClient);
+  private readonly wallet: WalletClient;
+
+  constructor(httpClient: AxiosInstance, rpcClient: PublicClient, wallet: WalletClient) {
+    super(httpClient, rpcClient);
+    this.wallet = wallet;
   }
 }

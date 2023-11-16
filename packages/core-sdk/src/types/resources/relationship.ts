@@ -1,5 +1,3 @@
-import { BigNumberish } from "ethers";
-
 /**
  * Core type for relationship IPAsset.
  *
@@ -17,7 +15,7 @@ export type IPAssetId = {
 export type RelationshipRelateRequest = {
   sourceIPAsset: IPAssetId;
   destIPAsset: IPAssetId;
-  ttl?: BigNumberish;
+  ttl?: string;
 };
 /**
  * Response type for relationship.relate method.
@@ -36,7 +34,7 @@ export type RelationshipRelateResponse = {
 export type RelationshipUnrelateRequest = {
   sourceIPAsset: IPAssetId;
   destIPAsset: IPAssetId;
-  ttl?: BigNumberish;
+  ttl?: string;
 };
 
 /**
@@ -55,7 +53,7 @@ export type RelationshipUnrelateResponse = {
 export type RelationshipIsRelationshipExpiredRequest = {
   sourceIPAsset: IPAssetId;
   destIPAsset: IPAssetId;
-  ttl?: BigNumberish;
+  ttl?: string;
 };
 /**
  * Response type for relationship.isRelationshipExpired method.
@@ -73,7 +71,7 @@ export type RelationshipIsRelationshipExpiredResponse = {
 export type RelationshipIsRelatedRequest = {
   sourceIPAsset: IPAssetId;
   destIPAsset: IPAssetId;
-  ttl?: BigNumberish;
+  ttl?: string;
 };
 /**
  * Response type for relationship.isRelated method.

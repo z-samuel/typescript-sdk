@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { PublicClient } from "viem";
 
 import {
   GetIpAssetRequest,
@@ -8,18 +9,17 @@ import {
 } from "../types/resources/ipAsset";
 import { handleError } from "../utils/errors";
 import { isIntegerString } from "../utils/utils";
-import { FranchiseRegistry } from "../abi/generated";
 
 /**
  * IpAssetClient allows you to create, view, and list IP Assets on Story Protocol.
  */
 export class IPAssetReadOnlyClient {
   protected readonly httpClient: AxiosInstance;
-  protected readonly franchiseRegistry: FranchiseRegistry;
+  protected readonly rpcClient: PublicClient;
 
-  constructor(httpClient: AxiosInstance, franchiseRegistry: FranchiseRegistry) {
+  constructor(httpClient: AxiosInstance, rpcClient: PublicClient) {
     this.httpClient = httpClient;
-    this.franchiseRegistry = franchiseRegistry;
+    this.rpcClient = rpcClient;
   }
 
   /**

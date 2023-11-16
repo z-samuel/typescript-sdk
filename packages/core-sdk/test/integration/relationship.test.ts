@@ -1,9 +1,11 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment } from "../../src/index";
-import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 import { Client } from "../../src/types/client";
+import { privateKeyToAccount } from "viem/accounts";
+import {getAddress, Hex, http} from "viem";
+import {goerli} from "viem/chains";
 
 dotenv.config();
 chai.use(chaiAsPromised);
@@ -23,12 +25,11 @@ describe("Relationship Functions", () => {
   };
 
   before(function () {
-    const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_PROVIDER_URL);
-    const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY as string, provider);
-
     const config: StoryConfig = {
       environment: Environment.TEST,
-      signer: wallet,
+      chain: goerli,
+      transport: http(process.env.RPC_PROVIDER_URL),
+      account: privateKeyToAccount((process.env.WALLET_PRIVATE_KEY || "0x") as Hex),
     };
 
     client = StoryClient.newClient(config);

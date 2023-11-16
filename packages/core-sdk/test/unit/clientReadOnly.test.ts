@@ -1,8 +1,9 @@
 import { expect } from "chai";
 import { StoryClient } from "../../src/client";
 import { Environment } from "../../src/enums/Environment";
-import { providers } from "ethers";
 import { ReadOnlyClient } from "../../src/types/client";
+import { fantom } from "viem/chains";
+import { http } from "viem";
 
 describe("Test StoryReadOnlyClient", function () {
   describe("Test constructor", function () {
@@ -29,7 +30,8 @@ describe("Test StoryReadOnlyClient", function () {
       try {
         StoryClient.newReadOnlyClient({
           environment: Environment.TEST,
-          provider: new providers.JsonRpcProvider(),
+          chain: fantom,
+          transport: http(process.env.RPC_PROVIDER_URL),
         });
       } catch (error) {
         expect.fail(`Function should not have thrown any error, but it threw: ${error}`);
