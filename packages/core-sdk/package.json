@@ -18,7 +18,7 @@
   "scripts": {
     "build": "pnpm run fix && preconstruct build",
     "test": "pnpm run test:unit && pnpm run test:integration",
-    "test:unit": "TS_NODE_PROJECT='./tsconfig.test.json' c8 mocha -r ts-node/register './test/unit/**/*.test.ts'",
+    "test:unit": "TS_NODE_PROJECT='./tsconfig.test.json' c8 --all --src ./src mocha -r ts-node/register './test/unit/**/*.test.ts'",
     "test:integration": "TS_NODE_PROJECT='./tsconfig.test.json' mocha -r ts-node/register './test/integration/**/*.test.ts' --timeout 30000",
     "fix": "pnpm run format:fix && pnpm run lint:fix && pnpm run tsc",
     "format": "prettier --check .",
@@ -78,8 +78,15 @@
   "c8": {
     "exclude": [
       "test/**/*",
-      "src/abi/**/*"
-    ]
+      "src/abi/**/*",
+      "src/index.ts",
+      "src/types/**/*"
+    ],
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100,
+    "statements": 100 
   },
   "typedoc": {
     "entryPoint": "./src/index.ts",

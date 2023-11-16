@@ -5,6 +5,7 @@ import chai from "chai";
 import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { TransactionClient } from "../../../src/resources/transaction";
+import { ResourceType } from "../../../src/enums/ResourceType";
 
 chai.use(chaiAsPromised);
 
@@ -30,7 +31,7 @@ describe("Test TransactionClient", function () {
             txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
             createdAt: "0001-01-01T00:00:00Z",
             creatorAddress: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-            type: "IP_ASSET",
+            type: ResourceType.IP_ASSET,
             resourceId: "1",
             franchiseId: "7",
           },
@@ -47,7 +48,7 @@ describe("Test TransactionClient", function () {
       expect(response.data.creatorAddress).to.be.equal(
         "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
       );
-      expect(response.data.type).to.be.equal("IP_ASSET");
+      expect(response.data.type).to.be.equal(ResourceType.IP_ASSET);
       expect(response.data.resourceId).to.be.equal("1");
       expect(response.data.franchiseId).to.be.equal("7");
     });
@@ -68,7 +69,7 @@ describe("Test TransactionClient", function () {
               txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
               createdAt: "0001-01-01T00:00:00Z",
               creatorAddress: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-              type: "IP_ASSET",
+              type: ResourceType.IP_ASSET,
               resourceId: "1",
               franchiseId: "7",
             },
@@ -77,7 +78,7 @@ describe("Test TransactionClient", function () {
               txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb7",
               createdAt: "0001-01-01T00:00:00Z",
               creatorAddress: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-              type: "FRANCHISE",
+              type: ResourceType.FRANCHISE,
               resourceId: "2",
               franchiseId: "7",
             },
@@ -97,7 +98,7 @@ describe("Test TransactionClient", function () {
       expect(transactions[0].creatorAddress).to.be.equal(
         "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
       );
-      expect(transactions[0].type).to.be.equal("IP_ASSET");
+      expect(transactions[0].type).to.be.equal(ResourceType.IP_ASSET);
       expect(transactions[0].resourceId).to.be.equal("1");
       expect(transactions[0].franchiseId).to.be.equal("7");
 
@@ -110,7 +111,7 @@ describe("Test TransactionClient", function () {
       expect(transactions[1].creatorAddress).to.be.equal(
         "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
       );
-      expect(transactions[1].type).to.be.equal("FRANCHISE");
+      expect(transactions[1].type).to.be.equal(ResourceType.FRANCHISE);
       expect(transactions[1].resourceId).to.be.equal("2");
       expect(transactions[1].franchiseId).to.be.equal("7");
     });
