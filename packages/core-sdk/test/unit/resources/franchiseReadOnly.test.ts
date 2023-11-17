@@ -4,7 +4,7 @@ import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
-import {PublicClient} from "viem";
+import { PublicClient } from "viem";
 
 chai.use(chaiAsPromised);
 

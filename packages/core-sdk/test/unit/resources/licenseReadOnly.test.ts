@@ -4,7 +4,7 @@ import { LicenseReadOnlyClient } from "../../../src/resources/licenseReadOnly";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
-import {PublicClient} from "viem";
+import { PublicClient } from "viem";
 
 chai.use(chaiAsPromised);
 

@@ -19,6 +19,7 @@ import { CollectClient } from "./resources/collect";
 import { CollectReadOnlyClient } from "./resources/collectReadOnly";
 import { HTTP_TIMEOUT } from "./constants/http";
 import { Client, ReadOnlyClient } from "./types/client";
+import { PlatformClient } from "./utils/platform";
 
 if (typeof process !== "undefined") {
   dotenv.config();
@@ -39,7 +40,7 @@ export class StoryClient {
   private _ipAsset: IPAssetClient | IPAssetReadOnlyClient | null = null;
   private _collect: CollectClient | CollectReadOnlyClient | null = null;
   private _relationship: RelationshipClient | RelationshipReadOnlyClient | null = null;
-
+  private _platform: PlatformClient | null = null;
   /**
    * @param config - the configuration for the SDK client
    * @param isReadOnly
@@ -143,6 +144,10 @@ export class StoryClient {
     }
   }
 
+  private initPlatform(): void {
+    this._platform = new PlatformClient(this.httpClient);
+  }
+
   /**
    * Getter for the franchise client. The client is lazily created when
    * this method is called.
@@ -225,5 +230,13 @@ export class StoryClient {
     }
 
     return this._collect as CollectClient | CollectReadOnlyClient;
+  }
+
+  public get platform(): PlatformClient {
+    if (this._platform === null) {
+      this.initPlatform();
+    }
+
+    return this._platform as PlatformClient;
   }
 }

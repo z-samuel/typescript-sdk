@@ -12,7 +12,7 @@ import { FranchiseReadOnlyClient } from "./franchiseReadOnly";
 import { franchiseRegistryConfig } from "../abi/franchiseRegistry.abi";
 import { licensingModuleConfig } from "../abi/licensingModule.abi";
 import { AddressZero } from "../constants/addresses";
-import {parseToBigInt} from "../utils/utils";
+import { parseToBigInt } from "../utils/utils";
 
 /**
  * FranchiseClient allows you to create, update, view, search franchises on

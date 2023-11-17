@@ -6,7 +6,7 @@ import * as sinon from "sinon";
 import { IPAssetType } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
-import {PublicClient} from "viem";
+import { PublicClient } from "viem";
 
 chai.use(chaiAsPromised);
 
@@ -60,7 +60,7 @@ describe("Test IpAssetReadOnlyClient", function () {
 
     it("should throw error if asset id is invalid", async function () {
       try {
-        await ipAssetClient.get({ipAssetId: "Bogus ID", franchiseId: "78"});
+        await ipAssetClient.get({ ipAssetId: "Bogus ID", franchiseId: "78" });
         expect.fail(`Function should not get here, it should throw an error `);
       } catch (error) {
         // function is expected to throw.

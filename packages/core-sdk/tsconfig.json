@@ -4,7 +4,8 @@
     "resolveJsonModule": true,
     "module": "ESNext",
     "outDir": "dist",
-    "types": ["mocha"]
+    "types": ["mocha"],
+    "lib": ["dom"]
   },
   "include": ["src/**/*", "test/**/*"]
 }

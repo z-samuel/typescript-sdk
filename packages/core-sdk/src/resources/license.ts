@@ -7,7 +7,7 @@ import { LicenseReadOnlyClient } from "./licenseReadOnly";
 import { franchiseRegistryConfig } from "../abi/franchiseRegistry.abi";
 import { ipAssetRegistryConfigMaker } from "../abi/ipAssetRegistry.abi";
 import { AddressZero } from "../constants/addresses";
-import {parseToBigInt} from "../utils/utils";
+import { parseToBigInt } from "../utils/utils";
 
 /**
  * A class representing License operations.

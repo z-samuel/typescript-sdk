@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { StoryClient, Environment } from "../../src";
 import { Client } from "../../src/types/client";
 import { privateKeyToAccount, generatePrivateKey } from "viem/accounts";
-import {Account} from "viem";
+import { Account } from "viem";
 
 describe("Test StoryClient", function () {
   describe("Test constructor", function () {
@@ -93,6 +93,14 @@ describe("Test StoryClient", function () {
         const relationship1 = client.relationship;
         const relationship2 = client.relationship;
         expect(relationship1).to.be.equal(relationship2);
+      });
+    });
+
+    describe("Test platform getter", function () {
+      it("should return the same platform when every time it's called", function () {
+        const platform1 = client.platform;
+        const platform2 = client.platform;
+        expect(platform1).to.be.equal(platform2);
       });
     });
   });

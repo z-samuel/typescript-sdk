@@ -6,7 +6,7 @@ import { handleError } from "../utils/errors";
 import { IPAssetReadOnlyClient } from "./ipAssetReadOnly";
 import { franchiseRegistryConfig } from "../abi/franchiseRegistry.abi";
 import { ipAssetRegistryConfigMaker } from "../abi/ipAssetRegistry.abi";
-import {parseToBigInt} from "../utils/utils";
+import { parseToBigInt } from "../utils/utils";
 
 /**
  * IpAssetClient allows you to create, view, and list IP Assets on Story Protocol.

@@ -3,7 +3,7 @@ import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment } from "../../src";
 import * as dotenv from "dotenv";
 import { Client } from "../../src/types/client";
-import {createPublicClient, getAddress, Hex, http} from "viem";
+import { Hex, http } from "viem";
 import { goerli } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 

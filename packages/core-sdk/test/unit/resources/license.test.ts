@@ -4,8 +4,8 @@ import { LicenseClient } from "../../../src/resources/license";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
-import {PublicClient, WalletClient} from "viem";
-import {AddressZero} from "../../../src/constants/addresses";
+import { PublicClient, WalletClient } from "viem";
+import { AddressZero } from "../../../src/constants/addresses";
 
 chai.use(chaiAsPromised);
 
@@ -19,9 +19,9 @@ describe("Test LicenseClient", function () {
     axiosMock = createMock<AxiosInstance>();
     rpcMock = createMock<PublicClient>();
     walletMock = createMock<WalletClient>({
-      account : {
-        address: AddressZero
-      }
+      account: {
+        address: AddressZero,
+      },
     });
     licenseClient = new LicenseClient(axiosMock, rpcMock, walletMock);
   });
@@ -33,12 +33,14 @@ describe("Test LicenseClient", function () {
   describe("Test license.create", async function () {
     it("should not throw an error when creating a license", async function () {
       try {
-        rpcMock.readContract = sinon.stub()
-            .onFirstCall().resolves(AddressZero)
-            .onSecondCall().resolves("111")
-        rpcMock.simulateContract = sinon.stub().resolves({request: null})
+        rpcMock.readContract = sinon
+          .stub()
+          .onFirstCall()
+          .resolves(AddressZero)
+          .onSecondCall()
+          .resolves("111");
+        rpcMock.simulateContract = sinon.stub().resolves({ request: null });
         walletMock.writeContract = sinon.stub().resolves("0xHashValue");
-
 
         const franchiseId = "123";
         const ipAssetId = "456";
@@ -67,10 +69,13 @@ describe("Test LicenseClient", function () {
     });
 
     it("should throw an error", async function () {
-      rpcMock.readContract = sinon.stub()
-          .onFirstCall().resolves(AddressZero)
-          .onSecondCall().resolves("111")
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
+      rpcMock.readContract = sinon
+        .stub()
+        .onFirstCall()
+        .resolves(AddressZero)
+        .onSecondCall()
+        .resolves("111");
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
       walletMock.writeContract = sinon.stub().rejects(new Error("revert"));
 
       const franchiseId = "123";

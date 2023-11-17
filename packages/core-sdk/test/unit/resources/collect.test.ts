@@ -29,8 +29,10 @@ describe("Test CollectClient", function () {
   describe("Test collect.collect", function () {
     it("should return txHash when the collect transaction is successful", async function () {
       // Stub the CollectModule collect transaction call
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
-      walletMock.writeContract = sinon.stub().resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
+      walletMock.writeContract = sinon
+        .stub()
+        .resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
 
       const response = await collectClient.collect({
         franchiseId: "6",

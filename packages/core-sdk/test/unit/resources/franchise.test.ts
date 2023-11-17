@@ -4,7 +4,7 @@ import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
-import {PublicClient, WalletClient} from "viem";
+import { PublicClient, WalletClient } from "viem";
 
 chai.use(chaiAsPromised);
 
@@ -27,8 +27,10 @@ describe(`Test FranchiseClient`, function () {
 
   describe("Test franchise.create", async function () {
     it("should not throw error when creating a franchise", async function () {
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
-      walletMock.writeContract = sinon.stub().resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
+      walletMock.writeContract = sinon
+        .stub()
+        .resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
 
       await expect(
         franchise.create({
@@ -80,7 +82,7 @@ describe(`Test FranchiseClient`, function () {
 
   describe("Test franchise.configure", async function () {
     it("should not throw error when configuring a franchise", async function () {
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
       walletMock.writeContract = sinon.stub().resolves({});
 
       await expect(

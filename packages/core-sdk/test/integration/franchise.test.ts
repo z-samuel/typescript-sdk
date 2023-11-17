@@ -4,7 +4,7 @@ import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment } from "../../src";
 import * as dotenv from "dotenv";
 import { goerli } from "viem/chains";
-import {getAddress, Hex, http} from "viem";
+import { getAddress, Hex, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();

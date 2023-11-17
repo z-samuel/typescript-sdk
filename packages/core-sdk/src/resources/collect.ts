@@ -5,7 +5,7 @@ import { CollectIPAssetRequest, CollectIPAssetResponse } from "../types/resource
 import { handleError } from "../utils/errors";
 import { CollectReadOnlyClient } from "./collectReadOnly";
 import { collectModuleConfig } from "../abi/collectModule.abi";
-import {parseToBigInt} from "../utils/utils";
+import { parseToBigInt } from "../utils/utils";
 
 export class CollectClient extends CollectReadOnlyClient {
   private readonly wallet: WalletClient;

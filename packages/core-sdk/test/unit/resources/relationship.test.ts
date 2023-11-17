@@ -4,8 +4,8 @@ import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 
 import chaiAsPromised from "chai-as-promised";
-import {AxiosInstance} from "axios";
-import {PublicClient, WalletClient, stringToHex} from "viem";
+import { AxiosInstance } from "axios";
+import { PublicClient, WalletClient, stringToHex } from "viem";
 
 chai.use(chaiAsPromised);
 
@@ -56,31 +56,27 @@ describe("Test RelationshipClient", function () {
         .onSecondCall()
         .returns("0x00000000000000000000000000000000000000002")
         .onThirdCall()
-        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d");
 
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
-      walletMock.writeContract = sinon.stub().resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
+      walletMock.writeContract = sinon
+        .stub()
+        .resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
 
       // Call the method and await the result
       const relateSpy = sinon.spy(relationshipClient, "relate");
       await relationshipClient.relate(mockRelateRequest);
 
-      const mockRelationshipData = stringToHex("",{ size: 32 });
+      const mockRelationshipData = stringToHex("", { size: 32 });
 
       // Assertions
       expect(relateSpy.calledOnce).to.be.true;
-      expect(
-        relateSpy.calledWith(
-            mockRelateRequest
-        ),
-      ).to.be.true;
+      expect(relateSpy.calledWith(mockRelateRequest)).to.be.true;
     });
 
     it("should handle errors", async () => {
       // Stub the async method to simulate an error
-      rpcMock.readContract = sinon
-        .stub()
-        .rejects(new Error("Simulated error"));
+      rpcMock.readContract = sinon.stub().rejects(new Error("Simulated error"));
 
       // Call the relate method and check that it handles the error
       await expect(relationshipClient.relate(mockRelateRequest)).to.be.rejectedWith(
@@ -108,16 +104,16 @@ describe("Test RelationshipClient", function () {
 
     it("should create a relationship and return txHash", async function () {
       rpcMock.readContract = sinon
-          .stub()
-          .withArgs(mockRelateRequest.sourceIPAsset.franchiseId)
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .stub()
+        .withArgs(mockRelateRequest.sourceIPAsset.franchiseId)
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d");
 
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
       walletMock.writeContract = sinon.stub().resolves(mockResponse);
 
       // Call the relate method and check the response
@@ -128,16 +124,16 @@ describe("Test RelationshipClient", function () {
 
     it("should handle errors during relationship creation", async function () {
       rpcMock.readContract = sinon
-          .stub()
-          .withArgs(mockRelateRequest.sourceIPAsset.franchiseId)
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .stub()
+        .withArgs(mockRelateRequest.sourceIPAsset.franchiseId)
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d");
 
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
       walletMock.writeContract = sinon.stub().rejects(new Error("Failed to create relationship"));
 
       // Call the relate method and check that it handles the error
@@ -165,15 +161,15 @@ describe("Test RelationshipClient", function () {
 
     it("should unrelate and return txHash", async function () {
       rpcMock.readContract = sinon
-          .stub()
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .stub()
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d");
 
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
       walletMock.writeContract = sinon.stub().resolves(mockResponse);
 
       const response = await relationshipClient.unrelate(mockUnrelateRequest);
@@ -183,15 +179,15 @@ describe("Test RelationshipClient", function () {
 
     it("should handle errors during unrelation", async function () {
       rpcMock.readContract = sinon
-          .stub()
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .stub()
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d");
 
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
       walletMock.writeContract = sinon.stub().rejects(new Error("Failed to unrelate relationship"));
 
       await expect(relationshipClient.unrelate(mockUnrelateRequest)).to.be.rejectedWith(
@@ -217,15 +213,15 @@ describe("Test RelationshipClient", function () {
       const mockResponse = true;
 
       rpcMock.readContract = sinon
-          .stub()
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
-          .onCall(3)
-          .returns(mockResponse)
+        .stub()
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .onCall(3)
+        .returns(mockResponse);
 
       const response = await relationshipClient.isRelationshipExpired(
         mockIsRelationshipExpiredRequest,
@@ -236,15 +232,15 @@ describe("Test RelationshipClient", function () {
 
     it("should handle errors when checking if relationship is expired", async function () {
       rpcMock.readContract = sinon
-          .stub()
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
-          .onCall(3)
-          .rejects(new Error("Failed to get isRelationshipExpired"));
+        .stub()
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .onCall(3)
+        .rejects(new Error("Failed to get isRelationshipExpired"));
 
       await expect(
         relationshipClient.isRelationshipExpired(mockIsRelationshipExpiredRequest),
@@ -269,15 +265,15 @@ describe("Test RelationshipClient", function () {
       const mockResponse = true;
 
       rpcMock.readContract = sinon
-          .stub()
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
-          .onCall(3)
-          .returns(mockResponse)
+        .stub()
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .onCall(3)
+        .returns(mockResponse);
 
       const response = await relationshipClient.isRelated(mockIsRelatedRequest);
 
@@ -286,15 +282,15 @@ describe("Test RelationshipClient", function () {
 
     it("should handle errors when checking if two entities are related", async function () {
       rpcMock.readContract = sinon
-          .stub()
-          .onFirstCall()
-          .returns("0x00000000000000000000000000000000000000001")
-          .onSecondCall()
-          .returns("0x00000000000000000000000000000000000000002")
-          .onThirdCall()
-          .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
-          .onCall(3)
-          .rejects(new Error("Failed to get isRelated"));
+        .stub()
+        .onFirstCall()
+        .returns("0x00000000000000000000000000000000000000001")
+        .onSecondCall()
+        .returns("0x00000000000000000000000000000000000000002")
+        .onThirdCall()
+        .returns("0x472511bc397e46b55b56292ba067168f2f5ceb640570883cadf0daafda894c1d")
+        .onCall(3)
+        .rejects(new Error("Failed to get isRelated"));
 
       await expect(relationshipClient.isRelated(mockIsRelatedRequest)).to.be.rejectedWith(
         "Failed to get isRelated",

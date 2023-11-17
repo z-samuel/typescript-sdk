@@ -10,6 +10,7 @@ import { IPAssetClient } from "../resources/ipAsset";
 import { IPAssetReadOnlyClient } from "../resources/ipAssetReadOnly";
 import { RelationshipClient } from "../resources/relationship";
 import { RelationshipReadOnlyClient } from "../resources/relationshipReadOnly";
+import { PlatformClient } from "../utils/platform";
 
 export interface ReadOnlyClient {
   franchise: FranchiseReadOnlyClient;
@@ -27,4 +28,5 @@ export interface Client {
   transaction: TransactionClient;
   ipAsset: IPAssetClient;
   relationship: RelationshipClient;
+  platform: PlatformClient;
 }

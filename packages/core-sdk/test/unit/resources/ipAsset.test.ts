@@ -6,8 +6,8 @@ import * as sinon from "sinon";
 import { IPAssetType } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
-import {PublicClient, WalletClient} from "viem";
-import {AddressZero} from "../../../src/constants/addresses";
+import { PublicClient, WalletClient } from "viem";
+import { AddressZero } from "../../../src/constants/addresses";
 
 chai.use(chaiAsPromised);
 
@@ -31,9 +31,11 @@ describe("Test IpAssetClient", function () {
   describe("Test ipAssetClient.create", async function () {
     it("should not throw error when creating a franchise", async function () {
       try {
-        rpcMock.readContract = sinon.stub().resolves(AddressZero)
-        rpcMock.simulateContract = sinon.stub().resolves({request: null})
-        walletMock.writeContract = sinon.stub().resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
+        rpcMock.readContract = sinon.stub().resolves(AddressZero);
+        rpcMock.simulateContract = sinon.stub().resolves({ request: null });
+        walletMock.writeContract = sinon
+          .stub()
+          .resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
 
         await ipAssetClient.create({
           franchiseId: "78",
@@ -50,9 +52,11 @@ describe("Test IpAssetClient", function () {
     });
 
     it("should throw error when request fails", async function () {
-      rpcMock.readContract = sinon.stub().rejects(new Error("http 500"))
-      rpcMock.simulateContract = sinon.stub().resolves({request: null})
-      walletMock.writeContract = sinon.stub().resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
+      rpcMock.readContract = sinon.stub().rejects(new Error("http 500"));
+      rpcMock.simulateContract = sinon.stub().resolves({ request: null });
+      walletMock.writeContract = sinon
+        .stub()
+        .resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
       await expect(
         ipAssetClient.create({
           franchiseId: "78",

@@ -5,7 +5,7 @@ import chai from "chai";
 import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { TransactionClient } from "../../../src/resources/transaction";
-import {PublicClient, WalletClient} from "viem";
+import { PublicClient, WalletClient } from "viem";
 import { ResourceType } from "../../../src/enums/ResourceType";
 
 chai.use(chaiAsPromised);
@@ -20,7 +20,7 @@ describe("Test TransactionClient", function () {
     axiosMock = createMock<AxiosInstance>();
     rpcMock = createMock<PublicClient>();
     walletMock = createMock<WalletClient>();
-    transactionClient = new TransactionClient(axiosMock,rpcMock,walletMock);
+    transactionClient = new TransactionClient(axiosMock, rpcMock, walletMock);
   });
 
   afterEach(function () {

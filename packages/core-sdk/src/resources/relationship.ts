@@ -15,7 +15,7 @@ import { handleError } from "../utils/errors";
 import { RelationshipReadOnlyClient } from "./relationshipReadOnly";
 import { franchiseRegistryConfig } from "../abi/franchiseRegistry.abi";
 import { relationshipModuleConfig } from "../abi/relationshipModule.abi";
-import {parseToBigInt} from "../utils/utils";
+import { parseToBigInt } from "../utils/utils";
 
 /**
  * Client for managing relationships.

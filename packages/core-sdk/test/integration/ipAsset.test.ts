@@ -6,7 +6,7 @@ import { IPAssetType } from "../../src/enums/IPAssetType";
 
 import { Client } from "../../src/types/client";
 import { goerli } from "viem/chains";
-import {getAddress, Hex, http} from "viem";
+import { getAddress, Hex, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();
