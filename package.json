@@ -9,11 +9,13 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "fix": "turbo run fix",
-    "test": "turbo run test --no-cache"
+    "test": "turbo run test --no-cache",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
-    "turbo": "^1.10.13"
+    "turbo": "^1.10.13",
+    "husky": "^8.0.0"
   },
   "engines": {
     "node": "^20.0.0"
