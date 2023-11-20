@@ -6,22 +6,20 @@ export { ResourceType } from "./enums/ResourceType";
 export type { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 
 export type {
-  Franchise,
-  GetFranchiseRequest,
-  GetFranchiseResponse,
-  CreateFranchiseRequest,
-  CreateFranchiseResponse,
-  ListFranchiseResponse,
-  ConfigureFranchiseRequest,
-  ConfigureFranchiseResponse,
-} from "./types/resources/franchise";
+  IPOrg,
+  GetIPOrgRequest,
+  GetIPOrgResponse,
+  RegisterIPOrgRequest,
+  RegisterIPOrgResponse,
+  ListIPOrgResponse,
+} from "./types/resources/IPOrg";
 
 export type {
   IPAsset,
   GetIpAssetRequest,
   GetIpAssetResponse,
-  CreateIpAssetRequest,
-  CreateIpAssetResponse,
+  RegisterIpAssetRequest,
+  RegisterIpAssetResponse,
   ListIpAssetRequest,
   ListIpAssetResponse,
 } from "./types/resources/ipAsset";
@@ -37,25 +35,17 @@ export type {
   ListLicenseResponse,
 } from "./types/resources/license";
 
-export type {
-  IPAssetId,
-  RelationshipRelateRequest,
-  RelationshipRelateResponse,
-  RelationshipUnrelateRequest,
-  RelationshipUnrelateResponse,
-  RelationshipIsRelationshipExpiredRequest,
-  RelationshipIsRelationshipExpiredResponse,
-  RelationshipIsRelatedRequest,
-  RelationshipIsRelatedResponse,
-} from "./types/resources/relationship";
-
-export type {
-  Collection,
-  CollectIPAssetRequest,
-  CollectIPAssetResponse,
-  ListCollectionsRequest,
-  ListCollectionsResponse,
-} from "./types/resources/collect";
+// export type {
+//   Relationship,
+//   RegisterRelationshipRequest,
+//   RegisterRelationshipResponse,
+//   ListRelationshipRequest,
+//   ListRelationshipResponse,
+//   GetRelationshipRequest,
+//   GetRelationshipResponse,
+//   CreateNewTypeRelationshipRequest,
+//   CreateNewTypeRelationshipResponse,
+// } from "./types/resources/relationship";
 
 export type {
   Transaction,

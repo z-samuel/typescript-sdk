@@ -34,9 +34,7 @@ export class IPAssetReadOnlyClient {
         throw new Error(`Invalid IP Asset id. Must be an integer. But get: ${request.ipAssetId}`);
       }
 
-      const response = await this.httpClient.get(
-        `/ipasset/${request.ipAssetId}?franchiseId=${request.franchiseId}`,
-      );
+      const response = await this.httpClient.get(`/protocol/ipasset/${request.ipAssetId}`);
       return response.data as GetIpAssetResponse;
     } catch (error: unknown) {
       handleError(error, "Failed to get IP Asset");
@@ -50,7 +48,7 @@ export class IPAssetReadOnlyClient {
    */
   public async list(request: ListIpAssetRequest): Promise<ListIpAssetResponse> {
     try {
-      const response = await this.httpClient.get(`/ipasset?franchiseId=${request.franchiseId}`);
+      const response = await this.httpClient.post(`/protocol/ipasset`, request);
       return response.data as ListIpAssetResponse;
     } catch (error) {
       handleError(error, "Failed to list IP Asset.");

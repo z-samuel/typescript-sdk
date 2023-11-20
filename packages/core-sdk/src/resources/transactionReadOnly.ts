@@ -5,6 +5,7 @@ import { handleError } from "../utils/errors";
 import {
   GetTransactionRequest,
   GetTransactionResponse,
+  ListTransactionRequest,
   ListTransactionResponse,
 } from "../types/resources/transaction";
 
@@ -29,7 +30,7 @@ export class TransactionReadOnlyClient {
    */
   public async get(request: GetTransactionRequest): Promise<GetTransactionResponse> {
     try {
-      const response = await this.httpClient.get(`/transaction/${request.txId}`);
+      const response = await this.httpClient.get(`/protocol/transaction/${request.transactionId}`);
       return response.data as GetTransactionResponse;
     } catch (error: unknown) {
       handleError(error, "Failed to get transaction");
@@ -42,9 +43,9 @@ export class TransactionReadOnlyClient {
    * @param request - the request object for getting the transactions
    * @returns the response object that contains the fetched transaction object
    */
-  public async list(): Promise<ListTransactionResponse> {
+  public async list(request?: ListTransactionRequest): Promise<ListTransactionResponse> {
     try {
-      const response: AxiosResponse = await this.httpClient.get(`/transaction`);
+      const response: AxiosResponse = await this.httpClient.post(`/protocol/transaction`, request);
       return response.data as ListTransactionResponse;
     } catch (error: unknown) {
       handleError(error, `Failed to get transactions`);

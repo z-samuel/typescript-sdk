@@ -1,4 +1,6 @@
 import { ResourceType } from "../../enums/ResourceType";
+import { ActionType } from "../../enums/ActionType";
+import { QueryOptions } from "./helper";
 
 /**
  * Core data model for transactions.
@@ -6,13 +8,14 @@ import { ResourceType } from "../../enums/ResourceType";
  * @public
  */
 export type Transaction = {
-  txId: string;
+  id: string;
   txHash: string;
-  createdAt: string; // ISO8601
-  creatorAddress: string;
-  type: ResourceType;
+  ipOrgId: string;
+  creator: string;
   resourceId: string;
-  franchiseId: string;
+  resourceType: ResourceType;
+  actionType: ActionType;
+  createdAt: string; // ISO8601
 };
 
 /**
@@ -21,7 +24,7 @@ export type Transaction = {
  * @public
  */
 export type GetTransactionRequest = {
-  txId: string;
+  transactionId: string;
 };
 
 /**
@@ -30,7 +33,17 @@ export type GetTransactionRequest = {
  * @public
  */
 export type GetTransactionResponse = {
-  data: Transaction;
+  transaction: Transaction;
+};
+
+/**
+ * Response type for transaction.list method.
+ *
+ * @public
+ */
+export type ListTransactionRequest = {
+  ipOrgId?: string;
+  options?: QueryOptions;
 };
 
 /**
@@ -39,5 +52,5 @@ export type GetTransactionResponse = {
  * @public
  */
 export type ListTransactionResponse = {
-  data: Transaction[];
+  transactions: Transaction[];
 };

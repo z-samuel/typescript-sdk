@@ -7,7 +7,7 @@ import { ReadOnlyClient } from "../../src/types/client";
 dotenv.config();
 chai.use(chaiAsPromised);
 
-describe("IP Asset Read Only Functions", () => {
+describe("IPOrg Read Only Functions", () => {
   let client: ReadOnlyClient;
 
   before(function () {
@@ -18,20 +18,20 @@ describe("IP Asset Read Only Functions", () => {
     client = StoryClient.newReadOnlyClient(config);
   });
 
-  describe("Get IP Asset", async function () {
-    it("should return asset when the asset id is valid", async () => {
-      const response = await client.ipAsset.get({
-        ipAssetId: "1",
+  describe("Get IPOrg", async function () {
+    it("should return ipOrg when the ipOrg id is valid", async () => {
+      const response = await client.ipOrg.get({
+        ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
       });
-      expect(response.ipAsset).is.not.null;
+
+      // Only assert the immutable fields
+      expect(response.ipOrg.id).to.equal("7");
     });
   });
 
-  describe("List IP assets", async function () {
-    it("should return a list of IP assets successfully upon query", async () => {
-      const response = await client.ipAsset.list({
-        ipOrgId: "7",
-      });
+  describe("List IPOrgs", async function () {
+    it("should return a list of ipOrgs successfully upon query", async () => {
+      const response = await client.ipOrg.list();
       expect(response).is.not.null;
     });
   });

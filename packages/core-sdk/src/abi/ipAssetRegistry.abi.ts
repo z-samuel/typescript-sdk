@@ -1,145 +1,60 @@
-import { Address } from "viem";
+import { getAddress, parseAbi } from "viem";
+import { formatAbi } from "abitype";
+import * as dotenv from "dotenv";
+
+if (typeof process !== "undefined") {
+  dotenv.config();
+}
 
 export const ipAssetRegistryAbi = [
   {
     inputs: [
-      {
-        internalType: "enum IPAsset",
-        name: "ipAssetType",
-        type: "uint8",
-      },
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_description",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "mediaUrl",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "parentIpAssetId",
-        type: "uint256",
-      },
-    ],
-    name: "createIPAsset",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_parentLicenseId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_licenseHolder",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_uri",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_revoker",
-        type: "address",
-      },
-      {
-        internalType: "bool",
-        name: "_commercial",
-        type: "bool",
-      },
-      {
-        internalType: "bool",
-        name: "_canSublicense",
-        type: "bool",
-      },
+      { internalType: "address", name: "ipOrg_", type: "address" },
       {
         components: [
-          {
-            internalType: "contract ITermsProcessor",
-            name: "processor",
-            type: "address",
-          },
-          {
-            internalType: "bytes",
-            name: "data",
-            type: "bytes",
-          },
+          { internalType: "address", name: "owner", type: "address" },
+          { internalType: "string", name: "name", type: "string" },
+          { internalType: "uint64", name: "ipAssetType", type: "uint64" },
+          { internalType: "bytes32", name: "hash", type: "bytes32" },
         ],
-        internalType: "struct IERC5218.TermsProcessorConfig",
-        name: "_terms",
+        internalType: "struct Registration.RegisterIPAssetParams",
+        name: "params_",
         type: "tuple",
       },
+      { internalType: "bytes[]", name: "preHooksData_", type: "bytes[]" },
+      { internalType: "bytes[]", name: "postHooksData_", type: "bytes[]" },
     ],
-    name: "createLicense",
+    name: "registerIPAsset",
     outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "uint256", name: "", type: "uint256" },
     ],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
+    anonymous: false,
     inputs: [
-      {
-        internalType: "uint256",
-        name: "_tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "_commercial",
-        type: "bool",
-      },
+      { indexed: false, internalType: "uint256", name: "ipAssetId_", type: "uint256" },
+      { indexed: true, internalType: "address", name: "ipOrg_", type: "address" },
+      { indexed: false, internalType: "uint256", name: "ipOrgAssetId_", type: "uint256" },
+      { indexed: true, internalType: "address", name: "owner_", type: "address" },
+      { indexed: false, internalType: "string", name: "name_", type: "string" },
+      { indexed: true, internalType: "uint64", name: "ipAssetType_", type: "uint64" },
+      { indexed: false, internalType: "bytes32", name: "hash_", type: "bytes32" },
     ],
-    name: "getLicenseIdByTokenId",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    name: "IPAssetRegistered",
+    type: "event",
   },
 ] as const;
 
-export function ipAssetRegistryConfigMaker(address: Address) {
-  return {
-    abi: ipAssetRegistryAbi,
-    address: address,
-  };
-}
+export const ipAssetRegistryReadable = formatAbi(ipAssetRegistryAbi);
+
+export const ipAssetRegistryConfig = {
+  abi: parseAbi(ipAssetRegistryReadable),
+  address: getAddress(
+    process.env.IPASSSET_REGISTRY_CONTRACT ||
+      process.env.NEXT_PUBLIC_IPASSSET_REGISTRY_CONTRACT ||
+      "",
+  ),
+};

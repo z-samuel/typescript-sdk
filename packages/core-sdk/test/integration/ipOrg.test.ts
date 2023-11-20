@@ -1,18 +1,17 @@
+import { Client } from "../../src/types/client";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryConfig, Environment, IPAssetType } from "../../src";
 import * as dotenv from "dotenv";
-import { Client } from "../../src/types/client";
 import { sepolia } from "viem/chains";
-import { Hex, http } from "viem";
+import { getAddress, Hex, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();
 chai.use(chaiAsPromised);
 
-describe("IP Asset Functions", () => {
+describe("IPOrg Functions", () => {
   let client: Client;
-  let senderAddress: string;
 
   before(function () {
     const config: StoryConfig = {
@@ -22,20 +21,18 @@ describe("IP Asset Functions", () => {
       account: privateKeyToAccount((process.env.WALLET_PRIVATE_KEY || "0x") as Hex),
     };
 
-    senderAddress = config.account.address;
     client = StoryClient.newClient(config);
   });
 
-  describe("Create IP Asset", async function () {
-    it("should not throw error when creating an IP Asset", async () => {
+  describe("Create IPOrg", async function () {
+    it("should not throw error when creating a ipOrg", async () => {
       const waitForTransaction: boolean = true;
       const response = await expect(
-        client.ipAsset.register({
-          name: "Test",
-          type: IPAssetType.STORY,
-          ipOrgId: "0xFe4141e179811326274E5bc1173C61E6Be5a6A11",
-          owner: senderAddress,
-          hash: "",
+        client.ipOrg.register({
+          name: "Star Wars",
+          symbol: "STAR",
+          owner: "0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab",
+          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
             waitForTransaction: waitForTransaction,
           },
@@ -46,8 +43,8 @@ describe("IP Asset Functions", () => {
       expect(response.txHash).not.empty;
 
       if (waitForTransaction) {
-        expect(response.ipAssetId).to.be.a("string");
-        expect(response.ipAssetId).not.empty;
+        expect(response.ipOrgId).to.be.a("string");
+        expect(response.ipOrgId).not.empty;
       }
     });
   });

@@ -1,12 +1,11 @@
 import { AxiosInstance } from "axios";
-import { Address, getAddress, PublicClient, WalletClient } from "viem";
+import { getAddress, PublicClient, toHex, WalletClient } from "viem";
 
-import { CreateIpAssetRequest, CreateIpAssetResponse } from "../types/resources/ipAsset";
+import { RegisterIpAssetRequest, RegisterIpAssetResponse } from "../types/resources/ipAsset";
 import { handleError } from "../utils/errors";
 import { IPAssetReadOnlyClient } from "./ipAssetReadOnly";
-import { franchiseRegistryConfig } from "../abi/franchiseRegistry.abi";
-import { ipAssetRegistryConfigMaker } from "../abi/ipAssetRegistry.abi";
-import { parseToBigInt } from "../utils/utils";
+import { ipAssetRegistryConfig } from "../abi/ipAssetRegistry.abi";
+import { parseToBigInt, waitTxAndFilterLog } from "../utils/utils";
 
 /**
  * IpAssetClient allows you to create, view, and list IP Assets on Story Protocol.
@@ -20,49 +19,40 @@ export class IPAssetClient extends IPAssetReadOnlyClient {
   }
 
   /**
-   * Get the ipAssetRegistry associated with a franchiseId.
-   *
-   * @returns the response object that contains the requested ipAssetRegistry.
-   */
-  private async getRegistryAddress(franchiseId: string): Promise<Address> {
-    try {
-      return await this.rpcClient.readContract({
-        ...franchiseRegistryConfig,
-        functionName: "ipAssetRegistryForId",
-        args: [parseToBigInt(franchiseId)],
-      });
-    } catch (error) {
-      handleError(error, "Failed to retrieve IP Asset Registry");
-    }
-  }
-
-  /**
    * Create an IP Asset on Story Protocol based on the specified input asset data.
    *
    * @param request - the request object that contains all data needed to create an IP Asset.
    * @returns the response object that contains results from the asset creation.
    */
-  public async create(request: CreateIpAssetRequest): Promise<CreateIpAssetResponse> {
+  public async register(request: RegisterIpAssetRequest): Promise<RegisterIpAssetResponse> {
     try {
-      const franchiseId = request.franchiseId;
-      const ipAssetRegistryAddress = await this.getRegistryAddress(franchiseId);
-
       const { request: call } = await this.rpcClient.simulateContract({
-        ...ipAssetRegistryConfigMaker(ipAssetRegistryAddress),
-        functionName: "createIPAsset",
+        ...ipAssetRegistryConfig,
+        functionName: "registerIPAsset",
         args: [
-          request.ipAssetType,
-          request.ipAssetName,
-          request.description,
-          request.mediaUrl,
-          getAddress(request.to),
-          parseToBigInt(request.parentIpAssetId),
+          getAddress(request.ipOrgId),
+          {
+            owner: getAddress(request.owner),
+            name: request.name,
+            ipAssetType: parseToBigInt(request.type),
+            hash: toHex(request.hash || "", { size: 32 }),
+          },
+          [],
+          [],
         ],
+        account: this.wallet.account,
       });
 
-      return {
-        txHash: await this.wallet.writeContract(call),
-      };
+      const txHash = await this.wallet.writeContract(call);
+      if (request.txOptions?.waitForTransaction) {
+        const targetLog = await waitTxAndFilterLog(this.rpcClient, txHash, {
+          ...ipAssetRegistryConfig,
+          eventName: "IPAssetRegistered",
+        });
+        return { txHash: txHash, ipAssetId: targetLog.args.ipAssetId_.toString() };
+      } else {
+        return { txHash: txHash };
+      }
     } catch (error) {
       handleError(error, "Failed to create IP Asset");
     }

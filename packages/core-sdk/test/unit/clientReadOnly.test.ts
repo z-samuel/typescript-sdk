@@ -50,8 +50,8 @@ describe("Test StoryReadOnlyClient", function () {
 
     describe("Test franchise getter", function () {
       it("should return the same franchise when every time it's called", function () {
-        const franchise1 = client.franchise;
-        const franchise2 = client.franchise;
+        const franchise1 = client.ipOrg;
+        const franchise2 = client.ipOrg;
         expect(franchise1).to.be.equal(franchise2);
       });
     });
@@ -77,14 +77,6 @@ describe("Test StoryReadOnlyClient", function () {
         const transaction1 = client.transaction;
         const transaction2 = client.transaction;
         expect(transaction1).to.be.equal(transaction2);
-      });
-    });
-
-    describe("Test collect getter", function () {
-      it("should return the same collect client when every time it's called", function () {
-        const collect1 = client.collect;
-        const collect2 = client.collect;
-        expect(collect1).to.be.equal(collect2);
       });
     });
 

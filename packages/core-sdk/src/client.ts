@@ -1,12 +1,12 @@
 import axios, { AxiosInstance } from "axios";
 import { createPublicClient, createWalletClient, http, PublicClient, WalletClient } from "viem";
-import { goerli } from "viem/chains";
+import { sepolia } from "viem/chains";
 import * as dotenv from "dotenv";
 
 import { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 import { Environment } from "./enums/Environment";
-import { FranchiseClient } from "./resources/franchise";
-import { FranchiseReadOnlyClient } from "./resources/franchiseReadOnly";
+import { IPOrgClient } from "./resources/ipOrg";
+import { IPOrgReadOnlyClient } from "./resources/ipOrgReadOnly";
 import { RelationshipClient } from "./resources/relationship";
 import { RelationshipReadOnlyClient } from "./resources/relationshipReadOnly";
 import { IPAssetClient } from "./resources/ipAsset";
@@ -15,10 +15,12 @@ import { LicenseClient } from "./resources/license";
 import { LicenseReadOnlyClient } from "./resources/licenseReadOnly";
 import { TransactionClient } from "./resources/transaction";
 import { TransactionReadOnlyClient } from "./resources/transactionReadOnly";
-import { CollectClient } from "./resources/collect";
-import { CollectReadOnlyClient } from "./resources/collectReadOnly";
 import { HTTP_TIMEOUT } from "./constants/http";
 import { Client, ReadOnlyClient } from "./types/client";
+import { ModuleClient } from "./resources/module";
+import { ModuleReadOnlyClient } from "./resources/moduleReadOnly";
+import { HookClient } from "./resources/hook";
+import { HookReadOnlyClient } from "./resources/hookReadOnly";
 import { PlatformClient } from "./utils/platform";
 
 if (typeof process !== "undefined") {
@@ -34,13 +36,15 @@ export class StoryClient {
   private readonly rpcClient: PublicClient;
   private readonly wallet?: WalletClient;
 
-  private _franchise: FranchiseClient | FranchiseReadOnlyClient | null = null;
+  private _ipOrg: IPOrgClient | IPOrgReadOnlyClient | null = null;
   private _license: LicenseClient | LicenseReadOnlyClient | null = null;
   private _transaction: TransactionClient | TransactionReadOnlyClient | null = null;
   private _ipAsset: IPAssetClient | IPAssetReadOnlyClient | null = null;
-  private _collect: CollectClient | CollectReadOnlyClient | null = null;
   private _relationship: RelationshipClient | RelationshipReadOnlyClient | null = null;
+  private _module: ModuleClient | ModuleReadOnlyClient | null = null;
+  private _hook: HookClient | HookReadOnlyClient | null = null;
   private _platform: PlatformClient | null = null;
+
   /**
    * @param config - the configuration for the SDK client
    * @param isReadOnly
@@ -54,8 +58,8 @@ export class StoryClient {
     this.isReadOnly = isReadOnly;
 
     const clientConfig = {
-      chain: this.config.chain || goerli,
-      transport: this.config.transport || http("https://goerli.gateway.tenderly.co"),
+      chain: this.config.chain || sepolia,
+      transport: this.config.transport || http("https://sepolia.gateway.tenderly.co"),
     };
 
     this.rpcClient = createPublicClient(clientConfig);
@@ -75,6 +79,9 @@ export class StoryClient {
     this.httpClient = axios.create({
       baseURL: process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL,
       timeout: HTTP_TIMEOUT,
+      headers: {
+        version: "v0-alpha",
+      },
     });
   }
 
@@ -96,11 +103,11 @@ export class StoryClient {
     return new StoryClient(config, false) as Client;
   }
 
-  private initFranchise(): void {
+  private initIPOrg(): void {
     if (this.isReadOnly) {
-      this._franchise = new FranchiseReadOnlyClient(this.httpClient, this.rpcClient);
+      this._ipOrg = new IPOrgReadOnlyClient(this.httpClient, this.rpcClient);
     } else {
-      this._franchise = new FranchiseClient(this.httpClient, this.rpcClient, this.wallet!);
+      this._ipOrg = new IPOrgClient(this.httpClient, this.rpcClient, this.wallet!);
     }
   }
 
@@ -136,11 +143,19 @@ export class StoryClient {
     }
   }
 
-  private initCollect(): void {
+  private initModule(): void {
     if (this.isReadOnly) {
-      this._collect = new CollectReadOnlyClient(this.httpClient, this.rpcClient);
+      this._module = new ModuleReadOnlyClient(this.httpClient, this.rpcClient);
     } else {
-      this._collect = new CollectClient(this.httpClient, this.rpcClient, this.wallet!);
+      this._module = new ModuleClient(this.httpClient, this.rpcClient, this.wallet!);
+    }
+  }
+
+  private initHook(): void {
+    if (this.isReadOnly) {
+      this._hook = new HookReadOnlyClient(this.httpClient, this.rpcClient);
+    } else {
+      this._hook = new HookClient(this.httpClient, this.rpcClient, this.wallet!);
     }
   }
 
@@ -149,17 +164,17 @@ export class StoryClient {
   }
 
   /**
-   * Getter for the franchise client. The client is lazily created when
+   * Getter for the ipOrg client. The client is lazily created when
    * this method is called.
    *
-   * @returns the FranchiseClient or FranchiseReadOnlyClient instance
+   * @returns the IPOrgClient or IPOrgReadOnlyClient instance
    */
-  public get franchise(): FranchiseClient | FranchiseReadOnlyClient {
-    if (this._franchise === null) {
-      this.initFranchise();
+  public get ipOrg(): IPOrgClient | IPOrgReadOnlyClient {
+    if (this._ipOrg === null) {
+      this.initIPOrg();
     }
 
-    return this._franchise as FranchiseClient | FranchiseReadOnlyClient;
+    return this._ipOrg as IPOrgClient | IPOrgReadOnlyClient;
   }
 
   /**
@@ -193,7 +208,7 @@ export class StoryClient {
    * Getter for the license client. The client is lazily created when
    * this method is called.
    *
-   * @returns the FranchiseClient instance
+   * @returns the IPOrgClient instance
    */
   public get license(): LicenseClient | LicenseReadOnlyClient {
     if (this._license === null) {
@@ -218,18 +233,31 @@ export class StoryClient {
   }
 
   /**
-   * Getter for the collect module client. The client is lazily created when
+   * Getter for the module client. The client is lazily created when
    * this method is called.
    *
-   * @returns the CollectClient instance
+   * @returns the ModuleClient instance
    */
-
-  public get collect(): CollectClient | CollectReadOnlyClient {
-    if (this._collect === null) {
-      this.initCollect();
+  public get module(): ModuleClient | ModuleReadOnlyClient {
+    if (this._module === null) {
+      this.initModule();
     }
 
-    return this._collect as CollectClient | CollectReadOnlyClient;
+    return this._module as ModuleClient | ModuleReadOnlyClient;
+  }
+
+  /**
+   * Getter for the hook client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the HookClient instance
+   */
+  public get hook(): HookClient | HookReadOnlyClient {
+    if (this._hook === null) {
+      this.initHook();
+    }
+
+    return this._hook as HookClient | HookReadOnlyClient;
   }
 
   public get platform(): PlatformClient {

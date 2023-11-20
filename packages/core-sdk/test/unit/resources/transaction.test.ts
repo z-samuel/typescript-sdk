@@ -6,7 +6,6 @@ import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { TransactionClient } from "../../../src/resources/transaction";
 import { PublicClient, WalletClient } from "viem";
-import { ResourceType } from "../../../src/enums/ResourceType";
 
 chai.use(chaiAsPromised);
 
@@ -27,102 +26,101 @@ describe("Test TransactionClient", function () {
     sinon.restore();
   });
 
-  describe("Test transaction.get", function () {
+  describe("Test transactionClient.get", function () {
     it("should get transaction ", async function () {
       axiosMock.get = sinon.stub().resolves({
         data: {
-          data: {
-            txId: "1",
+          transaction: {
+            id: "1",
             txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
-            createdAt: "0001-01-01T00:00:00Z",
-            creatorAddress: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-            type: ResourceType.IP_ASSET,
+            ipOrgId: "7",
             resourceId: "1",
-            franchiseId: "7",
+            resourceType: "IPAsset",
+            actionType: "Create",
+            creator: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
+            createdAt: "0001-01-01T00:00:00Z",
           },
         },
       });
 
-      const response = await transactionClient.get({ txId: "1" });
+      const response = await transactionClient.get({ transactionId: "1" });
 
-      expect(response.data.txId).to.be.equal("1");
-      expect(response.data.txHash).to.be.equal(
+      expect(response.transaction.id).to.be.equal("1");
+      expect(response.transaction.txHash).to.be.equal(
         "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
       );
-      expect(response.data.createdAt).to.be.equal("0001-01-01T00:00:00Z");
-      expect(response.data.creatorAddress).to.be.equal(
+      expect(response.transaction.createdAt).to.be.equal("0001-01-01T00:00:00Z");
+      expect(response.transaction.creator).to.be.equal(
         "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
       );
-      expect(response.data.type).to.be.equal(ResourceType.IP_ASSET);
-      expect(response.data.resourceId).to.be.equal("1");
-      expect(response.data.franchiseId).to.be.equal("7");
+      expect(response.transaction.resourceType).to.be.equal("IPAsset");
+      expect(response.transaction.resourceId).to.be.equal("1");
+      expect(response.transaction.ipOrgId).to.be.equal("7");
     });
 
     it("should be able to throw an error", async function () {
       axiosMock.get = sinon.stub().rejects(new Error("HTTP 500"));
-      await expect(transactionClient.get({ txId: "1" })).to.be.rejectedWith("HTTP 500");
+      await expect(transactionClient.get({ transactionId: "abc" })).to.be.rejectedWith("HTTP 500");
     });
   });
 
-  describe("Test transaction.list", function () {
+  describe("Test transactionClient.list", function () {
     it("should return list of collections", async function () {
-      axiosMock.get = sinon.stub().resolves({
+      axiosMock.post = sinon.stub().resolves({
         data: {
-          data: [
+          transactions: [
             {
-              txId: "1",
+              id: "1",
               txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
-              createdAt: "0001-01-01T00:00:00Z",
-              creatorAddress: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-              type: ResourceType.IP_ASSET,
+              ipOrgId: "7",
               resourceId: "1",
-              franchiseId: "7",
+              resourceType: "IPAsset",
+              actionType: "Create",
+              creator: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
+              createdAt: "0001-01-01T00:00:00Z",
             },
             {
-              txId: "2",
-              txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb7",
-              createdAt: "0001-01-01T00:00:00Z",
-              creatorAddress: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-              type: ResourceType.FRANCHISE,
+              id: "2",
+              txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
+              ipOrgId: "7",
               resourceId: "2",
-              franchiseId: "7",
+              resourceType: "License",
+              actionType: "Create",
+              creator: "0xd84316a1b6f40902c17b8177854cdaeb3c957daf",
+              createdAt: "0001-01-01T00:00:00Z",
             },
           ],
         },
       });
 
       const response = await transactionClient.list();
-      const transactions = response.data;
+      const transactions = response.transactions;
 
       // First transaction in array
-      expect(transactions[0].txId).to.be.equal("1");
+      expect(transactions[0].id).to.be.equal("1");
       expect(transactions[0].txHash).to.be.equal(
         "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
       );
       expect(transactions[0].createdAt).to.be.equal("0001-01-01T00:00:00Z");
-      expect(transactions[0].creatorAddress).to.be.equal(
-        "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-      );
-      expect(transactions[0].type).to.be.equal(ResourceType.IP_ASSET);
+      expect(transactions[0].creator).to.be.equal("0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d");
+      expect(transactions[0].resourceType).to.be.equal("IPAsset");
       expect(transactions[0].resourceId).to.be.equal("1");
-      expect(transactions[0].franchiseId).to.be.equal("7");
+      expect(transactions[0].ipOrgId).to.be.equal("7");
 
       // Second transaction in array
-      expect(transactions[1].txId).to.be.equal("2");
+      expect(transactions[1].id).to.be.equal("2");
       expect(transactions[1].txHash).to.be.equal(
-        "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb7",
+        "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
       );
       expect(transactions[1].createdAt).to.be.equal("0001-01-01T00:00:00Z");
-      expect(transactions[1].creatorAddress).to.be.equal(
-        "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-      );
-      expect(transactions[1].type).to.be.equal(ResourceType.FRANCHISE);
+      expect(transactions[1].creator).to.be.equal("0xd84316a1b6f40902c17b8177854cdaeb3c957daf");
+      expect(transactions[1].resourceType).to.be.equal("License");
       expect(transactions[1].resourceId).to.be.equal("2");
-      expect(transactions[1].franchiseId).to.be.equal("7");
+      expect(transactions[1].ipOrgId).to.be.equal("7");
     });
 
     it("should be able to throw an error", async function () {
-      axiosMock.get = sinon.stub().rejects(new Error("HTTP 500"));
+      axiosMock.post = sinon.stub().rejects(new Error("HTTP 500"));
       await expect(transactionClient.list()).to.be.rejectedWith("HTTP 500");
     });
   });

@@ -48,16 +48,16 @@ describe("Test StoryClient", function () {
       });
     });
 
-    describe("Test franchise getter", function () {
-      it("should return the same franchise when every time it's called", function () {
-        const franchise1 = client.franchise;
-        const franchise2 = client.franchise;
-        expect(franchise1).to.be.equal(franchise2);
+    describe("Test ipOrg getter", function () {
+      it("should return the same ipOrg when every time it's called", function () {
+        const ipOrg1 = client.ipOrg;
+        const ipOrg2 = client.ipOrg;
+        expect(ipOrg1).to.be.equal(ipOrg2);
       });
     });
 
     describe("Test IP Asset getter", function () {
-      it("should return the same franchise when every time it's called", function () {
+      it("should return the same ipOrg when every time it's called", function () {
         const ipAsset1 = client.ipAsset;
         const ipAsset2 = client.ipAsset;
         expect(ipAsset1).to.be.equal(ipAsset2);
@@ -80,14 +80,6 @@ describe("Test StoryClient", function () {
       });
     });
 
-    describe("Test collect getter", function () {
-      it("should return the same collect client when every time it's called", function () {
-        const collect1 = client.collect;
-        const collect2 = client.collect;
-        expect(collect1).to.be.equal(collect2);
-      });
-    });
-
     describe("Test relationship getter", function () {
       it("should return the same relationship when every time it's called", function () {
         const relationship1 = client.relationship;
@@ -105,11 +97,11 @@ describe("Test StoryClient", function () {
     });
   });
 
-  // describe("Test franchise getter w/o creating a client", function () {
+  // describe("Test ipOrg getter w/o creating a client", function () {
   //   let client: Client;
   //   it("should throw error when a client hasn't been created", function () {
   //     try {
-  //       client.franchise;
+  //       client.ipOrg;
 
   //       expect.fail(`You haven't created a client yet.`);
   //     } catch (error) {}

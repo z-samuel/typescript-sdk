@@ -2,9 +2,12 @@
  * @public
  */
 export enum ResourceType {
-  FRANCHISE,
+  IP_ORG,
   IP_ASSET,
   LICENSE,
   RELATIONSHIP,
-  COLLECT,
+  RELATIONSHIPTYPE,
+  MODULE,
+  HOOK,
+  DISPUTE,
 }

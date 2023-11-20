@@ -21,65 +21,65 @@ describe("Collect client integration tests", () => {
   describe("List Transactions", async function () {
     it("should return array of transactions", async () => {
       const response = await client.transaction.list();
-      expect(response).to.have.property("data");
-      expect(response.data).to.be.an("array"); // Collection[]
+      expect(response).to.have.property("transactions");
+      expect(response.transactions).to.be.an("array"); // Collection[]
 
-      const transaction = response.data[0];
-      expect(transaction).to.have.property("txId");
+      const transaction = response.transactions[0];
+      expect(transaction).to.have.property("id");
       expect(transaction).to.have.property("txHash");
       expect(transaction).to.have.property("createdAt");
-      expect(transaction).to.have.property("creatorAddress");
-      expect(transaction).to.have.property("type");
+      expect(transaction).to.have.property("creator");
+      expect(transaction).to.have.property("resourceType");
       expect(transaction).to.have.property("resourceId");
-      expect(transaction).to.have.property("franchiseId");
-      expect(transaction.txId).to.be.a("string");
+      expect(transaction).to.have.property("ipOrgId");
+      expect(transaction.id).to.be.a("string");
       expect(transaction.txHash).to.be.a("string");
       expect(transaction.createdAt).to.be.a("string");
-      expect(transaction.creatorAddress).to.be.a("string");
-      expect(transaction.type).to.be.a("string");
+      expect(transaction.creator).to.be.a("string");
+      expect(transaction.resourceType).to.be.a("string");
       expect(transaction.resourceId).to.be.a("string");
-      expect(transaction.franchiseId).to.be.a("string");
+      expect(transaction.ipOrgId).to.be.a("string");
 
-      const transaction2 = response.data[1];
-      expect(transaction2).to.have.property("txId");
+      const transaction2 = response.transactions[1];
+      expect(transaction2).to.have.property("id");
       expect(transaction2).to.have.property("txHash");
       expect(transaction2).to.have.property("createdAt");
-      expect(transaction2).to.have.property("creatorAddress");
-      expect(transaction2).to.have.property("type");
+      expect(transaction2).to.have.property("creator");
+      expect(transaction2).to.have.property("resourceType");
       expect(transaction2).to.have.property("resourceId");
-      expect(transaction2).to.have.property("franchiseId");
-      expect(transaction2.txId).to.be.a("string");
+      expect(transaction2).to.have.property("ipOrgId");
+      expect(transaction2.id).to.be.a("string");
       expect(transaction2.txHash).to.be.a("string");
       expect(transaction2.createdAt).to.be.a("string");
-      expect(transaction2.creatorAddress).to.be.a("string");
-      expect(transaction2.type).to.be.a("string");
+      expect(transaction2.creator).to.be.a("string");
+      expect(transaction2.resourceType).to.be.a("string");
       expect(transaction2.resourceId).to.be.a("string");
-      expect(transaction2.franchiseId).to.be.a("string");
+      expect(transaction2.ipOrgId).to.be.a("string");
     });
   });
 
   describe("Get Transaction", async function () {
     it("should return transaction from request transaction id", async () => {
       const response = await client.transaction.get({
-        txId: "0x00c62c845575624b335c705b783e174a426fdec472a532e00a42ea36c86c2ace0d000000",
+        transactionId: "1",
       });
-      expect(response).to.have.property("data");
+      expect(response).to.have.property("transaction");
 
-      const transaction = response.data;
-      expect(transaction).to.have.property("txId");
+      const transaction = response.transaction;
+      expect(transaction).to.have.property("id");
       expect(transaction).to.have.property("txHash");
       expect(transaction).to.have.property("createdAt");
-      expect(transaction).to.have.property("creatorAddress");
-      expect(transaction).to.have.property("type");
+      expect(transaction).to.have.property("creator");
+      expect(transaction).to.have.property("resourceType");
       expect(transaction).to.have.property("resourceId");
-      expect(transaction).to.have.property("franchiseId");
-      expect(transaction.txId).to.be.a("string");
+      expect(transaction).to.have.property("ipOrgId");
+      expect(transaction.id).to.be.a("string");
       expect(transaction.txHash).to.be.a("string");
       expect(transaction.createdAt).to.be.a("string");
-      expect(transaction.creatorAddress).to.be.a("string");
-      expect(transaction.type).to.be.a("string");
+      expect(transaction.creator).to.be.a("string");
+      expect(transaction.resourceType).to.be.a("string");
       expect(transaction.resourceId).to.be.a("string");
-      expect(transaction.franchiseId).to.be.a("string");
+      expect(transaction.ipOrgId).to.be.a("string");
     });
   });
 });
