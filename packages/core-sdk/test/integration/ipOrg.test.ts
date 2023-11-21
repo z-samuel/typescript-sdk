@@ -9,6 +9,7 @@ import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();
 chai.use(chaiAsPromised);
+chai.config.truncateThreshold = 0
 
 describe("IPOrg Functions", () => {
   let client: Client;
@@ -40,6 +41,7 @@ describe("IPOrg Functions", () => {
           },
         }),
       ).to.not.be.rejected;
+      console.log("Tx hash: " + response.txHash)
 
       expect(response.txHash).to.be.a("string");
       expect(response.txHash).not.empty;
