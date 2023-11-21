@@ -7,7 +7,7 @@ import { ReadOnlyClient } from "../../src/types/client";
 dotenv.config();
 chai.use(chaiAsPromised);
 
-describe("Collect client integration tests", () => {
+describe("Transaction client integration tests", () => {
   let client: ReadOnlyClient;
 
   beforeEach(function () {

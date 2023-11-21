@@ -28,14 +28,15 @@ describe("IP Asset Functions", () => {
 
   describe("Create IP Asset", async function () {
     it("should not throw error when creating an IP Asset", async () => {
-      const waitForTransaction: boolean = true;
+      const waitForTransaction: boolean = false;
       const response = await expect(
         client.ipAsset.register({
           name: "Test",
-          type: IPAssetType.STORY,
-          ipOrgId: "0xFe4141e179811326274E5bc1173C61E6Be5a6A11",
-          owner: senderAddress,
+          type: 0,
+          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          owner: "0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab",
           hash: "",
+          mediaUrl: "",
           txOptions: {
             waitForTransaction: waitForTransaction,
           },

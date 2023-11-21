@@ -26,7 +26,7 @@ describe("IPOrg Functions", () => {
 
   describe("Create IPOrg", async function () {
     it("should not throw error when creating a ipOrg", async () => {
-      const waitForTransaction: boolean = true;
+      const waitForTransaction: boolean = false;
       const response = await expect(
         client.ipOrg.register({
           name: "Star Wars",

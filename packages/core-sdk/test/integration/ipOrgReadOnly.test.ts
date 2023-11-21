@@ -25,7 +25,7 @@ describe("IPOrg Read Only Functions", () => {
       });
 
       // Only assert the immutable fields
-      expect(response.ipOrg.id).to.equal("7");
+      expect(response.iporg.id).to.equal("7");
     });
   });
 

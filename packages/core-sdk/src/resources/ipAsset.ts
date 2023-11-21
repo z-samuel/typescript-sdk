@@ -4,7 +4,8 @@ import { getAddress, PublicClient, toHex, WalletClient } from "viem";
 import { RegisterIpAssetRequest, RegisterIpAssetResponse } from "../types/resources/ipAsset";
 import { handleError } from "../utils/errors";
 import { IPAssetReadOnlyClient } from "./ipAssetReadOnly";
-import { ipAssetRegistryConfig } from "../abi/ipAssetRegistry.abi";
+import { storyProtocolConfig } from "../abi/storyProtocol.abi";
+import { registrationModuleConfig } from "../abi/registrationModule.abi";
 import { parseToBigInt, waitTxAndFilterLog } from "../utils/utils";
 
 /**
@@ -27,7 +28,7 @@ export class IPAssetClient extends IPAssetReadOnlyClient {
   public async register(request: RegisterIpAssetRequest): Promise<RegisterIpAssetResponse> {
     try {
       const { request: call } = await this.rpcClient.simulateContract({
-        ...ipAssetRegistryConfig,
+        ...storyProtocolConfig,
         functionName: "registerIPAsset",
         args: [
           getAddress(request.ipOrgId),
@@ -36,6 +37,7 @@ export class IPAssetClient extends IPAssetReadOnlyClient {
             name: request.name,
             ipAssetType: parseToBigInt(request.type),
             hash: toHex(request.hash || "", { size: 32 }),
+            mediaUrl: request.mediaUrl || "",
           },
           [],
           [],
@@ -46,7 +48,7 @@ export class IPAssetClient extends IPAssetReadOnlyClient {
       const txHash = await this.wallet.writeContract(call);
       if (request.txOptions?.waitForTransaction) {
         const targetLog = await waitTxAndFilterLog(this.rpcClient, txHash, {
-          ...ipAssetRegistryConfig,
+          ...registrationModuleConfig,
           eventName: "IPAssetRegistered",
         });
         return { txHash: txHash, ipAssetId: targetLog.args.ipAssetId_.toString() };

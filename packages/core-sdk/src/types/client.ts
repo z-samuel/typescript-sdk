@@ -1,10 +1,8 @@
-import { LicenseClient } from "../resources/license";
 import { LicenseReadOnlyClient } from "../resources/licenseReadOnly";
 import { TransactionClient } from "../resources/transaction";
 import { TransactionReadOnlyClient } from "../resources/transactionReadOnly";
 import { IPAssetClient } from "../resources/ipAsset";
 import { IPAssetReadOnlyClient } from "../resources/ipAssetReadOnly";
-import { RelationshipClient } from "../resources/relationship";
 import { RelationshipReadOnlyClient } from "../resources/relationshipReadOnly";
 import { IPOrgReadOnlyClient } from "../resources/ipOrgReadOnly";
 import { IPOrgClient } from "../resources/ipOrg";
@@ -28,9 +26,9 @@ export interface Client {
   hook: HookClient;
   module: ModuleClient;
   ipOrg: IPOrgClient;
-  license: LicenseClient;
+  license: LicenseReadOnlyClient;
   transaction: TransactionClient;
   ipAsset: IPAssetClient;
-  relationship: RelationshipClient;
+  relationship: RelationshipReadOnlyClient;
   platform: PlatformClient;
 }

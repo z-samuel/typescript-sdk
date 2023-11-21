@@ -27,8 +27,8 @@ describe(`Test IPOrgReadOnlyClient`, function () {
     it("should return ipOrgClient when the ipOrgClient id is valid", async function () {
       axiosMock.get = sinon.stub().returns({
         data: {
-          ipOrg: {
-            id: "7",
+          iporg: {
+            id: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
             name: "Star Wars",
             symbol: "STAR",
             owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
@@ -40,18 +40,18 @@ describe(`Test IPOrgReadOnlyClient`, function () {
       });
 
       const response = await ipOrgClient.get({
-        ipOrgId: "7",
+        ipOrgId: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
       });
 
-      expect(response.ipOrg.id).to.equal("7");
-      expect(response.ipOrg.name).to.equal("Star Wars");
+      expect(response.iporg.id).to.equal("0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d");
+      expect(response.iporg.name).to.equal("Star Wars");
     });
 
     it("should throw error", async function () {
       axiosMock.get = sinon.stub().rejects(new Error("http 500"));
       await expect(
         ipOrgClient.get({
-          ipOrgId: "7",
+          ipOrgId: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
         }),
       ).to.be.rejectedWith("http 500");
     });
@@ -62,7 +62,7 @@ describe(`Test IPOrgReadOnlyClient`, function () {
           ipOrgId: "abc",
         }),
       ).to.be.rejectedWith(
-        `Failed to get IPOrg: Invalid IPOrg id. Must be an integer. But got: abc`,
+        `Failed to get IPOrg: Invalid IPOrg id. Must be an address. But got: abc`,
       );
     });
   });

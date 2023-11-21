@@ -7,11 +7,9 @@ import { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 import { Environment } from "./enums/Environment";
 import { IPOrgClient } from "./resources/ipOrg";
 import { IPOrgReadOnlyClient } from "./resources/ipOrgReadOnly";
-import { RelationshipClient } from "./resources/relationship";
 import { RelationshipReadOnlyClient } from "./resources/relationshipReadOnly";
 import { IPAssetClient } from "./resources/ipAsset";
 import { IPAssetReadOnlyClient } from "./resources/ipAssetReadOnly";
-import { LicenseClient } from "./resources/license";
 import { LicenseReadOnlyClient } from "./resources/licenseReadOnly";
 import { TransactionClient } from "./resources/transaction";
 import { TransactionReadOnlyClient } from "./resources/transactionReadOnly";
@@ -37,10 +35,10 @@ export class StoryClient {
   private readonly wallet?: WalletClient;
 
   private _ipOrg: IPOrgClient | IPOrgReadOnlyClient | null = null;
-  private _license: LicenseClient | LicenseReadOnlyClient | null = null;
+  private _license: LicenseReadOnlyClient | null = null;
   private _transaction: TransactionClient | TransactionReadOnlyClient | null = null;
   private _ipAsset: IPAssetClient | IPAssetReadOnlyClient | null = null;
-  private _relationship: RelationshipClient | RelationshipReadOnlyClient | null = null;
+  private _relationship: RelationshipReadOnlyClient | null = null;
   private _module: ModuleClient | ModuleReadOnlyClient | null = null;
   private _hook: HookClient | HookReadOnlyClient | null = null;
   private _platform: PlatformClient | null = null;
@@ -112,11 +110,7 @@ export class StoryClient {
   }
 
   private initRelationship(): void {
-    if (this.isReadOnly) {
-      this._relationship = new RelationshipReadOnlyClient(this.httpClient, this.rpcClient);
-    } else {
-      this._relationship = new RelationshipClient(this.httpClient, this.rpcClient, this.wallet!);
-    }
+    this._relationship = new RelationshipReadOnlyClient(this.httpClient, this.rpcClient);
   }
 
   private initIpAsset(): void {
@@ -128,11 +122,7 @@ export class StoryClient {
   }
 
   private initLicense(): void {
-    if (this.isReadOnly) {
-      this._license = new LicenseReadOnlyClient(this.httpClient, this.rpcClient);
-    } else {
-      this._license = new LicenseClient(this.httpClient, this.rpcClient, this.wallet!);
-    }
+    this._license = new LicenseReadOnlyClient(this.httpClient, this.rpcClient);
   }
 
   private initTransaction(): void {
@@ -183,12 +173,12 @@ export class StoryClient {
    *
    * @returns the RelationshipClient instance
    */
-  public get relationship(): RelationshipClient | RelationshipReadOnlyClient {
+  public get relationship(): RelationshipReadOnlyClient {
     if (this._relationship === null) {
       this.initRelationship();
     }
 
-    return this._relationship as RelationshipClient | RelationshipReadOnlyClient;
+    return this._relationship as RelationshipReadOnlyClient;
   }
 
   /**
@@ -210,12 +200,12 @@ export class StoryClient {
    *
    * @returns the IPOrgClient instance
    */
-  public get license(): LicenseClient | LicenseReadOnlyClient {
+  public get license(): LicenseReadOnlyClient {
     if (this._license === null) {
       this.initLicense();
     }
 
-    return this._license as LicenseClient | LicenseReadOnlyClient;
+    return this._license as LicenseReadOnlyClient;
   }
 
   /**

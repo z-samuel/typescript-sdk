@@ -48,6 +48,7 @@ export type RegisterIpAssetRequest = {
   ipOrgId: string;
   owner: string;
   hash?: string;
+  mediaUrl?: string;
   preHookData?: Array<Record<string, unknown>>;
   postHookData?: Array<Record<string, unknown>>;
   txOptions?: TxOptions;

@@ -4,7 +4,8 @@ import { getAddress, PublicClient, WalletClient, zeroAddress } from "viem";
 import { RegisterIPOrgRequest, RegisterIPOrgResponse } from "../types/resources/IPOrg";
 import { handleError } from "../utils/errors";
 import { IPOrgReadOnlyClient } from "./ipOrgReadOnly";
-import { ipOrgRegistryConfig } from "../abi/ipOrgRegistry.abi";
+import { storyProtocolConfig } from "../abi/storyProtocol.abi";
+import { ipOrgControllerConfig } from "../abi/ipOrgController.abi";
 import { waitTxAndFilterLog } from "../utils/utils";
 
 /**
@@ -28,7 +29,7 @@ export class IPOrgClient extends IPOrgReadOnlyClient {
   public async register(request: RegisterIPOrgRequest): Promise<RegisterIPOrgResponse> {
     try {
       const { request: call } = await this.rpcClient.simulateContract({
-        ...ipOrgRegistryConfig,
+        ...storyProtocolConfig,
         functionName: "registerIpOrg",
         args: [
           getAddress(request.owner || zeroAddress),
@@ -42,7 +43,7 @@ export class IPOrgClient extends IPOrgReadOnlyClient {
       const txHash = await this.wallet.writeContract(call);
       if (request.txOptions?.waitForTransaction) {
         const targetLog = await waitTxAndFilterLog(this.rpcClient, txHash, {
-          ...ipOrgRegistryConfig,
+          ...ipOrgControllerConfig,
           eventName: "IPOrgRegistered",
         });
         return { txHash: txHash, ipOrgId: targetLog.args.ipAssetOrg_ };

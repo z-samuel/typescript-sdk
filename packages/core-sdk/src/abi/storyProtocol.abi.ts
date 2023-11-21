@@ -6,7 +6,19 @@ if (typeof process !== "undefined") {
   dotenv.config();
 }
 
-export const ipAssetRegistryAbi = [
+export const storyProtocolAbi = [
+  {
+    inputs: [
+      { internalType: "address", name: "owner_", type: "address" },
+      { internalType: "string", name: "name_", type: "string" },
+      { internalType: "string", name: "symbol_", type: "string" },
+      { internalType: "string[]", name: "ipAssetTypes_", type: "string[]" },
+    ],
+    name: "registerIpOrg",
+    outputs: [{ internalType: "address", name: "ipOrg_", type: "address" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
   {
     inputs: [
       { internalType: "address", name: "ipOrg_", type: "address" },
@@ -16,6 +28,7 @@ export const ipAssetRegistryAbi = [
           { internalType: "string", name: "name", type: "string" },
           { internalType: "uint64", name: "ipAssetType", type: "uint64" },
           { internalType: "bytes32", name: "hash", type: "bytes32" },
+          { internalType: "string", name: "mediaUrl", type: "string" },
         ],
         internalType: "struct Registration.RegisterIPAssetParams",
         name: "params_",
@@ -32,29 +45,13 @@ export const ipAssetRegistryAbi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: false, internalType: "uint256", name: "ipAssetId_", type: "uint256" },
-      { indexed: true, internalType: "address", name: "ipOrg_", type: "address" },
-      { indexed: false, internalType: "uint256", name: "ipOrgAssetId_", type: "uint256" },
-      { indexed: true, internalType: "address", name: "owner_", type: "address" },
-      { indexed: false, internalType: "string", name: "name_", type: "string" },
-      { indexed: true, internalType: "uint64", name: "ipAssetType_", type: "uint64" },
-      { indexed: false, internalType: "bytes32", name: "hash_", type: "bytes32" },
-    ],
-    name: "IPAssetRegistered",
-    type: "event",
-  },
-] as const;
+];
 
-export const ipAssetRegistryReadable = formatAbi(ipAssetRegistryAbi);
+export const storyProtocolReadable = formatAbi(storyProtocolAbi);
 
-export const ipAssetRegistryConfig = {
-  abi: parseAbi(ipAssetRegistryReadable),
+export const storyProtocolConfig = {
+  abi: parseAbi(storyProtocolReadable),
   address: getAddress(
-    process.env.IPASSSET_REGISTRY_CONTRACT ||
-      process.env.NEXT_PUBLIC_IPASSSET_REGISTRY_CONTRACT ||
-      "",
+    process.env.STORY_PROTOCOL_CONTRACT || process.env.NEXT_PUBLIC_STORY_PROTOCOL_CONTRACT || "",
   ),
 };

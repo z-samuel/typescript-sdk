@@ -14,22 +14,6 @@ export type Hook = {
 };
 
 /**
- * todo wait doc update
- * Request type for hook.register method.
- *
- * @public
- */
-export type RegisterHookRequest = {};
-
-/**
- * todo wait doc update
- * Response type for hook.register method.
- *
- * @public
- */
-export type RegisterHookResponse = {};
-
-/**
  * Request type for hook.get method.
  *
  * @public

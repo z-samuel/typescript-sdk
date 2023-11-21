@@ -34,29 +34,4 @@ describe("Relationship Functions", () => {
 
     client = StoryClient.newClient(config);
   });
-
-  describe("Is Relationship Expired", async function () {
-    it("should check if relationship is expired and return result", async () => {
-      await expect(client.relationship.isRelationshipExpired(mockRequest)).to.not.be.rejected;
-    });
-  });
-
-  describe("Is Related", async function () {
-    it("should check if two entities are related and return result", async () => {
-      await expect(client.relationship.isRelated(mockRequest)).to.not.be.rejected;
-    });
-  });
-
-  describe("Relate", async function () {
-    it("should create a relationship and return txHash", async () => {
-      await client.relationship.relate(mockRequest);
-      await expect(client.relationship.relate(mockRequest)).to.not.be.rejected;
-    });
-  });
-
-  describe.skip("Unrelate", async function () {
-    it("should unrelate and return txHash", async () => {
-      await client.relationship.unrelate(mockRequest);
-    });
-  });
 });
