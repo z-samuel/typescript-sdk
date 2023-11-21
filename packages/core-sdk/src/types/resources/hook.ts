@@ -1,4 +1,4 @@
-import { QueryOptions } from "./helper";
+import { QueryOptions } from "../options";
 
 /**
  * Core data model for Hook.

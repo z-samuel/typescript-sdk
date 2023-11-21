@@ -1,6 +1,6 @@
 import { ResourceType } from "../../enums/ResourceType";
 import { ActionType } from "../../enums/ActionType";
-import { QueryOptions } from "./helper";
+import { QueryOptions } from "../options";
 
 /**
  * Core data model for transactions.

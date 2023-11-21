@@ -53,3 +53,19 @@ export type {
   GetTransactionResponse,
   ListTransactionResponse,
 } from "./types/resources/transaction";
+
+export type {
+  Module,
+  GetModuleRequest,
+  GetModuleResponse,
+  ListModuleRequest,
+  ListModuleResponse,
+} from "./types/resources/module";
+
+export type {
+  Hook,
+  GetHookRequest,
+  GetHookResponse,
+  ListHookRequest,
+  ListHookResponse,
+} from "./types/resources/hook";

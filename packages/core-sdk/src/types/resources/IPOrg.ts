@@ -1,4 +1,4 @@
-import { QueryOptions, TxOptions } from "./helper";
+import { QueryOptions, TxOptions } from "../options";
 
 /**
  * Core data model for franchise.

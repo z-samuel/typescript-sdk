@@ -1,5 +1,5 @@
 import { Hook } from "./hook";
-import { QueryOptions } from "./helper";
+import { QueryOptions } from "../options";
 
 /**
  * Core data model for Module.

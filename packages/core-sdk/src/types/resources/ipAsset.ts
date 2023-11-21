@@ -1,5 +1,5 @@
 import { IPAssetType } from "../../enums/IPAssetType";
-import { QueryOptions, TxOptions } from "./helper";
+import { QueryOptions, TxOptions } from "../options";
 
 /**
  * Core data model for IP Asset.

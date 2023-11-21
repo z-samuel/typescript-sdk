@@ -3,7 +3,7 @@ import { isAddress, PublicClient } from "viem";
 
 import { GetIPOrgRequest, GetIPOrgResponse, ListIPOrgResponse } from "../types/resources/IPOrg";
 import { handleError } from "../utils/errors";
-import { QueryOptions } from "../types/resources/helper";
+import { QueryOptions } from "../types/options";
 
 /**
  * IPOrgReadOnlyClient allows you to view, search IPOrgs on

@@ -3,7 +3,7 @@ import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
-import { QueryOptions } from "../../src/types/resources/helper";
+import { QueryOptions } from "../../src/types/options";
 
 dotenv.config();
 chai.use(chaiAsPromised);
