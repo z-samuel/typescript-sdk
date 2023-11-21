@@ -27,7 +27,7 @@ describe(`Test IPOrgReadOnlyClient`, function () {
     it("should return ipOrgClient when the ipOrgClient id is valid", async function () {
       axiosMock.get = sinon.stub().returns({
         data: {
-          iporg: {
+          ipOrg: {
             id: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
             name: "Star Wars",
             symbol: "STAR",
@@ -43,8 +43,8 @@ describe(`Test IPOrgReadOnlyClient`, function () {
         ipOrgId: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
       });
 
-      expect(response.iporg.id).to.equal("0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d");
-      expect(response.iporg.name).to.equal("Star Wars");
+      expect(response.ipOrg.id).to.equal("0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d");
+      expect(response.ipOrg.name).to.equal("Star Wars");
     });
 
     it("should throw error", async function () {

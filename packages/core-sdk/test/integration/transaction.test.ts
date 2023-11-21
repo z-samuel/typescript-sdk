@@ -3,6 +3,8 @@ import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src/index";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
+import { QueryOptions } from "../../src/types/resources/helper";
+import { ListTransactionRequest } from "../../src/types/resources/transaction";
 
 dotenv.config();
 chai.use(chaiAsPromised);
@@ -20,7 +22,14 @@ describe("Transaction client integration tests", () => {
 
   describe("List Transactions", async function () {
     it("should return array of transactions", async () => {
-      const response = await client.transaction.list();
+      const req = {
+        options: {
+          limit: 10,
+          offset: 0,
+        },
+      } as ListTransactionRequest;
+
+      const response = await client.transaction.list(req);
       expect(response).to.have.property("transactions");
       expect(response.transactions).to.be.an("array"); // Collection[]
 
@@ -61,7 +70,7 @@ describe("Transaction client integration tests", () => {
   describe("Get Transaction", async function () {
     it("should return transaction from request transaction id", async () => {
       const response = await client.transaction.get({
-        transactionId: "1",
+        transactionId: "0x158f74772af1bf9e5d1eb9d6633bb6a602eea97bbbd552b16696d7d2d3fa007703000000",
       });
       expect(response).to.have.property("transaction");
 

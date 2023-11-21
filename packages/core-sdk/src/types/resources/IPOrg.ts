@@ -30,7 +30,7 @@ export type GetIPOrgRequest = {
  * @public
  */
 export type GetIPOrgResponse = {
-  iporg: IPOrg;
+  ipOrg: IPOrg;
 };
 
 /**

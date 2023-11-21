@@ -30,7 +30,7 @@ describe("IP Asset Read Only Functions", () => {
   describe("List IP assets", async function () {
     it("should return a list of IP assets successfully upon query", async () => {
       const response = await client.ipAsset.list({
-        ipOrgId: "7",
+        ipOrgId: "0xde493e03d2de0cd7820b4f580beced57296b0009",
       });
       expect(response).is.not.null;
     });
