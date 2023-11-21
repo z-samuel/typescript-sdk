@@ -6,6 +6,7 @@ import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { TransactionClient } from "../../../src/resources/transaction";
 import { PublicClient, WalletClient } from "viem";
+import { ActionType } from "../../../src/enums/ActionType";
 
 chai.use(chaiAsPromised);
 
@@ -36,7 +37,7 @@ describe("Test TransactionClient", function () {
             ipOrgId: "7",
             resourceId: "1",
             resourceType: "IPAsset",
-            actionType: "Create",
+            actionType: ActionType.CREATE,
             creator: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
             createdAt: "0001-01-01T00:00:00Z",
           },
@@ -75,7 +76,7 @@ describe("Test TransactionClient", function () {
               ipOrgId: "7",
               resourceId: "1",
               resourceType: "IPAsset",
-              actionType: "Create",
+              actionType: ActionType.CONFIGURE,
               creator: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
               createdAt: "0001-01-01T00:00:00Z",
             },
@@ -85,7 +86,7 @@ describe("Test TransactionClient", function () {
               ipOrgId: "7",
               resourceId: "2",
               resourceType: "License",
-              actionType: "Create",
+              actionType: ActionType.REGISTER,
               creator: "0xd84316a1b6f40902c17b8177854cdaeb3c957daf",
               createdAt: "0001-01-01T00:00:00Z",
             },

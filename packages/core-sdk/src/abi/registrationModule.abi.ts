@@ -17,6 +17,7 @@ export const registrationModuleAbi = [
       { indexed: false, internalType: "string", name: "name_", type: "string" },
       { indexed: true, internalType: "uint64", name: "ipAssetType_", type: "uint64" },
       { indexed: false, internalType: "bytes32", name: "hash_", type: "bytes32" },
+      { indexed: false, internalType: "string", name: "mediaUrl_", type: "string" },
     ],
     name: "IPAssetRegistered",
     type: "event",

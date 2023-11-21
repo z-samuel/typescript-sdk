@@ -73,7 +73,7 @@ export async function waitTxAndFilterLog<
         topics: log.topics as [signature: Hex, ...args: TTopics],
       });
     } catch (e) {
-      // no action
+      continue;
     }
   }
 

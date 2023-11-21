@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { StoryClient, Environment } from "../../src";
-import { Client } from "../../src/types/client";
+import { Client, ReadOnlyClient } from "../../src/types/client";
 import { privateKeyToAccount, generatePrivateKey } from "viem/accounts";
 import { Account } from "viem";
 
@@ -40,11 +40,15 @@ describe("Test StoryClient", function () {
 
   describe("Test getters", function () {
     let client: Client;
+    let clientRO: ReadOnlyClient;
 
     beforeEach(function () {
       client = StoryClient.newClient({
         environment: Environment.TEST,
         account: privateKeyToAccount(generatePrivateKey()),
+      });
+      clientRO = StoryClient.newReadOnlyClient({
+        environment: Environment.TEST,
       });
     });
 
@@ -93,6 +97,30 @@ describe("Test StoryClient", function () {
         const platform1 = client.platform;
         const platform2 = client.platform;
         expect(platform1).to.be.equal(platform2);
+      });
+    });
+
+    describe("Test module getter", function () {
+      it("should return the same module when every time it's called", function () {
+        const module1 = client.module;
+        const module2 = client.module;
+        expect(module1).to.be.equal(module2);
+
+        const moduleRO1 = clientRO.module;
+        const moduleRO2 = clientRO.module;
+        expect(moduleRO1).to.be.equal(moduleRO2);
+      });
+    });
+
+    describe("Test hook getter", function () {
+      it("should return the same hook when every time it's called", function () {
+        const hook1 = client.hook;
+        const hook2 = client.hook;
+        expect(hook1).to.be.equal(hook2);
+
+        const hookRO1 = clientRO.hook;
+        const hookRO2 = clientRO.hook;
+        expect(hookRO1).to.be.equal(hookRO2);
       });
     });
   });

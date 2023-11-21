@@ -12,6 +12,7 @@ chai.use(chaiAsPromised);
 
 describe("IPOrg Functions", () => {
   let client: Client;
+  let senderAddress: string;
 
   before(function () {
     const config: StoryConfig = {
@@ -21,17 +22,18 @@ describe("IPOrg Functions", () => {
       account: privateKeyToAccount((process.env.WALLET_PRIVATE_KEY || "0x") as Hex),
     };
 
+    senderAddress = config.account.address;
     client = StoryClient.newClient(config);
   });
 
   describe("Create IPOrg", async function () {
     it("should not throw error when creating a ipOrg", async () => {
-      const waitForTransaction: boolean = false;
+      const waitForTransaction: boolean = true;
       const response = await expect(
         client.ipOrg.register({
           name: "Star Wars",
           symbol: "STAR",
-          owner: "0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab",
+          owner: senderAddress,
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
             waitForTransaction: waitForTransaction,

@@ -4,7 +4,7 @@ import { StoryClient, StoryConfig, Environment, IPAssetType } from "../../src";
 import * as dotenv from "dotenv";
 import { Client } from "../../src/types/client";
 import { sepolia } from "viem/chains";
-import { Hex, http } from "viem";
+import { Account, Hex, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();
@@ -28,13 +28,13 @@ describe("IP Asset Functions", () => {
 
   describe("Create IP Asset", async function () {
     it("should not throw error when creating an IP Asset", async () => {
-      const waitForTransaction: boolean = false;
+      const waitForTransaction: boolean = true;
       const response = await expect(
         client.ipAsset.register({
           name: "Test",
           type: 0,
           ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
-          owner: "0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab",
+          owner: senderAddress,
           hash: "",
           mediaUrl: "",
           txOptions: {
