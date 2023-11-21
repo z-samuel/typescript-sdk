@@ -2,6 +2,10 @@ name: Build and Test
 
 on:
   workflow_call:
+    inputs:
+      sha:
+        required: true
+        type: string
     secrets:
       API_BASE_URL:
         required: true
@@ -39,7 +43,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          ref: ${{ inputs.sha }}
 
       - uses: pnpm/action-setup@v2.0.1
         with:
