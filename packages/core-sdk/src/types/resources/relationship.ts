@@ -1,3 +1,5 @@
+import { QueryOptions, TxOptions } from "../options";
+
 /**
  * Core type for relationship IPAsset.
  *
@@ -80,4 +82,88 @@ export type RelationshipIsRelatedRequest = {
  */
 export type RelationshipIsRelatedResponse = {
   result: boolean;
+};
+
+enum Relatables {
+  UNDEFINED,
+  IPA,
+  IPORG_ENTRY,
+  LICENSE,
+  ADDRESS,
+  EXTERNAL_NFT,
+}
+
+export interface RelatedElements {
+  src: Relatables;
+  dst: Relatables;
+}
+
+export type Relationship = {
+  id: string;
+  type: string; // i.e. "APPEARS_IN"
+  typeId: string;
+  srcContract: string;
+  srcTokenId: string;
+  srcName?: string;
+  dstContract: string;
+  dstTokenId: string;
+  dstName?: string;
+  ttl?: number; // based in seconds
+  registeredAt: string; // ISO 8601
+  txHash: string;
+};
+
+export type RelationshipRegisterRequest = {
+  ipOrgId: string;
+  relType: string;
+  srcContract: string;
+  srcTokenId: string;
+  srcType?: string;
+  dstContract: string;
+  dstTokenId: string;
+  dstType?: string;
+  preHookData: Record<string, unknown>[];
+  postHookData: Record<string, unknown>[];
+  txOptions?: TxOptions;
+};
+
+export type RelationshipRegisterResponse = {
+  txHash: string;
+  relationshipId?: string;
+  success?: boolean;
+};
+
+export type RelationshipGetRequest = {
+  relationshipId: string;
+  options?: QueryOptions;
+};
+
+export type RelationshipGetResponse = {
+  relationship: Relationship;
+};
+
+export type RelationshipListRequest = {
+  tokenId: string;
+  contract?: string;
+  options?: QueryOptions;
+};
+export type RelationshipListResponse = {
+  relationships: Relationship[];
+};
+
+export type RelationshipRegisterTypeRequest = {
+  ipOrgId: string;
+  relType: string;
+  relatedElements: RelatedElements;
+  allowedSrcs: string[];
+  allowedDsts: string[];
+  preHooksConfig: Record<string, unknown>[];
+  postHooksConfig: Record<string, unknown>[];
+  txOptions?: TxOptions;
+};
+
+export type RelationshipRegisterTypeResponse = {
+  txHash: string;
+  success?: boolean;
+  relationshipId?: string;
 };

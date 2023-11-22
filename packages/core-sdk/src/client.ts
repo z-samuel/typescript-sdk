@@ -20,6 +20,7 @@ import { ModuleReadOnlyClient } from "./resources/moduleReadOnly";
 import { HookClient } from "./resources/hook";
 import { HookReadOnlyClient } from "./resources/hookReadOnly";
 import { PlatformClient } from "./utils/platform";
+import { RelationshipClient } from "./resources/relationship";
 
 if (typeof process !== "undefined") {
   dotenv.config();
@@ -110,7 +111,11 @@ export class StoryClient {
   }
 
   private initRelationship(): void {
-    this._relationship = new RelationshipReadOnlyClient(this.httpClient, this.rpcClient);
+    if (this.isReadOnly) {
+      this._relationship = new RelationshipReadOnlyClient(this.httpClient, this.rpcClient);
+    } else {
+      this._relationship = new RelationshipClient(this.httpClient, this.rpcClient, this.wallet!);
+    }
   }
 
   private initIpAsset(): void {
@@ -173,7 +178,7 @@ export class StoryClient {
    *
    * @returns the RelationshipClient instance
    */
-  public get relationship(): RelationshipReadOnlyClient {
+  public get relationship(): RelationshipClient | RelationshipReadOnlyClient {
     if (this._relationship === null) {
       this.initRelationship();
     }
