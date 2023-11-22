@@ -1,4 +1,3 @@
-import { IPAssetType } from "../../enums/IPAssetType";
 import { QueryOptions, TxOptions } from "../options";
 
 /**
@@ -9,12 +8,11 @@ import { QueryOptions, TxOptions } from "../options";
 export type IPAsset = {
   id: string;
   name: string;
-  type: IPAssetType;
+  type: number;
   ipOrgId: string;
   owner: string;
-  metadataUrl: string;
+  mediaUrl: string;
   contentHash?: string;
-  data?: string;
   createdAt: string; // ISO 8601
   txHash: string;
 };
@@ -38,28 +36,28 @@ export type GetIpAssetResponse = {
 };
 
 /**
- * Request type for ipAsset.register method.
+ * Request type for ipAsset.create method.
  *
  * @public
  */
-export type RegisterIpAssetRequest = {
+export type CreateIpAssetRequest = {
   name: string;
   type: number;
   ipOrgId: string;
   owner: string;
-  hash?: string;
   mediaUrl?: string;
+  contentHash?: string;
   preHookData?: Array<Record<string, unknown>>;
   postHookData?: Array<Record<string, unknown>>;
   txOptions?: TxOptions;
 };
 
 /**
- * Response type for ipAsset.register method.
+ * Response type for ipAsset.create method.
  *
  * @public
  */
-export type RegisterIpAssetResponse = {
+export type CreateIpAssetResponse = {
   txHash: string;
   ipAssetId?: string;
 };

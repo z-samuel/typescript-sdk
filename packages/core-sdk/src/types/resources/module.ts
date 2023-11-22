@@ -9,9 +9,10 @@ import { QueryOptions } from "../options";
 export type Module = {
   id: string;
   ipOrgId: string;
-  interface: string;
-  preHooks: Hook[];
-  postHooks: Hook[];
+  moduleKey: string;
+  interface?: string;
+  preHooks?: Hook[];
+  postHooks?: Hook[];
 };
 
 /**

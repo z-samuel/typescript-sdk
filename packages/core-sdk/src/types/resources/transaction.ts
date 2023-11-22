@@ -11,11 +11,11 @@ export type Transaction = {
   id: string;
   txHash: string;
   ipOrgId: string;
-  creator: string;
+  initiator: string;
   resourceId: string;
   resourceType: ResourceType;
   actionType: ActionType;
-  createdAt: string; // ISO8601
+  createdAt: string; // ISO 8601
 };
 
 /**

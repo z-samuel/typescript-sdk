@@ -1,9 +1,13 @@
 import { AxiosInstance } from "axios";
 import { isAddress, PublicClient } from "viem";
 
-import { GetIPOrgRequest, GetIPOrgResponse, ListIPOrgResponse } from "../types/resources/IPOrg";
+import {
+  GetIPOrgRequest,
+  GetIPOrgResponse,
+  ListIPOrgRequest,
+  ListIPOrgResponse,
+} from "../types/resources/IPOrg";
 import { handleError } from "../utils/errors";
-import { QueryOptions } from "../types/options";
 
 /**
  * IPOrgReadOnlyClient allows you to view, search IPOrgs on
@@ -41,9 +45,9 @@ export class IPOrgReadOnlyClient {
    *
    * @returns the response object that contains a list of IPOrgs
    */
-  public async list(options?: QueryOptions): Promise<ListIPOrgResponse> {
+  public async list(request?: ListIPOrgRequest): Promise<ListIPOrgResponse> {
     try {
-      const response = await this.httpClient.post(`/protocol/iporg`, options);
+      const response = await this.httpClient.post(`/protocol/iporg`, request);
       return response.data as ListIPOrgResponse;
     } catch (error: unknown) {
       handleError(error, "Failed to list IPOrgs.");

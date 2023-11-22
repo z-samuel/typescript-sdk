@@ -9,7 +9,7 @@ import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();
 chai.use(chaiAsPromised);
-chai.config.truncateThreshold = 0
+chai.config.truncateThreshold = 0;
 
 describe("IP Asset Functions", () => {
   let client: Client;
@@ -31,19 +31,18 @@ describe("IP Asset Functions", () => {
     it("should not throw error when creating an IP Asset", async () => {
       const waitForTransaction: boolean = true;
       const response = await expect(
-        client.ipAsset.register({
+        client.ipAsset.create({
           name: "Test",
           type: 0,
           ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
           owner: senderAddress,
-          hash: "",
+          contentHash: "",
           mediaUrl: "",
           txOptions: {
             waitForTransaction: waitForTransaction,
           },
         }),
       ).to.not.be.rejected;
-      console.log("Tx hash: " + response.txHash)
 
       expect(response.txHash).to.be.a("string");
       expect(response.txHash).not.empty;

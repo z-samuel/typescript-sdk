@@ -2,6 +2,7 @@
  * @public
  */
 export enum ResourceType {
+  UNSPECIFIED,
   IP_ORG,
   IP_ASSET,
   LICENSE,

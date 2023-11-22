@@ -9,7 +9,7 @@ import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();
 chai.use(chaiAsPromised);
-chai.config.truncateThreshold = 0
+chai.config.truncateThreshold = 0;
 
 describe("IPOrg Functions", () => {
   let client: Client;
@@ -31,7 +31,7 @@ describe("IPOrg Functions", () => {
     it("should not throw error when creating a ipOrg", async () => {
       const waitForTransaction: boolean = true;
       const response = await expect(
-        client.ipOrg.register({
+        client.ipOrg.create({
           name: "Star Wars",
           symbol: "STAR",
           owner: senderAddress,
@@ -41,7 +41,6 @@ describe("IPOrg Functions", () => {
           },
         }),
       ).to.not.be.rejected;
-      console.log("Tx hash: " + response.txHash)
 
       expect(response.txHash).to.be.a("string");
       expect(response.txHash).not.empty;

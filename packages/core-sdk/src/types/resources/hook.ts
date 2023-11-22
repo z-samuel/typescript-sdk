@@ -8,7 +8,9 @@ import { QueryOptions } from "../options";
 export type Hook = {
   id: string;
   moduleId: string;
-  interface: string;
+  interface?: string;
+  hookType: number;
+  registryKey: string;
   registeredAt: string; // ISO 8601
   txHash: string;
 };
