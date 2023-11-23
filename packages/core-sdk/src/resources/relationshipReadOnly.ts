@@ -2,10 +2,10 @@ import { AxiosInstance, AxiosResponse } from "axios";
 import { PublicClient } from "viem";
 
 import {
-  RelationshipGetRequest,
-  RelationshipGetResponse,
-  RelationshipListRequest,
-  RelationshipListResponse,
+  GetRelationshipRequest,
+  GetRelationshipResponse,
+  ListRelationshipRequest,
+  ListRelationshipResponse,
 } from "../types/resources/relationship";
 import { isIntegerString } from "../utils/utils";
 import { handleError } from "../utils/errors";
@@ -28,7 +28,7 @@ export class RelationshipReadOnlyClient {
    * @param relationshipId - The ID of the relationship to retrieve.
    * @returns A Promise that resolves to the RelationshipGetResponse.
    */
-  public async get(request: RelationshipGetRequest): Promise<RelationshipGetResponse> {
+  public async get(request: GetRelationshipRequest): Promise<GetRelationshipResponse> {
     try {
       if (!isIntegerString(request.relationshipId)) {
         throw new Error(
@@ -40,7 +40,7 @@ export class RelationshipReadOnlyClient {
         `/protocol/relationship/${request.relationshipId}`,
       );
 
-      return response.data as RelationshipGetResponse;
+      return response.data as GetRelationshipResponse;
     } catch (error: unknown) {
       handleError(error, `Failed to get relationship`);
     }
@@ -51,7 +51,7 @@ export class RelationshipReadOnlyClient {
    *
    * @returns A Promise that resolves to the RelationshipListResponse.
    */
-  public async list(request: RelationshipListRequest): Promise<RelationshipListResponse> {
+  public async list(request: ListRelationshipRequest): Promise<ListRelationshipResponse> {
     try {
       const response: AxiosResponse = await this.httpClient.post(
         `/protocol/relationship`,
@@ -67,7 +67,7 @@ export class RelationshipReadOnlyClient {
         },
       );
 
-      return response.data as RelationshipListResponse;
+      return response.data as ListRelationshipResponse;
     } catch (error: unknown) {
       handleError(error, `Failed to list relationships`);
     }

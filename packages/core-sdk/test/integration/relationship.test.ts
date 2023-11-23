@@ -7,8 +7,8 @@ import { privateKeyToAccount } from "viem/accounts";
 import { getAddress, Hex, http } from "viem";
 import { sepolia } from "viem/chains";
 import {
-  RelationshipRegisterRequest,
-  RelationshipRegisterTypeRequest,
+  RegisterRelationshipRequest,
+  RegisterRelationshipTypeRequest,
 } from "../../src/types/resources/relationship";
 
 dotenv.config();
@@ -19,7 +19,7 @@ describe("Relationship Functions", () => {
   let client: Client;
 
   // TODO: need actually IPAsset data for it to work
-  const mockRegisterRequest: RelationshipRegisterRequest = {
+  const mockRegisterRequest: RegisterRelationshipRequest = {
     ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
     relType: "appears_in",
     srcContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
@@ -33,7 +33,7 @@ describe("Relationship Functions", () => {
     },
   };
 
-  const mockRegisterTypeRequest: RelationshipRegisterTypeRequest = {
+  const mockRegisterTypeRequest: RegisterRelationshipTypeRequest = {
     ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
     relType: "appears_in",
     relatedElements: {

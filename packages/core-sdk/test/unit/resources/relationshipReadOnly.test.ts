@@ -6,12 +6,11 @@ import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
 import { AxiosInstance } from "axios";
 import { PublicClient, WalletClient, stringToHex } from "viem";
-import { SinonStub } from "sinon";
 import {
-  RelationshipGetRequest,
-  RelationshipGetResponse,
-  RelationshipListRequest,
-  RelationshipListResponse,
+  GetRelationshipRequest,
+  GetRelationshipResponse,
+  ListRelationshipRequest,
+  ListRelationshipResponse,
 } from "../../../src/types/resources/relationship";
 
 chai.use(chaiAsPromised);
@@ -34,7 +33,7 @@ describe("Test RelationshipReadOnlyClient", function () {
   });
 
   describe("test RelationshipClient.get", () => {
-    const mockGetRequest: RelationshipGetRequest = {
+    const mockGetRequest: GetRelationshipRequest = {
       relationshipId: "1",
       options: {
         pagination: {
@@ -45,7 +44,7 @@ describe("Test RelationshipReadOnlyClient", function () {
     };
 
     it("should retrieve a relationship by its ID", async () => {
-      const mockResponse: { data: RelationshipGetResponse } = {
+      const mockResponse: { data: GetRelationshipResponse } = {
         data: {
           relationship: {
             id: "rel-1234",
@@ -89,7 +88,7 @@ describe("Test RelationshipReadOnlyClient", function () {
   });
 
   describe("test RelationshipClient.list", () => {
-    const mockListRequest: RelationshipListRequest = {
+    const mockListRequest: ListRelationshipRequest = {
       tokenId: "token123",
       options: {
         pagination: {
@@ -100,7 +99,7 @@ describe("Test RelationshipReadOnlyClient", function () {
     };
 
     it("should list all relationships", async () => {
-      const mockResponse: { data: RelationshipListResponse } = {
+      const mockResponse: { data: ListRelationshipResponse } = {
         data: {
           relationships: [
             {

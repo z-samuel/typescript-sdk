@@ -6,13 +6,6 @@ import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
 import { AxiosInstance } from "axios";
 import { PublicClient, WalletClient, stringToHex } from "viem";
-import { SinonStub } from "sinon";
-import {
-  RelationshipGetRequest,
-  RelationshipGetResponse,
-  RelationshipListRequest,
-  RelationshipListResponse,
-} from "../../../src/types/resources/relationship";
 
 chai.use(chaiAsPromised);
 

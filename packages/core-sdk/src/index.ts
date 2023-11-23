@@ -35,17 +35,17 @@ export type {
   ListLicenseResponse,
 } from "./types/resources/license";
 
-// export type {
-//   Relationship,
-//   RegisterRelationshipRequest,
-//   RegisterRelationshipResponse,
-//   ListRelationshipRequest,
-//   ListRelationshipResponse,
-//   GetRelationshipRequest,
-//   GetRelationshipResponse,
-//   CreateNewTypeRelationshipRequest,
-//   CreateNewTypeRelationshipResponse,
-// } from "./types/resources/relationship";
+export type {
+  Relationship,
+  RegisterRelationshipRequest,
+  RegisterRelationshipResponse,
+  ListRelationshipRequest,
+  ListRelationshipResponse,
+  GetRelationshipRequest,
+  GetRelationshipResponse,
+  RegisterRelationshipTypeRequest,
+  RegisterRelationshipTypeResponse,
+} from "./types/resources/relationship";
 
 export type {
   Transaction,

@@ -2,10 +2,10 @@ import { getAddress, PublicClient, WalletClient } from "viem";
 import { AxiosInstance } from "axios";
 
 import {
-  RelationshipRegisterTypeRequest,
-  RelationshipRegisterTypeResponse,
-  RelationshipRegisterRequest,
-  RelationshipRegisterResponse,
+  RegisterRelationshipTypeRequest,
+  RegisterRelationshipTypeResponse,
+  RegisterRelationshipRequest,
+  RegisterRelationshipResponse,
 } from "../types/resources/relationship";
 import { handleError } from "../utils/errors";
 import { RelationshipReadOnlyClient } from "./relationshipReadOnly";
@@ -31,8 +31,8 @@ export class RelationshipClient extends RelationshipReadOnlyClient {
    * @returns the response object that contains results from the register relationship action
    */
   public async register(
-    request: RelationshipRegisterRequest,
-  ): Promise<RelationshipRegisterResponse> {
+    request: RegisterRelationshipRequest,
+  ): Promise<RegisterRelationshipResponse> {
     try {
       const { request: call } = await this.rpcClient.simulateContract({
         ...storyProtocolConfig,
@@ -77,8 +77,8 @@ export class RelationshipClient extends RelationshipReadOnlyClient {
    * @returns the response object that contains results from the register relationship type action
    */
   public async registerRelationshipType(
-    request: RelationshipRegisterTypeRequest,
-  ): Promise<RelationshipRegisterTypeResponse> {
+    request: RegisterRelationshipTypeRequest,
+  ): Promise<RegisterRelationshipTypeResponse> {
     try {
       const { request: call } = await this.rpcClient.simulateContract({
         ...storyProtocolConfig,

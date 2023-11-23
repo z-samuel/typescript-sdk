@@ -113,7 +113,7 @@ export type Relationship = {
   txHash: string;
 };
 
-export type RelationshipRegisterRequest = {
+export type RegisterRelationshipRequest = {
   ipOrgId: string;
   relType: string;
   srcContract: string;
@@ -127,31 +127,31 @@ export type RelationshipRegisterRequest = {
   txOptions?: TxOptions;
 };
 
-export type RelationshipRegisterResponse = {
+export type RegisterRelationshipResponse = {
   txHash: string;
   relationshipId?: string;
   success?: boolean;
 };
 
-export type RelationshipGetRequest = {
+export type GetRelationshipRequest = {
   relationshipId: string;
   options?: QueryOptions;
 };
 
-export type RelationshipGetResponse = {
+export type GetRelationshipResponse = {
   relationship: Relationship;
 };
 
-export type RelationshipListRequest = {
+export type ListRelationshipRequest = {
   tokenId: string;
   contract?: string;
   options?: QueryOptions;
 };
-export type RelationshipListResponse = {
+export type ListRelationshipResponse = {
   relationships: Relationship[];
 };
 
-export type RelationshipRegisterTypeRequest = {
+export type RegisterRelationshipTypeRequest = {
   ipOrgId: string;
   relType: string;
   relatedElements: RelatedElements;
@@ -162,7 +162,7 @@ export type RelationshipRegisterTypeRequest = {
   txOptions?: TxOptions;
 };
 
-export type RelationshipRegisterTypeResponse = {
+export type RegisterRelationshipTypeResponse = {
   txHash: string;
   success?: boolean;
   relationshipId?: string;

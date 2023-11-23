@@ -3,7 +3,7 @@ import chaiAsPromised from "chai-as-promised";
 import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src/index";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
-import { RelationshipListRequest } from "../../src/types/resources/relationship";
+import { ListRelationshipRequest } from "../../src/types/resources/relationship";
 
 dotenv.config();
 chai.use(chaiAsPromised);
@@ -44,7 +44,7 @@ describe("Relationship Read Only Functions", () => {
   });
 
   describe("List Relationships", async function () {
-    const mockListRelationshipRequest: RelationshipListRequest = {
+    const mockListRelationshipRequest: ListRelationshipRequest = {
       tokenId: "2",
       options: {
         pagination: {
