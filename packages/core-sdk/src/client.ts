@@ -20,6 +20,7 @@ import { ModuleReadOnlyClient } from "./resources/moduleReadOnly";
 import { HookClient } from "./resources/hook";
 import { HookReadOnlyClient } from "./resources/hookReadOnly";
 import { PlatformClient } from "./utils/platform";
+import { LicenseClient } from "./resources/license";
 import { RelationshipClient } from "./resources/relationship";
 
 if (typeof process !== "undefined") {
@@ -127,7 +128,11 @@ export class StoryClient {
   }
 
   private initLicense(): void {
-    this._license = new LicenseReadOnlyClient(this.httpClient, this.rpcClient);
+    if (this.isReadOnly) {
+      this._license = new LicenseReadOnlyClient(this.httpClient, this.rpcClient);
+    } else {
+      this._license = new LicenseClient(this.httpClient, this.rpcClient, this.wallet!);
+    }
   }
 
   private initTransaction(): void {
@@ -203,14 +208,14 @@ export class StoryClient {
    * Getter for the license client. The client is lazily created when
    * this method is called.
    *
-   * @returns the IPOrgClient instance
+   * @returns the License instance
    */
-  public get license(): LicenseReadOnlyClient {
+  public get license(): LicenseClient | LicenseReadOnlyClient {
     if (this._license === null) {
       this.initLicense();
     }
 
-    return this._license as LicenseReadOnlyClient;
+    return this._license as LicenseClient | LicenseReadOnlyClient;
   }
 
   /**

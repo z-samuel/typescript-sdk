@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src/index";
+import { StoryClient, StoryReadOnlyConfig, Environment, ListLicenseRequest } from "../../src/index";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 
@@ -22,7 +22,7 @@ describe("License Read Only Functions", () => {
     it("should return a license when the license id is valid", async () => {
       await expect(
         client.license.get({
-          licenseId: "49", // Provide a valid license ID
+          licenseId: "5", // Provide a valid license ID
         }),
       ).to.not.be.rejected;
     });
@@ -38,9 +38,9 @@ describe("License Read Only Functions", () => {
   });
 
   describe("List Licenses", async function () {
-    const mockListLicenseRequest = {
-      franchiseId: "66",
-      ipAssetId: "49",
+    const mockListLicenseRequest: ListLicenseRequest = {
+      ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+      ipAssetId: "1",
     };
 
     it("should list all licenses", async () => {

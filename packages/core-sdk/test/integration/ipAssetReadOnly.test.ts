@@ -38,7 +38,6 @@ describe("IP Asset Read Only Functions", () => {
           },
         },
       });
-      console.log(response);
       expect(response).is.not.null;
     });
 

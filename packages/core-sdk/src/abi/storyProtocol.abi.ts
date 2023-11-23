@@ -21,6 +21,108 @@ export const storyProtocolAbi = [
   },
   {
     inputs: [
+      {
+        internalType: "address",
+        name: "ipOrg_",
+        type: "address",
+      },
+      {
+        components: [
+          {
+            internalType: "bool",
+            name: "isCommercial",
+            type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "parentLicenseId",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Licensing.LicenseCreation",
+        name: "params_",
+        type: "tuple",
+      },
+      {
+        internalType: "address",
+        name: "licensee_",
+        type: "address",
+      },
+      {
+        internalType: "bytes[]",
+        name: "preHooksData_",
+        type: "bytes[]",
+      },
+      {
+        internalType: "bytes[]",
+        name: "postHooksData_",
+        type: "bytes[]",
+      },
+    ],
+    name: "createLicenseNft",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "ipOrg_",
+        type: "address",
+      },
+      {
+        components: [
+          {
+            internalType: "bool",
+            name: "isCommercial",
+            type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "parentLicenseId",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Licensing.LicenseCreation",
+        name: "params_",
+        type: "tuple",
+      },
+      {
+        internalType: "uint256",
+        name: "ipaId_",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes[]",
+        name: "preHooksData_",
+        type: "bytes[]",
+      },
+      {
+        internalType: "bytes[]",
+        name: "postHooksData_",
+        type: "bytes[]",
+      },
+    ],
+    name: "createIpaBoundLicense",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "address", name: "ipOrg_", type: "address" },
       {
         components: [

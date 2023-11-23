@@ -28,9 +28,9 @@ export type {
   License,
   GetLicenseRequest,
   GetLicenseResponse,
-  CreateLicenseRequest,
+  CreateLicenseNftRequest,
+  CreateIpaBoundLicenseRequest,
   CreateLicenseResponse,
-  CreateLicenseRequestOptions,
   ListLicenseRequest,
   ListLicenseResponse,
 } from "./types/resources/license";

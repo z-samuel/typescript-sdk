@@ -36,7 +36,9 @@ export class LicenseReadOnlyClient {
         throw new Error(`Invalid licenseId. Must be an integer. But got: ${request.licenseId}`);
       }
 
-      const response: AxiosResponse = await this.httpClient.get(`/license/${request.licenseId}`);
+      const response: AxiosResponse = await this.httpClient.get(
+        `/protocol/license/${request.licenseId}`,
+      );
 
       return response.data as GetLicenseResponse;
     } catch (error: unknown) {
@@ -49,12 +51,15 @@ export class LicenseReadOnlyClient {
    *
    * @returns A Promise that resolves to the ListLicenseResponse.
    */
-  public async list(request: ListLicenseRequest): Promise<ListLicenseResponse> {
+  public async list(request?: ListLicenseRequest): Promise<ListLicenseResponse> {
     try {
-      const response: AxiosResponse = await this.httpClient.get(
-        `/license?franchiseId=${request.franchiseId}&ipAssetId=${request.ipAssetId}`,
-      );
-
+      const response: AxiosResponse = await this.httpClient.post("/protocol/license", request, {
+        params: {
+          ipOrgId: request?.ipOrgId,
+          ipAssetId: request?.ipAssetId,
+          options: request?.options,
+        },
+      });
       return response.data as ListLicenseResponse;
     } catch (error: unknown) {
       handleError(error, `Failed to get licenses`);

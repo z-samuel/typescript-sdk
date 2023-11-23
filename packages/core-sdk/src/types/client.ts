@@ -11,6 +11,7 @@ import { ModuleClient } from "../resources/module";
 import { HookReadOnlyClient } from "../resources/hookReadOnly";
 import { HookClient } from "../resources/hook";
 import { PlatformClient } from "../utils/platform";
+import { LicenseClient } from "../resources/license";
 import { RelationshipClient } from "../resources/relationship";
 
 export interface ReadOnlyClient {
@@ -27,7 +28,7 @@ export interface Client {
   hook: HookClient;
   module: ModuleClient;
   ipOrg: IPOrgClient;
-  license: LicenseReadOnlyClient;
+  license: LicenseClient;
   transaction: TransactionClient;
   ipAsset: IPAssetClient;
   relationship: RelationshipClient;
