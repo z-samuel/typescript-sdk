@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance } from "axios";
 import { PublicClient } from "viem";
 
 import { handleError } from "../utils/errors";
@@ -45,7 +45,10 @@ export class TransactionReadOnlyClient {
    */
   public async list(request?: ListTransactionRequest): Promise<ListTransactionResponse> {
     try {
-      const response: AxiosResponse = await this.httpClient.post(`/protocol/transaction`, request);
+      if (!request) {
+        request = {};
+      }
+      const response = await this.httpClient.post(`/protocol/transaction`, request);
       return response.data as ListTransactionResponse;
     } catch (error: unknown) {
       handleError(error, `Failed to get transactions`);

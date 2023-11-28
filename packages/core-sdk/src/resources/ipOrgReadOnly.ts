@@ -47,7 +47,10 @@ export class IPOrgReadOnlyClient {
    */
   public async list(request?: ListIPOrgRequest): Promise<ListIPOrgResponse> {
     try {
-      const response = await this.httpClient.post(`/protocol/iporg`, request);
+      if (!request) {
+        request = {};
+      }
+      const response = await this.httpClient.post("/protocol/iporg", request);
       return response.data as ListIPOrgResponse;
     } catch (error: unknown) {
       handleError(error, "Failed to list IPOrgs.");

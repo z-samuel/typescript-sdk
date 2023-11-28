@@ -65,6 +65,21 @@ describe("Transaction client integration tests", () => {
       expect(transaction2.resourceId).to.be.a("string");
       expect(transaction2.ipOrgId).to.be.a("string");
     });
+
+    it("should return a list of transactions successfully without options", async () => {
+      const response = await client.transaction.list();
+      expect(response).is.not.null;
+      expect(response.transactions.length).to.gt(0);
+    });
+
+    it("should return a list of transactions if the options are invalid", async () => {
+      const options = {
+        options: {},
+      } as ListTransactionRequest;
+      const response = await client.transaction.list(options);
+      expect(response).is.not.null;
+      expect(response.transactions.length).to.gt(0);
+    });
   });
 
   describe("Get Transaction", async function () {

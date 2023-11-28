@@ -65,6 +65,21 @@ describe("Module client integration tests", () => {
       expect(response.modules).to.be.an("array");
       expect(response.modules.length).to.equal(1);
     });
+
+    it("should return a list of modules successfully without options", async () => {
+      const response = await client.module.list();
+      expect(response).is.not.null;
+      expect(response.modules.length).to.gt(0);
+    });
+
+    it("should return a list of modules if the options are invalid", async () => {
+      const options = {
+        options: {},
+      } as ListModuleRequest;
+      const response = await client.module.list(options);
+      expect(response).is.not.null;
+      expect(response.modules.length).to.gt(0);
+    });
   });
 
   describe("Get Module", async function () {

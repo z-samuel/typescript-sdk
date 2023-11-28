@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src";
+import { StoryClient, StoryReadOnlyConfig, Environment, ListIpAssetRequest } from "../../src";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 
@@ -41,7 +41,7 @@ describe("IP Asset Read Only Functions", () => {
       expect(response).is.not.null;
     });
 
-    it("should return a list of IP assets whit pagination", async () => {
+    it("should return a list of IP assets with pagination", async () => {
       const response = await client.ipAsset.list({
         ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
         options: {
@@ -54,6 +54,21 @@ describe("IP Asset Read Only Functions", () => {
 
       expect(response).is.not.null;
       expect(response.ipAssets.length).to.equal(1);
+    });
+
+    it("should return a list of ipAssets successfully without options", async () => {
+      const response = await client.ipAsset.list();
+      expect(response).is.not.null;
+      expect(response.ipAssets.length).to.gt(0);
+    });
+
+    it("should return a list of ipAssets if the options are invalid", async () => {
+      const options = {
+        options: {},
+      } as ListIpAssetRequest;
+      const response = await client.ipAsset.list(options);
+      expect(response).is.not.null;
+      expect(response.ipAssets.length).to.gt(0);
     });
   });
 });

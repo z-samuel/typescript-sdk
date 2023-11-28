@@ -46,8 +46,11 @@ export class IPAssetReadOnlyClient {
    *
    * @returns the response object that contains results from listing query.
    */
-  public async list(request: ListIpAssetRequest): Promise<ListIpAssetResponse> {
+  public async list(request?: ListIpAssetRequest): Promise<ListIpAssetResponse> {
     try {
+      if (!request) {
+        request = {};
+      }
       const response = await this.httpClient.post(`/protocol/ipasset`, request);
       return response.data as ListIpAssetResponse;
     } catch (error) {

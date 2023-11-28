@@ -42,6 +42,13 @@ describe("IPOrg Read Only Functions", () => {
       } as ListIPOrgRequest;
       const response = await client.ipOrg.list(options);
       expect(response).is.not.null;
+      expect(response.ipOrgs.length).to.gt(0);
+    });
+
+    it("should return a list of ipOrgs successfully without options", async () => {
+      const response = await client.ipOrg.list();
+      expect(response).is.not.null;
+      expect(response.ipOrgs.length).to.gt(0);
     });
 
     it("should return a list of ipOrgs with pagination", async () => {
@@ -57,6 +64,15 @@ describe("IPOrg Read Only Functions", () => {
 
       expect(response).is.not.null;
       expect(response.ipOrgs.length).to.equal(1);
+    });
+
+    it("should return a list of ipOrgs if the options are invalid", async () => {
+      const options = {
+        options: {},
+      } as ListIPOrgRequest;
+      const response = await client.ipOrg.list(options);
+      expect(response).is.not.null;
+      expect(response.ipOrgs.length).to.gt(0);
     });
   });
 });

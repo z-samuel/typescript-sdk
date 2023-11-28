@@ -6,6 +6,7 @@ import * as sinon from "sinon";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient } from "viem";
+import { mock } from "node:test";
 
 chai.use(chaiAsPromised);
 
@@ -86,40 +87,51 @@ describe("Test ModuleReadOnlyClient", function () {
   });
 
   describe("Test moduleClient.list", async function () {
-    it("should return modules on a successful query", async function () {
-      axiosMock.post = sinon.stub().returns({
-        data: {
-          modules: [
-            {
-              id: "1",
-              ipOrgId: "7",
-              interface: "(address,uint)",
-              preHooks: [
-                {
-                  id: "1",
-                  moduleId: "0x1234514e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
-                  interface: "(uint,uint)",
-                  registeredAt: "0001-01-01T00:00:00Z",
-                  txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
-                },
-              ],
-              postHooks: [
-                {
-                  id: "1",
-                  moduleId: "0x1234514e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
-                  interface: "(uint,uint)",
-                  registeredAt: "0001-01-01T00:00:00Z",
-                  txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
-                },
-              ],
-            },
-          ],
-        },
-      });
+    const mockResponse = sinon.stub().returns({
+      data: {
+        modules: [
+          {
+            id: "1",
+            ipOrgId: "7",
+            interface: "(address,uint)",
+            preHooks: [
+              {
+                id: "1",
+                moduleId: "0x1234514e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
+                interface: "(uint,uint)",
+                registeredAt: "0001-01-01T00:00:00Z",
+                txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
+              },
+            ],
+            postHooks: [
+              {
+                id: "1",
+                moduleId: "0x1234514e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
+                interface: "(uint,uint)",
+                registeredAt: "0001-01-01T00:00:00Z",
+                txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
+              },
+            ],
+          },
+        ],
+      },
+    });
 
+    it("should return modules on a successful query", async function () {
+      axiosMock.post = mockResponse;
       const response = await moduleClient.list({
         ipOrgId: "7",
       });
+
+      expect(response.modules[0].ipOrgId).to.equal("7");
+      expect(response.modules[0].preHooks![0].moduleId).to.equal(
+        "0x1234514e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
+      );
+    });
+
+    it("should return modules without the request object", async function () {
+      axiosMock.post = mockResponse;
+      const response = await moduleClient.list();
 
       expect(response.modules[0].ipOrgId).to.equal("7");
       expect(response.modules[0].preHooks![0].moduleId).to.equal(

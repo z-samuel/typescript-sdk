@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance } from "axios";
 import { PublicClient } from "viem";
 
 import { handleError } from "../utils/errors";
@@ -45,7 +45,10 @@ export class ModuleReadOnlyClient {
    */
   public async list(request?: ListModuleRequest): Promise<ListModuleResponse> {
     try {
-      const response: AxiosResponse = await this.httpClient.post(`/protocol/module`, request, {
+      if (!request) {
+        request = {};
+      }
+      const response = await this.httpClient.post(`/protocol/module`, request, {
         params: {
           ipOrgId: request?.ipOrgId,
         },

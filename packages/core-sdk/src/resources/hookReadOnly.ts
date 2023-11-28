@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance } from "axios";
 import { PublicClient } from "viem";
 
 import { handleError } from "../utils/errors";
@@ -45,7 +45,10 @@ export class HookReadOnlyClient {
    */
   public async list(request?: ListHookRequest): Promise<ListHookResponse> {
     try {
-      const response: AxiosResponse = await this.httpClient.post(`/protocol/hook`, request, {
+      if (!request) {
+        request = {};
+      }
+      const response = await this.httpClient.post(`/protocol/hook`, request, {
         params: {
           moduleId: request?.moduleId,
         },

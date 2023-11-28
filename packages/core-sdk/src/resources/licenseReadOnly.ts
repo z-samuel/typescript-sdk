@@ -53,7 +53,10 @@ export class LicenseReadOnlyClient {
    */
   public async list(request?: ListLicenseRequest): Promise<ListLicenseResponse> {
     try {
-      const response: AxiosResponse = await this.httpClient.post("/protocol/license", request, {
+      if (!request) {
+        request = {};
+      }
+      const response = await this.httpClient.post("/protocol/license", request, {
         params: {
           ipOrgId: request?.ipOrgId,
           ipAssetId: request?.ipAssetId,

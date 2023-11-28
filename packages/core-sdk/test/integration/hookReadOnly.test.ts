@@ -67,6 +67,21 @@ describe("Hook client integration tests", () => {
       expect(response.hooks).to.be.an("array");
       expect(response.hooks.length).to.equal(1);
     });
+
+    it("should return a list of hooks successfully without options", async () => {
+      const response = await client.hook.list();
+      expect(response).is.not.null;
+      expect(response.hooks.length).to.gt(0);
+    });
+
+    it("should return a list of hooks if the options are invalid", async () => {
+      const options = {
+        options: {},
+      } as ListHookRequest;
+      const response = await client.hook.list(options);
+      expect(response).is.not.null;
+      expect(response.hooks.length).to.gt(0);
+    });
   });
 
   describe("Get Hook", async function () {

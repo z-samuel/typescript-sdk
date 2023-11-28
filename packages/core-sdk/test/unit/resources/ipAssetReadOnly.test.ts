@@ -73,27 +73,36 @@ describe("Test IpAssetReadOnlyClient", function () {
   });
 
   describe("Test ipAssetClient.list", async function () {
-    it("should return ipAsset on a successful query", async function () {
-      axiosMock.post = sinon.stub().returns({
-        data: {
-          ipAssets: [
-            {
-              id: "1",
-              name: "The Empire Strikes Back",
-              type: IPAssetType.STORY,
-              ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
-              owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-              metadataUrl: "https://arweave.net/R7-xPDAMqOhUSw3CM_UwXI7zdpQkzCCCUq3smzxyAaU",
-              createdAt: "2023-11-14T00:29:13Z",
-              txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
-            },
-          ],
-        },
-      });
+    const mockResponse = sinon.stub().returns({
+      data: {
+        ipAssets: [
+          {
+            id: "1",
+            name: "The Empire Strikes Back",
+            type: IPAssetType.STORY,
+            ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
+            owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
+            metadataUrl: "https://arweave.net/R7-xPDAMqOhUSw3CM_UwXI7zdpQkzCCCUq3smzxyAaU",
+            createdAt: "2023-11-14T00:29:13Z",
+            txHash: "0x00a1a14e0193144e1d7024428ee242c44e5cacdbd7458c629d17c6366f6c5cb6",
+          },
+        ],
+      },
+    });
 
+    it("should return ipAssets on a successful query", async function () {
+      axiosMock.post = mockResponse;
       const response = await ipAssetClient.list({
         ipOrgId: "7",
       });
+
+      expect(response.ipAssets[0].ipOrgId).to.equal("0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7");
+      expect(response.ipAssets[0].name).to.equal("The Empire Strikes Back");
+    });
+
+    it("should return ipAssets without the request object", async function () {
+      axiosMock.post = mockResponse;
+      const response = await ipAssetClient.list();
 
       expect(response.ipAssets[0].ipOrgId).to.equal("0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7");
       expect(response.ipAssets[0].name).to.equal("The Empire Strikes Back");

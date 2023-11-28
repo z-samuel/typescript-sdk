@@ -53,5 +53,20 @@ describe("License Read Only Functions", () => {
         expect.fail("Function should have thrown an error");
       } catch (error) {}
     });
+
+    it("should return a list of licenses successfully without options", async () => {
+      const response = await client.license.list();
+      expect(response).is.not.null;
+      expect(response.licenses.length).to.gt(0);
+    });
+
+    it("should return a list of ipAssets if the options are invalid", async () => {
+      const options = {
+        options: {},
+      } as ListLicenseRequest;
+      const response = await client.license.list(options);
+      expect(response).is.not.null;
+      expect(response.licenses.length).to.gt(0);
+    });
   });
 });

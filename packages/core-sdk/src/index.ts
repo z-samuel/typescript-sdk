@@ -11,6 +11,7 @@ export type {
   GetIPOrgResponse,
   CreateIPOrgRequest,
   CreateIPOrgResponse,
+  ListIPOrgRequest,
   ListIPOrgResponse,
 } from "./types/resources/IPOrg";
 
@@ -51,6 +52,7 @@ export type {
   Transaction,
   GetTransactionRequest,
   GetTransactionResponse,
+  ListTransactionRequest,
   ListTransactionResponse,
 } from "./types/resources/transaction";
 
