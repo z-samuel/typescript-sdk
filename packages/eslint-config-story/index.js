@@ -16,6 +16,7 @@ module.exports = {
         "no-implicit-coercion": ["error", { boolean: false }],
         "no-unused-expressions": "error",
         "no-useless-computed-key": "error",
+        "no-console": "error",
 
         // Typescript 
         "no-shadow": "off",

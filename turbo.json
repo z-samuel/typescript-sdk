@@ -21,7 +21,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "fix": {},
+    "fix": {
+      "cache": false
+    },
     "lint": {},
     "lint:fix": {},
     "test": {},
