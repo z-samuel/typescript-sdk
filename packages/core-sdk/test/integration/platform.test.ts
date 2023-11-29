@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryConfig, Environment } from "../../src/index";
+import { StoryClient, StoryConfig } from "../../src/index";
 import * as dotenv from "dotenv";
 import { Client } from "../../src/types/client";
 import { createFileReaderMock } from "../unit/testUtils";
@@ -22,7 +22,6 @@ describe("Platform client integration tests", () => {
 
   beforeEach(function () {
     const config: StoryConfig = {
-      environment: Environment.TEST,
       chain: goerli,
       transport: http(process.env.RPC_PROVIDER_URL),
       account: privateKeyToAccount((process.env.WALLET_PRIVATE_KEY || "0x") as Hex),

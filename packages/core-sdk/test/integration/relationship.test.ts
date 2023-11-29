@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryConfig, Environment } from "../../src/index";
+import { StoryClient, StoryConfig } from "../../src/index";
 import * as dotenv from "dotenv";
 import { Client } from "../../src/types/client";
 import { privateKeyToAccount } from "viem/accounts";
@@ -51,7 +51,6 @@ describe("Relationship Functions", () => {
 
   before(function () {
     const config: StoryConfig = {
-      environment: Environment.TEST,
       chain: sepolia,
       transport: http(process.env.RPC_PROVIDER_URL),
       account: privateKeyToAccount((process.env.WALLET_PRIVATE_KEY || "0x") as Hex),

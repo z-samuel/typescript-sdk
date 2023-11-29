@@ -3,7 +3,6 @@ import chaiAsPromised from "chai-as-promised";
 import {
   StoryClient,
   StoryReadOnlyConfig,
-  Environment,
   GetHookRequest,
   ListHookRequest,
 } from "../../src";
@@ -17,9 +16,7 @@ describe("Hook client integration tests", () => {
   let client: ReadOnlyClient;
 
   beforeEach(function () {
-    const config: StoryReadOnlyConfig = {
-      environment: Environment.TEST,
-    };
+    const config: StoryReadOnlyConfig = {};
 
     client = StoryClient.newReadOnlyClient(config);
   });

@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src/index";
+import { StoryClient, StoryReadOnlyConfig } from "../../src/index";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 import { ListRelationshipRequest } from "../../src/types/resources/relationship";
@@ -13,7 +13,6 @@ describe("Relationship Read Only Functions", () => {
 
   before(async function () {
     const config: StoryReadOnlyConfig = {
-      environment: Environment.TEST,
     };
 
     client = StoryClient.newReadOnlyClient(config);

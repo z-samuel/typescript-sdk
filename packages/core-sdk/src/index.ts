@@ -1,5 +1,4 @@
 export { StoryClient } from "./client";
-export { Environment } from "./enums/Environment";
 export { IPAssetType } from "./enums/IPAssetType";
 export { ResourceType } from "./enums/ResourceType";
 

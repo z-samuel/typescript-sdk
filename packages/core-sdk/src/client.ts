@@ -4,7 +4,6 @@ import { sepolia } from "viem/chains";
 import * as dotenv from "dotenv";
 
 import { StoryConfig, StoryReadOnlyConfig } from "./types/config";
-import { Environment } from "./enums/Environment";
 import { IPOrgClient } from "./resources/ipOrg";
 import { IPOrgReadOnlyClient } from "./resources/ipOrgReadOnly";
 import { RelationshipReadOnlyClient } from "./resources/relationshipReadOnly";
@@ -50,16 +49,12 @@ export class StoryClient {
    * @param isReadOnly
    */
   private constructor(config: StoryConfig | StoryReadOnlyConfig, isReadOnly: boolean = false) {
-    if (config.environment !== Environment.TEST) {
-      throw new Error("Invalid Environment: Only TEST environment is supported");
-    }
-
     this.config = config;
     this.isReadOnly = isReadOnly;
 
     const clientConfig = {
       chain: this.config.chain || sepolia,
-      transport: this.config.transport || http("https://sepolia.gateway.tenderly.co"),
+      transport: this.config.transport || http(process.env.RPC_PROVIDER_URL),
     };
 
     this.rpcClient = createPublicClient(clientConfig);

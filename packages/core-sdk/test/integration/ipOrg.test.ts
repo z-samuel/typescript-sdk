@@ -1,7 +1,7 @@
 import { Client } from "../../src/types/client";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryConfig, Environment, IPAssetType } from "../../src";
+import { StoryClient, StoryConfig, IPAssetType } from "../../src";
 import * as dotenv from "dotenv";
 import { sepolia } from "viem/chains";
 import { getAddress, Hex, http } from "viem";
@@ -17,7 +17,6 @@ describe("IPOrg Functions", () => {
 
   before(function () {
     const config: StoryConfig = {
-      environment: Environment.TEST,
       chain: sepolia,
       transport: http(process.env.RPC_PROVIDER_URL),
       account: privateKeyToAccount((process.env.WALLET_PRIVATE_KEY || "0x") as Hex),

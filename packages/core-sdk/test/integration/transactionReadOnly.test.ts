@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src/index";
+import { StoryClient, StoryReadOnlyConfig } from "../../src/index";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 import { QueryOptions } from "../../src/types/options";
@@ -13,9 +13,7 @@ describe("Transaction client integration tests", () => {
   let client: ReadOnlyClient;
 
   beforeEach(function () {
-    const config: StoryReadOnlyConfig = {
-      environment: Environment.TEST,
-    };
+    const config: StoryReadOnlyConfig = {};
 
     client = StoryClient.newReadOnlyClient(config);
   });

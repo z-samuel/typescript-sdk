@@ -1,26 +1,14 @@
 import { expect } from "chai";
 import { StoryClient } from "../../src/client";
-import { Environment } from "../../src/enums/Environment";
 import { ReadOnlyClient } from "../../src/types/client";
 import { fantom } from "viem/chains";
 import { http } from "viem";
 
 describe("Test StoryReadOnlyClient", function () {
   describe("Test constructor", function () {
-    it("should throw error when environment is not test", function () {
-      try {
-        StoryClient.newReadOnlyClient({
-          environment: Environment.PROD,
-        });
-        expect.fail(`Function should not get here, it should throw an error `);
-      } catch (error) {}
-    });
-
     it("should succeed when passing in valid params", function () {
       try {
-        StoryClient.newReadOnlyClient({
-          environment: Environment.TEST,
-        });
+        StoryClient.newReadOnlyClient({});
       } catch (error) {
         expect.fail(`Function should not have thrown any error, but it threw: ${error}`);
       }
@@ -29,7 +17,6 @@ describe("Test StoryReadOnlyClient", function () {
     it("should succeed when passing in valid params w/ provider", function () {
       try {
         StoryClient.newReadOnlyClient({
-          environment: Environment.TEST,
           chain: fantom,
           transport: http(process.env.RPC_PROVIDER_URL),
         });
@@ -43,9 +30,7 @@ describe("Test StoryReadOnlyClient", function () {
     let client: ReadOnlyClient;
 
     beforeEach(function () {
-      client = StoryClient.newReadOnlyClient({
-        environment: Environment.TEST,
-      });
+      client = StoryClient.newReadOnlyClient({});
     });
 
     describe("Test franchise getter", function () {

@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig, Environment } from "../../src";
+import { StoryClient, StoryReadOnlyConfig } from "../../src";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 import { ListIPOrgRequest } from "../../src/types/resources/IPOrg";
@@ -12,9 +12,7 @@ describe("IPOrg Read Only Functions", () => {
   let client: ReadOnlyClient;
 
   before(function () {
-    const config: StoryReadOnlyConfig = {
-      environment: Environment.TEST,
-    };
+    const config: StoryReadOnlyConfig = {};
 
     client = StoryClient.newReadOnlyClient(config);
   });

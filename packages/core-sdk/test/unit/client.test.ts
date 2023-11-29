@@ -1,25 +1,14 @@
 import { expect } from "chai";
-import { StoryClient, Environment } from "../../src";
+import { StoryClient } from "../../src";
 import { Client, ReadOnlyClient } from "../../src/types/client";
 import { privateKeyToAccount, generatePrivateKey } from "viem/accounts";
 import { Account } from "viem";
 
 describe("Test StoryClient", function () {
   describe("Test constructor", function () {
-    it("should throw error when environment is not test", function () {
-      try {
-        StoryClient.newClient({
-          environment: Environment.PROD,
-          account: privateKeyToAccount(generatePrivateKey()),
-        });
-        expect.fail(`Function should not get here, it should throw an error `);
-      } catch (error) {}
-    });
-
     it("should succeed when passing in valid params", function () {
       try {
         StoryClient.newClient({
-          environment: Environment.TEST,
           account: privateKeyToAccount(generatePrivateKey()),
         });
       } catch (error) {
@@ -30,7 +19,6 @@ describe("Test StoryClient", function () {
     it("throw error when wallet account is null", function () {
       try {
         StoryClient.newClient({
-          environment: Environment.TEST,
           account: null as any as Account,
         });
         expect.fail(`Function should not get here, it should throw an error `);
@@ -44,11 +32,9 @@ describe("Test StoryClient", function () {
 
     beforeEach(function () {
       client = StoryClient.newClient({
-        environment: Environment.TEST,
         account: privateKeyToAccount(generatePrivateKey()),
       });
       clientRO = StoryClient.newReadOnlyClient({
-        environment: Environment.TEST,
       });
     });
 

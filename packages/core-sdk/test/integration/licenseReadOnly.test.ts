@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig, Environment, ListLicenseRequest } from "../../src/index";
+import { StoryClient, StoryReadOnlyConfig, ListLicenseRequest } from "../../src/index";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 
@@ -11,9 +11,7 @@ describe("License Read Only Functions", () => {
   let client: ReadOnlyClient;
 
   before(async function () {
-    const config: StoryReadOnlyConfig = {
-      environment: Environment.TEST,
-    };
+    const config: StoryReadOnlyConfig = {};
 
     client = StoryClient.newReadOnlyClient(config);
   });

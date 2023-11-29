@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig, Environment, ListIpAssetRequest } from "../../src";
+import { StoryClient, StoryReadOnlyConfig, ListIpAssetRequest } from "../../src";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 
@@ -11,9 +11,7 @@ describe("IP Asset Read Only Functions", () => {
   let client: ReadOnlyClient;
 
   before(function () {
-    const config: StoryReadOnlyConfig = {
-      environment: Environment.TEST,
-    };
+    const config: StoryReadOnlyConfig = {};
 
     client = StoryClient.newReadOnlyClient(config);
   });
