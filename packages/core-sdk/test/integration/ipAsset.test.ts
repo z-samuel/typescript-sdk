@@ -51,5 +51,29 @@ describe("IP Asset Functions", () => {
         expect(response.ipAssetId).not.empty;
       }
     });
+
+    it("should not throw error when creating an IP Asset without owner field", async () => {
+      const waitForTransaction: boolean = true;
+      const response = await expect(
+        client.ipAsset.create({
+          name: "Test",
+          type: 0,
+          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          contentHash: "",
+          mediaUrl: "",
+          txOptions: {
+            waitForTransaction: waitForTransaction,
+          },
+        }),
+      ).to.not.be.rejected;
+
+      expect(response.txHash).to.be.a("string");
+      expect(response.txHash).not.empty;
+
+      if (waitForTransaction) {
+        expect(response.ipAssetId).to.be.a("string");
+        expect(response.ipAssetId).not.empty;
+      }
+    });
   });
 });

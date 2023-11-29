@@ -49,5 +49,27 @@ describe("IPOrg Functions", () => {
         expect(response.ipOrgId).not.empty;
       }
     });
+
+    it("should not throw error when creating a ipOrg without the owner field", async () => {
+      const waitForTransaction: boolean = true;
+      const response = await expect(
+        client.ipOrg.create({
+          name: "Star Wars",
+          symbol: "STAR",
+          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          txOptions: {
+            waitForTransaction: waitForTransaction,
+          },
+        }),
+      ).to.not.be.rejected;
+
+      expect(response.txHash).to.be.a("string");
+      expect(response.txHash).not.empty;
+
+      if (waitForTransaction) {
+        expect(response.ipOrgId).to.be.a("string");
+        expect(response.ipOrgId).not.empty;
+      }
+    });
   });
 });

@@ -6,7 +6,7 @@ import * as sinon from "sinon";
 import { IPAssetType } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { PublicClient, WalletClient } from "viem";
+import { PublicClient, WalletClient, Account } from "viem";
 import { AddressZero } from "../../../src/constants/addresses";
 
 chai.use(chaiAsPromised);
@@ -21,6 +21,9 @@ describe("Test IpAssetClient", function () {
     axiosMock = createMock<AxiosInstance>();
     rpcMock = createMock<PublicClient>();
     walletMock = createMock<WalletClient>();
+    const accountMock = createMock<Account>();
+    accountMock.address = "0x73fcb515cee99e4991465ef586cfe2b072ebb512";
+    walletMock.account = accountMock;
     ipAssetClient = new IPAssetClient(axiosMock, rpcMock, walletMock);
   });
 
@@ -42,6 +45,27 @@ describe("Test IpAssetClient", function () {
           type: IPAssetType.STORY,
           ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
+          txOptions: {
+            waitForTransaction: false,
+          },
+        });
+      } catch (error) {
+        expect.fail(`Function should not have thrown any error, but it threw: ${error}`);
+      }
+    });
+
+    it("should not throw error when creating a IP asset without owner field", async function () {
+      try {
+        rpcMock.readContract = sinon.stub().resolves(AddressZero);
+        rpcMock.simulateContract = sinon.stub().resolves({ request: null });
+        walletMock.writeContract = sinon
+          .stub()
+          .resolves("0x129f7dd802200f096221dd89d5b086e4bd3ad6eafb378a0c75e3b04fc375f997");
+
+        await ipAssetClient.create({
+          name: "The Empire Strikes Back",
+          type: IPAssetType.STORY,
+          ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
           txOptions: {
             waitForTransaction: false,
           },

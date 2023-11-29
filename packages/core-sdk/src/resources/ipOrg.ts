@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { getAddress, PublicClient, WalletClient, zeroAddress } from "viem";
+import { getAddress, PublicClient, WalletClient } from "viem";
 
 import { CreateIPOrgRequest, CreateIPOrgResponse } from "../types/resources/IPOrg";
 import { handleError } from "../utils/errors";
@@ -32,7 +32,7 @@ export class IPOrgClient extends IPOrgReadOnlyClient {
         ...storyProtocolConfig,
         functionName: "registerIpOrg",
         args: [
-          getAddress(request.owner || zeroAddress),
+          getAddress(request.owner || this.wallet.account!.address),
           request.name,
           request.symbol,
           request.ipAssetTypes,

@@ -4,7 +4,7 @@ import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
-import { PublicClient, WalletClient } from "viem";
+import { PublicClient, WalletClient, Account } from "viem";
 import { IPAssetType } from "../../../src";
 
 chai.use(chaiAsPromised);
@@ -19,6 +19,9 @@ describe(`Test IPOrgClient`, function () {
     axiosMock = createMock<AxiosInstance>();
     rpcMock = createMock<PublicClient>();
     walletMock = createMock<WalletClient>();
+    const accountMock = createMock<Account>();
+    accountMock.address = "0x73fcb515cee99e4991465ef586cfe2b072ebb512";
+    walletMock.account = accountMock;
     ipOrgClient = new IPOrgClient(axiosMock, rpcMock, walletMock);
   });
 

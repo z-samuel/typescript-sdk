@@ -44,7 +44,7 @@ export type CreateIpAssetRequest = {
   name: string;
   type: number;
   ipOrgId: string;
-  owner: string;
+  owner?: string;
   mediaUrl?: string;
   contentHash?: string;
   preHookData?: Array<Record<string, unknown>>;
