@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { ModuleReadOnlyClient } from "../../../src/resources/moduleReadOnly";
+import { ModuleReadOnlyClient } from "../../../src";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";

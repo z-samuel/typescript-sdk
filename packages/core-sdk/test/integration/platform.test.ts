@@ -1,8 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryConfig } from "../../src/index";
+import { StoryClient, StoryConfig, Client } from "../../src";
 import * as dotenv from "dotenv";
-import { Client } from "../../src/types/client";
 import { createFileReaderMock } from "../unit/testUtils";
 import { goerli } from "viem/chains";
 import { getAddress, Hex, http } from "viem";

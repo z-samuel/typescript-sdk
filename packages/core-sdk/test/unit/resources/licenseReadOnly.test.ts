@@ -1,11 +1,10 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { LicenseReadOnlyClient } from "../../../src/resources/licenseReadOnly";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import { PublicClient } from "viem";
-import { ListLicenseRequest } from "../../../src";
+import { ListLicenseRequest, LicenseReadOnlyClient } from "../../../src";
 
 chai.use(chaiAsPromised);
 

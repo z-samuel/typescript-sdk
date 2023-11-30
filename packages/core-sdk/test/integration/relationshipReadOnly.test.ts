@@ -1,9 +1,12 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig } from "../../src/index";
+import {
+  StoryClient,
+  StoryReadOnlyConfig,
+  ReadOnlyClient,
+  ListRelationshipRequest,
+} from "../../src";
 import * as dotenv from "dotenv";
-import { ReadOnlyClient } from "../../src/types/client";
-import { ListRelationshipRequest } from "../../src/types/resources/relationship";
 
 dotenv.config();
 chai.use(chaiAsPromised);

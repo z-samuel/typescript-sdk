@@ -4,10 +4,8 @@ import { createMock } from "../testUtils";
 import chai from "chai";
 import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { TransactionClient } from "../../../src/resources/transaction";
 import { PublicClient, WalletClient } from "viem";
-import { ActionType } from "../../../src/enums/ActionType";
-import { ResourceType } from "../../../src";
+import { ResourceType, TransactionClient, ActionType } from "../../../src";
 
 chai.use(chaiAsPromised);
 

@@ -1,13 +1,11 @@
 import { expect } from "chai";
-import { IPAssetClient } from "../../../src/resources/ipAsset";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
-import { IPAssetType } from "../../../src";
+import { IPAssetType, IPAssetClient, AddressZero } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient, WalletClient, Account } from "viem";
-import { AddressZero } from "../../../src/constants/addresses";
 
 chai.use(chaiAsPromised);
 

@@ -1,11 +1,10 @@
 import chai, { expect } from "chai";
-import { IPOrgClient } from "../../../src/resources/ipOrg";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient, WalletClient, Account } from "viem";
-import { IPAssetType } from "../../../src";
+import { IPAssetType, IPOrgClient } from "../../../src";
 
 chai.use(chaiAsPromised);
 chai.config.truncateThreshold = 0;

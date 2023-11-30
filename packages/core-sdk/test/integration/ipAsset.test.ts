@@ -1,8 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryConfig, IPAssetType } from "../../src";
+import { StoryClient, StoryConfig, Client } from "../../src";
 import * as dotenv from "dotenv";
-import { Client } from "../../src/types/client";
 import { sepolia } from "viem/chains";
 import { Account, Hex, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";

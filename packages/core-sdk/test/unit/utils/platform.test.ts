@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import * as sinon from "sinon";
-import { PlatformClient } from "../../../src/utils/platform";
+import { PlatformClient } from "../../../src";
 import chai from "chai";
 import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";

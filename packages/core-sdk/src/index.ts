@@ -1,6 +1,20 @@
 export { StoryClient } from "./client";
 export { IPAssetType } from "./enums/IPAssetType";
 export { ResourceType } from "./enums/ResourceType";
+export { HookType } from "./enums/HookType";
+export { ActionType } from "./enums/ActionType";
+export { HookReadOnlyClient } from "./resources/hookReadOnly";
+export { IPAssetClient } from "./resources/ipAsset";
+export { IPAssetReadOnlyClient } from "./resources/ipAssetReadOnly";
+export { IPOrgClient } from "./resources/ipOrg";
+export { IPOrgReadOnlyClient } from "./resources/ipOrgReadOnly";
+export { LicenseClient } from "./resources/license";
+export { LicenseReadOnlyClient } from "./resources/licenseReadOnly";
+export { ModuleReadOnlyClient } from "./resources/moduleReadOnly";
+export { RelationshipClient } from "./resources/relationship";
+export { TransactionClient } from "./resources/transaction";
+export { PlatformClient } from "./utils/platform";
+export { AddressZero } from "./constants/addresses";
 
 export type { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 
@@ -70,3 +84,5 @@ export type {
   ListHookRequest,
   ListHookResponse,
 } from "./types/resources/hook";
+
+export type { Client, ReadOnlyClient } from "./types/client";

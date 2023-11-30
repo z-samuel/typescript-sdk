@@ -1,9 +1,8 @@
 import { expect } from "chai";
-import { IPAssetReadOnlyClient } from "../../../src/resources/ipAssetReadOnly";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
-import { IPAssetType } from "../../../src";
+import { IPAssetType, IPAssetReadOnlyClient } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient } from "viem";

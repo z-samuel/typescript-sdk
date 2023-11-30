@@ -1,6 +1,5 @@
 import { expect } from "chai";
-import { StoryClient } from "../../src";
-import { Client, ReadOnlyClient } from "../../src/types/client";
+import { StoryClient, Client, ReadOnlyClient } from "../../src";
 import { privateKeyToAccount, generatePrivateKey } from "viem/accounts";
 import { Account } from "viem";
 

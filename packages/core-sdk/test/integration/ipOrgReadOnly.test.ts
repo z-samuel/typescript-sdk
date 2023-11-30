@@ -1,9 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryReadOnlyConfig } from "../../src";
+import { StoryClient, StoryReadOnlyConfig, ReadOnlyClient, ListIPOrgRequest } from "../../src";
 import * as dotenv from "dotenv";
-import { ReadOnlyClient } from "../../src/types/client";
-import { ListIPOrgRequest } from "../../src/types/resources/IPOrg";
 
 dotenv.config();
 chai.use(chaiAsPromised);

@@ -1,5 +1,5 @@
 import chai, { expect } from "chai";
-import { IPOrgReadOnlyClient } from "../../../src/resources/ipOrgReadOnly";
+import { IPOrgReadOnlyClient } from "../../../src";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";

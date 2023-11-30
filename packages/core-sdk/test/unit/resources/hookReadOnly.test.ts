@@ -1,12 +1,11 @@
 import { expect } from "chai";
-import { HookReadOnlyClient } from "../../../src/resources/hookReadOnly";
+import { HookReadOnlyClient, HookType } from "../../../src";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient } from "viem";
-import { HookType } from "../../../src/enums/HookType";
 
 chai.use(chaiAsPromised);
 

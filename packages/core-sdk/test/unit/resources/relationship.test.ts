@@ -1,5 +1,5 @@
 import chai, { expect } from "chai";
-import { RelationshipClient } from "../../../src/resources/relationship";
+import { RelationshipClient } from "../../../src";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 

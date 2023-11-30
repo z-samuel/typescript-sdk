@@ -1,6 +1,5 @@
 import { expect } from "chai";
-import { StoryClient } from "../../src/client";
-import { ReadOnlyClient } from "../../src/types/client";
+import { StoryClient, ReadOnlyClient } from "../../src";
 import { fantom } from "viem/chains";
 import { http } from "viem";
 
