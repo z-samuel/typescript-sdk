@@ -43,10 +43,8 @@ export class RelationshipClient extends RelationshipReadOnlyClient {
             relType: request.relType,
             srcAddress: request.srcContract as `0x${string}`,
             srcId: request.srcTokenId,
-            srcType: request.srcType || 1, // This represents the n-th bit on the bit mask
             dstAddress: request.dstContract as `0x${string}`,
             dstId: request.dstTokenId,
-            dstType: request.dstType || 1, // This represents the n-th bit on the bit mask,
           },
           [],
           [],

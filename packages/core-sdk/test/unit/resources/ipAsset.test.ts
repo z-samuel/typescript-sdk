@@ -87,7 +87,7 @@ describe("Test IpAssetClient", function () {
             {
               address: "0x091e5f55135155bb8cb5868adb39e5c34eb32cfd",
               topics: [
-                "0x548812bd5c46f4bb6cb7d8d63fe632431f0a38664680b91ed506dd71cce9cb1e",
+                "0xd051b12b5a18291aec9a26b17774a4be2d10dce167cbdc5944c7942c78f901c1",
                 "0x000000000000000000000000b422e54932c1dae83e78267a4dd2805aa64a8061",
                 "0x00000000000000000000000077cbcc0e29e10f1eea24e0d109aab26c5b2abd88",
                 "0x0000000000000000000000000000000000000000000000000000000000000000",

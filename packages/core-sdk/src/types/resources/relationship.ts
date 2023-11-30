@@ -118,10 +118,8 @@ export type RegisterRelationshipRequest = {
   relType: string;
   srcContract: string;
   srcTokenId: string;
-  srcType?: string;
   dstContract: string;
   dstTokenId: string;
-  dstType?: string;
   preHookData: Record<string, unknown>[];
   postHookData: Record<string, unknown>[];
   txOptions?: TxOptions;

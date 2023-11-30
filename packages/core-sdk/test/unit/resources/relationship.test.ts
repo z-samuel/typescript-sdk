@@ -35,7 +35,7 @@ describe("Test RelationshipClient", function () {
 
       await expect(
         relationshipClient.register({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           srcContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
           srcTokenId: "4",
@@ -77,7 +77,7 @@ describe("Test RelationshipClient", function () {
 
       await expect(
         relationshipClient.register({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           srcContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
           srcTokenId: "4",
@@ -96,7 +96,7 @@ describe("Test RelationshipClient", function () {
       rpcMock.simulateContract = sinon.stub().rejects(new Error("revert"));
       await expect(
         relationshipClient.register({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           srcContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
           srcTokenId: "4",
@@ -138,7 +138,7 @@ describe("Test RelationshipClient", function () {
 
       try {
         await relationshipClient.register({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           srcContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
           srcTokenId: "4",
@@ -166,7 +166,7 @@ describe("Test RelationshipClient", function () {
 
       await expect(
         relationshipClient.registerRelationshipType({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           relatedElements: {
             src: 1,
@@ -210,7 +210,7 @@ describe("Test RelationshipClient", function () {
 
       await expect(
         relationshipClient.registerRelationshipType({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           relatedElements: {
             src: 1,
@@ -231,7 +231,7 @@ describe("Test RelationshipClient", function () {
       rpcMock.simulateContract = sinon.stub().rejects(new Error("revert"));
       await expect(
         relationshipClient.registerRelationshipType({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           relatedElements: {
             src: 1,
@@ -260,7 +260,7 @@ describe("Test RelationshipClient", function () {
             topics: [
               "0x5afe4586ed79afd39271a5d07aaa8d60de58e6e9a48ebf10c8f1ce828b592e75",
               "0xfc7f0454ed02c478c10dae3ce113c900c4f9d3b10762ac2d41405fa8fc48713b",
-              "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+              "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
             ],
             data: "0x000000000000000000000000177175a4b26f6ea050676f8c9a14d395f896492c00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000177175a4b26f6ea050676f8c9a14d395f896492c00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
             blockNumber: 4727501,
@@ -275,7 +275,7 @@ describe("Test RelationshipClient", function () {
 
       try {
         await relationshipClient.registerRelationshipType({
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           relType: "appears_in",
           relatedElements: {
             src: 1,

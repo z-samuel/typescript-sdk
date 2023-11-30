@@ -1,11 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import {
-  StoryClient,
-  StoryReadOnlyConfig,
-  GetModuleRequest,
-  ListModuleRequest,
-} from "../../src";
+import { StoryClient, StoryReadOnlyConfig, GetModuleRequest, ListModuleRequest } from "../../src";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 
@@ -80,9 +75,9 @@ describe("Module client integration tests", () => {
   });
 
   describe("Get Module", async function () {
-    it("should return array of all modules", async () => {
+    it("should return a module based on the module id", async () => {
       const req = {
-        moduleId: "0x091e5f55135155bb8cb5868adb39e5c34eb32cfd",
+        moduleId: "0xd692de739fe1c1aaa31c3d0847dc17976afc05ff",
       } as GetModuleRequest;
 
       const response = await client.module.get(req);

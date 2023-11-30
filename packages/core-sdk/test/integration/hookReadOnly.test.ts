@@ -1,11 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import {
-  StoryClient,
-  StoryReadOnlyConfig,
-  GetHookRequest,
-  ListHookRequest,
-} from "../../src";
+import { StoryClient, StoryReadOnlyConfig, GetHookRequest, ListHookRequest } from "../../src";
 import * as dotenv from "dotenv";
 import { ReadOnlyClient } from "../../src/types/client";
 
@@ -84,7 +79,7 @@ describe("Hook client integration tests", () => {
   describe("Get Hook", async function () {
     it("should return array of all hooks", async () => {
       const req = {
-        hookId: "0xc0f6e387ac0b324ec18eacf22ee7271207dce3d5",
+        hookId: "0xa26ba8224fb6173063f63388685f80708a6f4d96",
       } as GetHookRequest;
 
       const response = await client.hook.get(req);

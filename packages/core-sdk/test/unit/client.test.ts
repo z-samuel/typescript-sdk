@@ -34,8 +34,7 @@ describe("Test StoryClient", function () {
       client = StoryClient.newClient({
         account: privateKeyToAccount(generatePrivateKey()),
       });
-      clientRO = StoryClient.newReadOnlyClient({
-      });
+      clientRO = StoryClient.newReadOnlyClient({});
     });
 
     describe("Test ipOrg getter", function () {

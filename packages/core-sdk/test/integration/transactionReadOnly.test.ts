@@ -83,7 +83,7 @@ describe("Transaction client integration tests", () => {
   describe("Get Transaction", async function () {
     it("should return transaction from request transaction id", async () => {
       const response = await client.transaction.get({
-        transactionId: "0x158f74772af1bf9e5d1eb9d6633bb6a602eea97bbbd552b16696d7d2d3fa007703000000",
+        transactionId: "0x16913f7ea7c4c0f93198ee145ee4788e7a71cf42c97a826e901401c762f58fcf3f000000",
       });
       expect(response).to.have.property("transaction");
 

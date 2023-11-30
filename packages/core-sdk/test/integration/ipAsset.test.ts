@@ -33,7 +33,7 @@ describe("IP Asset Functions", () => {
         client.ipAsset.create({
           name: "Test",
           type: 0,
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           owner: senderAddress,
           contentHash: "",
           mediaUrl: "",
@@ -58,7 +58,7 @@ describe("IP Asset Functions", () => {
         client.ipAsset.create({
           name: "Test",
           type: 0,
-          ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+          ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           contentHash: "",
           mediaUrl: "",
           txOptions: {

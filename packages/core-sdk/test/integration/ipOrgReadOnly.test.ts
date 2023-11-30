@@ -20,11 +20,11 @@ describe("IPOrg Read Only Functions", () => {
   describe("Get IPOrg", async function () {
     it("should return ipOrg when the ipOrg id is valid", async () => {
       const response = await client.ipOrg.get({
-        ipOrgId: "0xde493e03d2de0cd7820b4f580beced57296b0009",
+        ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
       });
 
       // Only assert the immutable fields
-      expect(response.ipOrg.id).to.equal("0xde493e03d2de0cd7820b4f580beced57296b0009");
+      expect(response.ipOrg.id).to.equal("0x1ebb43775fcc45cf05eaa96182c8762220e17941");
     });
   });
 

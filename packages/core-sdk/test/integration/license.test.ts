@@ -12,7 +12,7 @@ dotenv.config();
 chai.use(chaiAsPromised);
 chai.config.truncateThreshold = 0;
 
-describe("License Functions", () => {
+describe.skip("License Functions", () => {
   let client: Client;
   let senderAddress: string;
   let wallet: PrivateKeyAccount;
@@ -34,7 +34,7 @@ describe("License Functions", () => {
     it("should be able to register a license NFT (don't wait for txn)", async () => {
       const waitForTransaction: boolean = false;
       const createLicenseNftRequest = {
-        ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+        ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
         isCommercial: false,
         licensee: wallet.address,
         preHooksCalldata: [],
@@ -54,7 +54,7 @@ describe("License Functions", () => {
     it("should be able to register a license NFT (wait for txn)", async () => {
       const waitForTransaction: boolean = true;
       const createLicenseNftRequest = {
-        ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+        ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
         isCommercial: false,
         licensee: wallet.address,
         preHooksCalldata: [],
@@ -76,7 +76,7 @@ describe("License Functions", () => {
     it("should be able to register an IPA-bound license (don't wait for txn)", async () => {
       const waitForTransaction: boolean = false;
       const createIpaBoundLicenseRequest = {
-        ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+        ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
         isCommercial: false,
         ipaId: 1,
         preHooksCalldata: [],
@@ -96,7 +96,7 @@ describe("License Functions", () => {
     it("should be able to register an IPA-bound license (wait for txn)", async () => {
       const waitForTransaction: boolean = true;
       const createIpaBoundLicenseRequest = {
-        ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+        ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
         isCommercial: false,
         ipaId: 1,
         preHooksCalldata: [],

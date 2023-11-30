@@ -10,10 +10,11 @@ export const ipOrgControllerAbi = [
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "address", name: "owner_", type: "address" },
-      { indexed: false, internalType: "address", name: "ipAssetOrg_", type: "address" },
-      { indexed: false, internalType: "string", name: "name_", type: "string" },
-      { indexed: false, internalType: "string", name: "symbol_", type: "string" },
+      { indexed: false, internalType: "address", name: "owner", type: "address" },
+      { indexed: false, internalType: "address", name: "ipAssetOrg", type: "address" },
+      { indexed: false, internalType: "string", name: "name", type: "string" },
+      { indexed: false, internalType: "string", name: "symbol", type: "string" },
+      { indexed: false, internalType: "string[]", name: "ipAssetTypes", type: "string[]" },
     ],
     name: "IPOrgRegistered",
     type: "event",

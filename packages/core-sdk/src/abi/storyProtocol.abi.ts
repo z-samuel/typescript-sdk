@@ -127,8 +127,8 @@ export const storyProtocolAbi = [
       {
         components: [
           { internalType: "address", name: "owner", type: "address" },
+          { internalType: "uint8", name: "ipOrgAssetType", type: "uint8" },
           { internalType: "string", name: "name", type: "string" },
-          { internalType: "uint64", name: "ipAssetType", type: "uint64" },
           { internalType: "bytes32", name: "hash", type: "bytes32" },
           { internalType: "string", name: "mediaUrl", type: "string" },
         ],
@@ -224,11 +224,6 @@ export const storyProtocolAbi = [
             type: "uint256",
           },
           {
-            internalType: "uint8",
-            name: "srcType",
-            type: "uint8",
-          },
-          {
             internalType: "address",
             name: "dstAddress",
             type: "address",
@@ -237,11 +232,6 @@ export const storyProtocolAbi = [
             internalType: "uint256",
             name: "dstId",
             type: "uint256",
-          },
-          {
-            internalType: "uint8",
-            name: "dstType",
-            type: "uint8",
           },
         ],
         internalType: "struct LibRelationship.CreateRelationshipParams",

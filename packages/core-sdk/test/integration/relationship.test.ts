@@ -20,12 +20,12 @@ describe("Relationship Functions", () => {
 
   // TODO: need actually IPAsset data for it to work
   const mockRegisterRequest: RegisterRelationshipRequest = {
-    ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+    ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
     relType: "appears_in",
-    srcContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
-    srcTokenId: "4",
-    dstContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
-    dstTokenId: "5",
+    srcContract: "0x309C205347E3826472643f9B7EbD8A50D64CCd9e",
+    srcTokenId: "1",
+    dstContract: "0x309C205347E3826472643f9B7EbD8A50D64CCd9e",
+    dstTokenId: "2",
     preHookData: [],
     postHookData: [],
     txOptions: {
@@ -34,7 +34,7 @@ describe("Relationship Functions", () => {
   };
 
   const mockRegisterTypeRequest: RegisterRelationshipTypeRequest = {
-    ipOrgId: "0xb422E54932c1dae83E78267A4DD2805aa64A8061",
+    ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
     relType: "appears_in",
     relatedElements: {
       src: 1,

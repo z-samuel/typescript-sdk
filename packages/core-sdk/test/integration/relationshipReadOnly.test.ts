@@ -12,8 +12,7 @@ describe("Relationship Read Only Functions", () => {
   let client: ReadOnlyClient;
 
   before(async function () {
-    const config: StoryReadOnlyConfig = {
-    };
+    const config: StoryReadOnlyConfig = {};
 
     client = StoryClient.newReadOnlyClient(config);
   });
