@@ -26,6 +26,7 @@ export class PlatformClient {
       };
 
       const response = await this.httpClient.post("/protocol/v2/files/upload", paylod, {
+        timeout: 0,
         headers: {
           "Content-Type": "application/json",
         },
@@ -33,7 +34,7 @@ export class PlatformClient {
 
       return response.data as { uri: string };
     } catch (error: unknown) {
-      return handleError(error, "Failed to upload file");
+      return handleError(error, ">>> Failed to upload file");
     }
   }
 }

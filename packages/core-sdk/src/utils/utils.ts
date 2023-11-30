@@ -79,3 +79,13 @@ export async function waitTxAndFilterLog<
 
   throw new Error(`not found event ${params.eventName} in target transaction`);
 }
+
+export const dictToQueryParams = (params: Record<string, string | number>): string => {
+  const queryParamList: string[] = [];
+  for (const key in params) {
+    const value = params[key];
+    queryParamList.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+  }
+
+  return queryParamList.join("&");
+};

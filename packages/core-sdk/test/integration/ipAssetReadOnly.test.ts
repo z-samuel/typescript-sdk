@@ -28,7 +28,7 @@ describe("IP Asset Read Only Functions", () => {
   describe("List IP assets", async function () {
     it("should return a list of IP assets successfully upon query", async () => {
       const response = await client.ipAsset.list({
-        ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
+        ipOrgId: "0x1ebb43775fcc45cf05eaa96182c8762220e17941",
         options: {
           pagination: {
             limit: 10,
@@ -41,7 +41,7 @@ describe("IP Asset Read Only Functions", () => {
 
     it("should return a list of IP assets with pagination", async () => {
       const response = await client.ipAsset.list({
-        ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
+        ipOrgId: "0x1ebb43775fcc45cf05eaa96182c8762220e17941",
         options: {
           pagination: {
             limit: 1,

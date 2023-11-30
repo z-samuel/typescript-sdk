@@ -5,10 +5,7 @@ import * as dotenv from "dotenv";
 import { privateKeyToAccount } from "viem/accounts";
 import { getAddress, Hex, http } from "viem";
 import { sepolia } from "viem/chains";
-import {
-  RegisterRelationshipRequest,
-  RegisterRelationshipTypeRequest,
-} from "../../src/types/resources/relationship";
+import { RegisterRelationshipRequest } from "../../src/types/resources/relationship";
 
 dotenv.config();
 chai.use(chaiAsPromised);
@@ -32,22 +29,6 @@ describe("Relationship Functions", () => {
     },
   };
 
-  const mockRegisterTypeRequest: RegisterRelationshipTypeRequest = {
-    ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
-    relType: "appears_in",
-    relatedElements: {
-      src: 1,
-      dst: 1,
-    },
-    allowedSrcs: ["1"],
-    allowedDsts: ["1"],
-    preHooksConfig: [],
-    postHooksConfig: [],
-    txOptions: {
-      waitForTransaction: false,
-    },
-  };
-
   before(function () {
     const config: StoryConfig = {
       chain: sepolia,
@@ -62,14 +43,6 @@ describe("Relationship Functions", () => {
     it("should create a relationship and return txHash", async () => {
       await client.relationship.register(mockRegisterRequest);
       await expect(client.relationship.register(mockRegisterRequest)).to.not.be.rejected;
-    });
-  });
-
-  describe("RegisterType", async function () {
-    it("should create a relationship type and return txHash", async () => {
-      await client.relationship.registerRelationshipType(mockRegisterTypeRequest);
-      await expect(client.relationship.registerRelationshipType(mockRegisterTypeRequest)).to.not.be
-        .rejected;
     });
   });
 });

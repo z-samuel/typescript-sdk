@@ -148,20 +148,3 @@ export type ListRelationshipRequest = {
 export type ListRelationshipResponse = {
   relationships: Relationship[];
 };
-
-export type RegisterRelationshipTypeRequest = {
-  ipOrgId: string;
-  relType: string;
-  relatedElements: RelatedElements;
-  allowedSrcs: string[];
-  allowedDsts: string[];
-  preHooksConfig: Record<string, unknown>[];
-  postHooksConfig: Record<string, unknown>[];
-  txOptions?: TxOptions;
-};
-
-export type RegisterRelationshipTypeResponse = {
-  txHash: string;
-  success?: boolean;
-  relationshipId?: string;
-};

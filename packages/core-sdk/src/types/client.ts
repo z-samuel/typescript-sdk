@@ -13,6 +13,8 @@ import { HookClient } from "../resources/hook";
 import { PlatformClient } from "../utils/platform";
 import { LicenseClient } from "../resources/license";
 import { RelationshipClient } from "../resources/relationship";
+import { RelationshipTypeClient } from "../resources/relationshipType";
+import { RelationshipTypeReadOnlyClient } from "../resources/relationshipTypeReadOnly";
 
 export interface ReadOnlyClient {
   hook: HookReadOnlyClient;
@@ -22,6 +24,7 @@ export interface ReadOnlyClient {
   transaction: TransactionReadOnlyClient;
   ipAsset: IPAssetReadOnlyClient;
   relationship: RelationshipReadOnlyClient;
+  relationshipType: RelationshipTypeReadOnlyClient;
 }
 
 export interface Client {
@@ -32,5 +35,6 @@ export interface Client {
   transaction: TransactionClient;
   ipAsset: IPAssetClient;
   relationship: RelationshipClient;
+  relationshipType: RelationshipTypeClient;
   platform: PlatformClient;
 }

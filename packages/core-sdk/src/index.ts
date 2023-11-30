@@ -57,9 +57,17 @@ export type {
   ListRelationshipResponse,
   GetRelationshipRequest,
   GetRelationshipResponse,
+} from "./types/resources/relationship";
+
+export type {
+  RelationshipType,
+  GetRelationshipTypeRequest,
+  GetRelationshipTypeResponse,
+  ListRelationshipTypesRequest,
+  ListRelationshipTypesResponse,
   RegisterRelationshipTypeRequest,
   RegisterRelationshipTypeResponse,
-} from "./types/resources/relationship";
+} from "./types/resources/relationshipType";
 
 export type {
   Transaction,

@@ -2,8 +2,6 @@ import { getAddress, PublicClient, WalletClient } from "viem";
 import { AxiosInstance } from "axios";
 
 import {
-  RegisterRelationshipTypeRequest,
-  RegisterRelationshipTypeResponse,
   RegisterRelationshipRequest,
   RegisterRelationshipResponse,
 } from "../types/resources/relationship";
@@ -60,50 +58,6 @@ export class RelationshipClient extends RelationshipReadOnlyClient {
         });
         // https://sepolia.etherscan.io/tx/0x99d5736c65bd81cd4a361a731d4a035375a0926c95e4132e8fcb80ad5b602b5c#eventlog
         return { txHash: txHash, relationshipId: targetLog?.args?.relationshipId?.toString() };
-      } else {
-        return { txHash: txHash };
-      }
-    } catch (error: unknown) {
-      handleError(error, "Failed to register relationship");
-    }
-  }
-
-  /**
-   * Register a relationship type on Story Protocol based on the specified input data.
-   *
-   * @param request - the request object that contains all data needed to register a relationship type
-   * @returns the response object that contains results from the register relationship type action
-   */
-  public async registerRelationshipType(
-    request: RegisterRelationshipTypeRequest,
-  ): Promise<RegisterRelationshipTypeResponse> {
-    try {
-      const { request: call } = await this.rpcClient.simulateContract({
-        ...storyProtocolConfig,
-        functionName: "addRelationshipType",
-        args: [
-          {
-            ipOrg: getAddress(request.ipOrgId),
-            relType: request.relType,
-            allowedElements: {
-              src: request.relatedElements.src,
-              dst: request.relatedElements.dst,
-            },
-            allowedSrcs: request.allowedSrcs,
-            allowedDsts: request.allowedDsts,
-          },
-        ],
-        account: this.wallet.account,
-      });
-
-      const txHash = await this.wallet.writeContract(call);
-      if (request.txOptions?.waitForTransaction) {
-        await waitTxAndFilterLog(this.rpcClient, txHash, {
-          ...relationshipModuleConfig,
-          eventName: "RelationshipTypeSet",
-        });
-        // https://sepolia.etherscan.io/tx/0x6b5072235bf5af5e3dc440dcd67b295a6fe6d68e5263c5dc9576f84392e77616#eventlog
-        return { txHash: txHash, success: true };
       } else {
         return { txHash: txHash };
       }

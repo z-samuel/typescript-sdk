@@ -71,6 +71,14 @@ describe("Test StoryReadOnlyClient", function () {
         expect(relationship1).to.be.equal(relationship2);
       });
     });
+
+    describe("Test relationship type getter", function () {
+      it("should return the same relationship when every time it's called", function () {
+        const relationshipType1 = client.relationshipType;
+        const relationshipType2 = client.relationshipType;
+        expect(relationshipType1).to.be.equal(relationshipType2);
+      });
+    });
   });
 
   // describe("Test getters w/ provider", function () {

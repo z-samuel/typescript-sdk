@@ -21,6 +21,8 @@ import { HookReadOnlyClient } from "./resources/hookReadOnly";
 import { PlatformClient } from "./utils/platform";
 import { LicenseClient } from "./resources/license";
 import { RelationshipClient } from "./resources/relationship";
+import { RelationshipTypeClient } from "./resources/relationshipType";
+import { RelationshipTypeReadOnlyClient } from "./resources/relationshipTypeReadOnly";
 
 if (typeof process !== "undefined") {
   dotenv.config();
@@ -40,6 +42,7 @@ export class StoryClient {
   private _transaction: TransactionClient | TransactionReadOnlyClient | null = null;
   private _ipAsset: IPAssetClient | IPAssetReadOnlyClient | null = null;
   private _relationship: RelationshipReadOnlyClient | null = null;
+  private _relationshipType: RelationshipTypeReadOnlyClient | null = null;
   private _module: ModuleClient | ModuleReadOnlyClient | null = null;
   private _hook: HookClient | HookReadOnlyClient | null = null;
   private _platform: PlatformClient | null = null;
@@ -114,6 +117,18 @@ export class StoryClient {
     }
   }
 
+  private initRelationshipType(): void {
+    if (this.isReadOnly) {
+      this._relationshipType = new RelationshipTypeReadOnlyClient(this.httpClient, this.rpcClient);
+    } else {
+      this._relationshipType = new RelationshipTypeClient(
+        this.httpClient,
+        this.rpcClient,
+        this.wallet!,
+      );
+    }
+  }
+
   private initIpAsset(): void {
     if (this.isReadOnly) {
       this._ipAsset = new IPAssetReadOnlyClient(this.httpClient, this.rpcClient);
@@ -184,6 +199,20 @@ export class StoryClient {
     }
 
     return this._relationship as RelationshipReadOnlyClient;
+  }
+
+  /**
+   * Getter for the relationship type client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the RelationshipTypeClient instance
+   */
+  public get relationshipType(): RelationshipTypeClient | RelationshipTypeReadOnlyClient {
+    if (this._relationshipType === null) {
+      this.initRelationshipType();
+    }
+
+    return this._relationshipType as RelationshipTypeReadOnlyClient;
   }
 
   /**

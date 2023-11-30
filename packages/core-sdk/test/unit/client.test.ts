@@ -76,6 +76,14 @@ describe("Test StoryClient", function () {
       });
     });
 
+    describe("Test relationship type getter", function () {
+      it("should return the same relationship type when every time it's called", function () {
+        const relationshipType1 = client.relationshipType;
+        const relationshipType2 = client.relationshipType;
+        expect(relationshipType1).to.be.equal(relationshipType2);
+      });
+    });
+
     describe("Test platform getter", function () {
       it("should return the same platform when every time it's called", function () {
         const platform1 = client.platform;
