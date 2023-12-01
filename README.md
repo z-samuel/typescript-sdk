@@ -26,6 +26,8 @@ Under the `typescript-sdk/packages/core-sdk` directory:
 In your testing environment:
 * Run `yalc update` to pull the latest changes.
 
+## Steps to pull and compile latest smart contract ABIs (Currently pulls from the protocol-contracts `dev` branch)
+* run `make compile_contracts`
 
 ## Release
 

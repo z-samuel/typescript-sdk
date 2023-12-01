@@ -51,7 +51,7 @@ export class IPAssetClient extends IPAssetReadOnlyClient {
           ...registrationModuleConfig,
           eventName: "IPAssetRegistered",
         });
-        return { txHash: txHash, ipAssetId: targetLog.args.ipAssetId_.toString() };
+        return { txHash: txHash, ipAssetId: String(targetLog?.args["ipAssetId_"]) };
       } else {
         return { txHash: txHash };
       }

@@ -2,24 +2,13 @@ import { getAddress, parseAbi } from "viem";
 import { formatAbi } from "abitype";
 import * as dotenv from "dotenv";
 
+import ipOrgControllerRawAbi from "./json/IPOrgController.json";
+
 if (typeof process !== "undefined") {
   dotenv.config();
 }
 
-export const ipOrgControllerAbi = [
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: false, internalType: "address", name: "owner", type: "address" },
-      { indexed: false, internalType: "address", name: "ipAssetOrg", type: "address" },
-      { indexed: false, internalType: "string", name: "name", type: "string" },
-      { indexed: false, internalType: "string", name: "symbol", type: "string" },
-      { indexed: false, internalType: "string[]", name: "ipAssetTypes", type: "string[]" },
-    ],
-    name: "IPOrgRegistered",
-    type: "event",
-  },
-] as const;
+export const ipOrgControllerAbi = ipOrgControllerRawAbi;
 
 export const ipOrgControllerReadable = formatAbi(ipOrgControllerAbi);
 

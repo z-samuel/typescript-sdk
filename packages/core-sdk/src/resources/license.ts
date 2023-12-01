@@ -65,7 +65,7 @@ export class LicenseClient extends LicenseReadOnlyClient {
           ...licenseRegistryConfig,
           eventName: "LicenseRegistered",
         });
-        return { txHash: txHash, licenseId: targetLog?.args?.id.toString() };
+        return { txHash: txHash, licenseId: String(targetLog?.args["id"]) };
       } else {
         return { txHash: txHash };
       }

@@ -57,7 +57,7 @@ export class RelationshipClient extends RelationshipReadOnlyClient {
           eventName: "RelationshipCreated",
         });
         // https://sepolia.etherscan.io/tx/0x99d5736c65bd81cd4a361a731d4a035375a0926c95e4132e8fcb80ad5b602b5c#eventlog
-        return { txHash: txHash, relationshipId: targetLog?.args?.relationshipId?.toString() };
+        return { txHash: txHash, relationshipId: targetLog?.args["relationshipId"] };
       } else {
         return { txHash: txHash };
       }
