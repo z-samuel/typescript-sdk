@@ -43,8 +43,6 @@ describe("Test RelationshipClient", function () {
           },
           allowedSrcs: ["1"],
           allowedDsts: ["1"],
-          preHooksConfig: [],
-          postHooksConfig: [],
           txOptions: {
             waitForTransaction: false,
           },
@@ -87,8 +85,6 @@ describe("Test RelationshipClient", function () {
           },
           allowedSrcs: ["1"],
           allowedDsts: ["1"],
-          preHooksConfig: [],
-          postHooksConfig: [],
           txOptions: {
             waitForTransaction: true,
           },

@@ -41,8 +41,18 @@ describe("Test RelationshipClient", function () {
           srcTokenId: "4",
           dstContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
           dstTokenId: "5",
-          preHookData: [],
-          postHookData: [],
+          preHookData: [
+            {
+              interface: "address",
+              data: ["0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab"],
+            },
+          ],
+          postHookData: [
+            {
+              interface: "address",
+              data: ["0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab"],
+            },
+          ],
           txOptions: {
             waitForTransaction: false,
           },
@@ -83,8 +93,6 @@ describe("Test RelationshipClient", function () {
           srcTokenId: "4",
           dstContract: "0x177175a4b26f6EA050676F8c9a14D395F896492C",
           dstTokenId: "5",
-          preHookData: [],
-          postHookData: [],
           txOptions: {
             waitForTransaction: true,
           },

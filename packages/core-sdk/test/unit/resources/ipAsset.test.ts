@@ -43,6 +43,18 @@ describe("Test IpAssetClient", function () {
           type: IPAssetType.STORY,
           ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
+          preHookData: [
+            {
+              interface: "address",
+              data: ["0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab"],
+            },
+          ],
+          postHookData: [
+            {
+              interface: "address",
+              data: ["0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab"],
+            },
+          ],
           txOptions: {
             waitForTransaction: false,
           },

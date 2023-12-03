@@ -24,8 +24,6 @@ describe("Relationship Type Functions", () => {
     },
     allowedSrcs: ["1"],
     allowedDsts: ["1"],
-    preHooksConfig: [],
-    postHooksConfig: [],
     txOptions: {
       waitForTransaction: false,
     },

@@ -21,7 +21,7 @@ describe("Relationship Read Only Functions", () => {
     client = StoryClient.newReadOnlyClient(config);
   });
 
-  describe.only("Get Relationship", async function () {
+  describe("Get Relationship", async function () {
     it("should retrieve a relationship by its ID", async function () {
       return client.relationship
         .get({
@@ -39,7 +39,7 @@ describe("Relationship Read Only Functions", () => {
     });
   });
 
-  describe.only("List Relationships", async function () {
+  describe("List Relationships", async function () {
     it("should list all relationships", async function () {
       const mockListRelationshipRequest: ListRelationshipRequest = {
         tokenId: "2",
