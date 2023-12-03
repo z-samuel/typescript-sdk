@@ -9,7 +9,7 @@ import { handleError } from "../utils/errors";
 import { RelationshipTypeReadOnlyClient } from "./relationshipTypeReadOnly";
 import { storyProtocolConfig } from "../abi/storyProtocol.abi";
 import { relationshipModuleConfig } from "../abi/relationshipModule.abi";
-import { waitTxAndFilterLog } from "../utils/utils";
+import { waitTxAndFilterLog, typedDataArrayToBytesArray } from "../utils/utils";
 
 /**
  * Client for managing relationships.
@@ -45,6 +45,8 @@ export class RelationshipTypeClient extends RelationshipTypeReadOnlyClient {
             allowedSrcs: request.allowedSrcs,
             allowedDsts: request.allowedDsts,
           },
+          request.preHooksConfig ? typedDataArrayToBytesArray(request.preHooksConfig) : [],
+          request.postHooksConfig ? typedDataArrayToBytesArray(request.postHooksConfig) : [],
         ],
         account: this.wallet.account,
       });

@@ -9,7 +9,7 @@ import { handleError } from "../utils/errors";
 import { RelationshipReadOnlyClient } from "./relationshipReadOnly";
 import { storyProtocolConfig } from "../abi/storyProtocol.abi";
 import { relationshipModuleConfig } from "../abi/relationshipModule.abi";
-import { waitTxAndFilterLog } from "../utils/utils";
+import { waitTxAndFilterLog, typedDataArrayToBytesArray } from "../utils/utils";
 
 /**
  * Client for managing relationships.
@@ -44,8 +44,8 @@ export class RelationshipClient extends RelationshipReadOnlyClient {
             dstAddress: request.dstContract as `0x${string}`,
             dstId: request.dstTokenId,
           },
-          [],
-          [],
+          request.preHookData ? typedDataArrayToBytesArray(request.preHookData) : [],
+          request.postHookData ? typedDataArrayToBytesArray(request.postHookData) : [],
         ],
         account: this.wallet.account,
       });

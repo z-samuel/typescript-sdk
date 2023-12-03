@@ -17,6 +17,8 @@ export { PlatformClient } from "./utils/platform";
 export { AddressZero } from "./constants/addresses";
 
 export type { StoryConfig, StoryReadOnlyConfig } from "./types/config";
+export type { Client, ReadOnlyClient } from "./types/client";
+export type { Hex, TypedData } from "./types/common";
 
 export type {
   IPOrg,
@@ -92,5 +94,3 @@ export type {
   ListHookRequest,
   ListHookResponse,
 } from "./types/resources/hook";
-
-export type { Client, ReadOnlyClient } from "./types/client";

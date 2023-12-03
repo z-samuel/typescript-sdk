@@ -58,11 +58,8 @@ export class RelationshipReadOnlyClient {
         request,
         {
           params: {
-            contract:
-              request?.contract ||
-              process.env.IP_ASSET_REGISTRY_CONTRACT ||
-              process.env.NEXT_PUBLIC_IP_ASSET_REGISTRY_CONTRACT,
-            tokenId: request?.tokenId,
+            contract: request.contract,
+            tokenId: request.tokenId,
           },
         },
       );

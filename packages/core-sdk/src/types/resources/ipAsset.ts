@@ -1,4 +1,5 @@
 import { QueryOptions, TxOptions } from "../options";
+import { TypedData } from "../typedData";
 
 /**
  * Core data model for IP Asset.
@@ -47,8 +48,8 @@ export type CreateIpAssetRequest = {
   owner?: string;
   mediaUrl?: string;
   contentHash?: string;
-  preHookData?: Array<Record<string, unknown>>;
-  postHookData?: Array<Record<string, unknown>>;
+  preHookData?: Array<TypedData>;
+  postHookData?: Array<TypedData>;
   txOptions?: TxOptions;
 };
 
