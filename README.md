@@ -27,6 +27,7 @@ In your testing environment:
 * Run `yalc update` to pull the latest changes.
 
 ## Steps to pull and compile latest smart contract ABIs (Currently pulls from the protocol-contracts `dev` branch)
+Must have `solc` installed (https://docs.soliditylang.org/en/v0.8.9/installing-solidity.html)
 * run `make compile_contracts`
 
 ## Release
