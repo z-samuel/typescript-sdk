@@ -3,13 +3,18 @@ import { formatAbi } from "abitype";
 import * as dotenv from "dotenv";
 
 import storyProtocolJson from "./json/StoryProtocol.json";
+import errorsJson from "./json/Errors.json";
 
 if (typeof process !== "undefined") {
   dotenv.config();
 }
 
 export const storyProtocolAbi = storyProtocolJson;
-export const storyProtocolReadable = formatAbi(storyProtocolAbi);
+export const ErrorsAbi = errorsJson;
+
+const storyProtocolMerged = Object.assign({}, storyProtocolAbi, ErrorsAbi);
+
+export const storyProtocolReadable = formatAbi(storyProtocolMerged);
 
 export const storyProtocolConfig = {
   abi: parseAbi(storyProtocolReadable),

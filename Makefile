@@ -14,5 +14,8 @@ compile_contracts:
 	solc --pretty-json --base-path packages/core-sdk/protocol-contracts --include-path packages/core-sdk/protocol-contracts/node_modules/ --abi packages/core-sdk/protocol-contracts/contracts/modules/relationships/RelationshipModule.sol -o packages/core-sdk/src/abi/json/tmp/RelationshipModule
 	cp packages/core-sdk/src/abi/json/tmp/RelationshipModule/RelationshipModule.abi packages/core-sdk/src/abi/json/RelationshipModule.json
 
+	solc --pretty-json --base-path packages/core-sdk/protocol-contracts --include-path packages/core-sdk/protocol-contracts/node_modules/ --abi packages/core-sdk/protocol-contracts/contracts/lib/Errors.sol -o packages/core-sdk/src/abi/json/tmp/Errors
+	cp packages/core-sdk/src/abi/json/tmp/Errors/Errors.abi packages/core-sdk/src/abi/json/Errors.json
+
 	rm -rf packages/core-sdk/src/abi/json/tmp
 	rm -rf packages/core-sdk/protocol-contracts
