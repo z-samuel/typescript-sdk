@@ -38,73 +38,84 @@ describe("Test PlatformClient", function () {
     });
 
     it("should return url when the upload file transaction is successful on the client", async function () {
+      const mockPreSignUrlResp = {
+        data: {
+          url: "https://example.com/upload",
+          key: "file-key",
+        },
+      };
       const mockArweaveUrl = "https://arweave.net/SVBYzNCI8-GdUCe1_N9eA2Nol0rYi_AH-CBw1vo2YUM";
-      // Stub the PlatformClient uploadFile transaction call
-      axiosMock.post = sinon.stub().resolves({
+      const mockUploadConfirmResp = {
         data: {
           uri: mockArweaveUrl,
         },
-      });
+      };
+      axiosMock.post = sinon
+        .stub()
+        .withArgs("/platform/file-upload/request")
+        .resolves(mockPreSignUrlResp)
+        .withArgs("/platform/file-upload/confirm")
+        .resolves(mockUploadConfirmResp);
+      axiosMock.put = sinon.stub().resolves({ status: 200 });
 
       const response = await platformClient.uploadFile(mockFile, "image/png");
-
       expect(response.uri).to.equal(mockArweaveUrl);
     });
 
     it("should return url when the upload file transaction is successful on the server", async function () {
+      const mockPreSignUrlResp = {
+        data: {
+          url: "https://example.com/upload",
+          key: "file-key",
+        },
+      };
       const mockArweaveUrl = "https://arweave.net/SVBYzNCI8-GdUCe1_N9eA2Nol0rYi_AH-CBw1vo2YUM";
-      // Stub the PlatformClient uploadFile transaction call
-      axiosMock.post = sinon.stub().resolves({
+      const mockUploadConfirmResp = {
         data: {
           uri: mockArweaveUrl,
         },
-      });
+      };
+      axiosMock.post = sinon
+        .stub()
+        .withArgs("/platform/file-upload/request")
+        .resolves(mockPreSignUrlResp)
+        .withArgs("/platform/file-upload/confirm")
+        .resolves(mockUploadConfirmResp);
+      axiosMock.put = sinon.stub().resolves({ status: 200 });
 
       const response = await platformClient.uploadFile(mockBuffer, "image/png");
-
       expect(response.uri).to.equal(mockArweaveUrl);
     });
 
-    it("should throw error when file is not a File or Buffer", async function () {
-      await expect(platformClient.uploadFile("test" as any, "image/png")).to.be.rejectedWith(
-        "Invalid file type",
+    it("should throw error when it failed to upload files to s3", async function () {
+      const mockPreSignUrlResp = {
+        data: {
+          url: "https://example.com/upload",
+          key: "file-key",
+        },
+      };
+      const mockArweaveUrl = "https://arweave.net/SVBYzNCI8-GdUCe1_N9eA2Nol0rYi_AH-CBw1vo2YUM";
+      const mockUploadConfirmResp = {
+        data: {
+          uri: mockArweaveUrl,
+        },
+      };
+      axiosMock.post = sinon
+        .stub()
+        .withArgs("/platform/file-upload/request")
+        .resolves(mockPreSignUrlResp)
+        .withArgs("/platform/file-upload/confirm")
+        .resolves(mockUploadConfirmResp);
+      axiosMock.put = sinon.stub().resolves({ status: 400 });
+
+      await expect(platformClient.uploadFile(mockBuffer, "image/png")).to.be.rejectedWith(
+        "Failed to upload file: Failed to upload file to s3. Status: 400",
       );
     });
 
     it("should throw error", async function () {
       axiosMock.post = sinon.stub().rejects(new Error("revert"));
       await expect(platformClient.uploadFile(mockFile, "image/png")).to.be.rejectedWith("revert");
-    });
-  });
-
-  describe("Test platform.uploadFile - Invalid base64 string", function () {
-    before(() => {
-      global.FileReader = createFileReaderMock(
-        "x",
-        new Event("load") as unknown as ProgressEvent<FileReader>,
-      ) as any;
-    });
-
-    it("should throw error when the file is not valid", async function () {
-      await expect(platformClient.uploadFile(mockFile, "image/png")).to.be.rejectedWith(
-        "Failed to upload file",
-      );
-    });
-  });
-
-  describe("Test platform.uploadFile - Error on file reader", function () {
-    before(() => {
-      global.FileReader = createFileReaderMock(
-        "data:base64,dGVzdCBzdHJpbmcgYmxvYg==",
-        undefined,
-        new Event("error") as unknown as ProgressEvent<FileReader>,
-      ) as any;
-    });
-
-    it("should throw error when the file is not valid", async function () {
-      await expect(platformClient.uploadFile(mockFile, "image/png")).to.be.rejectedWith(
-        "Failed to upload file",
-      );
     });
   });
 });

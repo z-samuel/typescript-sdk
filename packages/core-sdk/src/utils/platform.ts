@@ -1,6 +1,5 @@
 import { AxiosInstance } from "axios";
 
-import { fileToBase64 } from "./utils";
 import { handleError } from "./errors";
 
 export class PlatformClient {
@@ -19,22 +18,27 @@ export class PlatformClient {
    */
   public async uploadFile(file: File | Buffer, mimeType: string): Promise<{ uri: string }> {
     try {
-      const base64 = await fileToBase64(file);
-      const paylod = {
-        base64: base64,
-        mimeType: mimeType,
-      };
+      // requst the s3 pre-signed url
+      const preSignUrlResp = await this.httpClient.post("/platform/file-upload/request");
+      const data = preSignUrlResp.data as { url: string; key: string };
 
-      const response = await this.httpClient.post("/protocol/v2/files/upload", paylod, {
+      // upload the file to s3
+      const uploadResp = await this.httpClient.put(data.url, file, {
         timeout: 0,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": mimeType,
         },
       });
+      if (uploadResp.status !== 200) {
+        throw new Error(`Failed to upload file to s3. Status: ${uploadResp.status}`);
+      }
 
-      return response.data as { uri: string };
+      const confirmResp = await this.httpClient.post("/platform/file-upload/confirm", {
+        key: data.key,
+      });
+      return confirmResp.data as { uri: string };
     } catch (error: unknown) {
-      return handleError(error, ">>> Failed to upload file");
+      return handleError(error, "Failed to upload file");
     }
   }
 }

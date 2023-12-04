@@ -4,7 +4,7 @@ import { StoryClient, StoryConfig, Client } from "../../src";
 import * as dotenv from "dotenv";
 import { createFileReaderMock } from "../unit/testUtils";
 import { goerli } from "viem/chains";
-import { getAddress, Hex, http } from "viem";
+import { Hex, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 dotenv.config();
@@ -29,21 +29,8 @@ describe("Platform client integration tests", () => {
     client = StoryClient.newClient(config);
   });
 
-  describe("Collect an IP Asset", async function () {
-    it("should return txHash when the collect transaction is successful on the client", async () => {
-      const response = await client.platform.uploadFile(
-        new File([""], "test.png", { type: "image/png" }),
-        "image/png",
-      );
-
-      expect(response).to.have.property("uri");
-      expect(response.uri).to.be.a("string");
-    });
-  });
-
-  it("should return txHash when the collect transaction is successful on the server", async () => {
+  it("should return arweave url when a buffer file is uploaded to arweave", async () => {
     const response = await client.platform.uploadFile(Buffer.from("test"), "image/png");
-
     expect(response).to.have.property("uri");
     expect(response.uri).to.be.a("string");
   });
