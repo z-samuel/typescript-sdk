@@ -29,8 +29,8 @@ describe(`Test IPOrgReadOnlyClient`, function () {
         data: {
           ipOrg: {
             id: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-            name: "Star Wars",
-            symbol: "STAR",
+            name: "Alice In Wonderland",
+            symbol: "AIW",
             owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
             metadataUrl: "https://arweave.net/dnFJl1v8kgOx_6Z0gEsBce3D56cMP4-lxAcFqSsL0_w",
             createdAt: "2023-11-14T00:29:13Z",
@@ -44,7 +44,7 @@ describe(`Test IPOrgReadOnlyClient`, function () {
       });
 
       expect(response.ipOrg.id).to.equal("0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d");
-      expect(response.ipOrg.name).to.equal("Star Wars");
+      expect(response.ipOrg.name).to.equal("Alice In Wonderland");
     });
 
     it("should throw error", async function () {
@@ -74,8 +74,8 @@ describe(`Test IPOrgReadOnlyClient`, function () {
           ipOrgs: [
             {
               id: "7",
-              name: "Star Wars",
-              symbol: "STAR",
+              name: "Alice In Wonderland",
+              symbol: "AIW",
               owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
               metadataUrl: "https://arweave.net/dnFJl1v8kgOx_6Z0gEsBce3D56cMP4-lxAcFqSsL0_w",
               createdAt: "2023-11-14T00:29:13Z",
@@ -88,7 +88,7 @@ describe(`Test IPOrgReadOnlyClient`, function () {
       const response = await ipOrgClient.list();
 
       expect(response.ipOrgs[0].id).to.equal("7");
-      expect(response.ipOrgs[0].name).to.equal("Star Wars");
+      expect(response.ipOrgs[0].name).to.equal("Alice In Wonderland");
     });
 
     it("should throw error", async function () {
