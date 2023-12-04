@@ -1,8 +1,9 @@
 import { Hash } from "viem/types/misc";
 import { DecodeEventLogReturnType } from "viem/_types/utils/abi/decodeEventLog";
-import { Abi, decodeEventLog, PublicClient } from "viem";
-import { Hex } from "viem/_types/types/misc";
+import { Abi, decodeEventLog, PublicClient, encodeAbiParameters, parseAbiParameters } from "viem";
 import { InferEventName } from "viem/types/contract";
+
+import { Hex, TypedData } from "../types/common";
 
 export function isIntegerString(s: string): boolean {
   const num = Number(s);
@@ -80,7 +81,7 @@ export async function waitTxAndFilterLog<
   throw new Error(`not found event ${params.eventName} in target transaction`);
 }
 
-export const dictToQueryParams = (params: Record<string, string | number>): string => {
+export function dictToQueryParams(params: Record<string, string | number>): string {
   const queryParamList: string[] = [];
   for (const key in params) {
     const value = params[key];
@@ -88,4 +89,16 @@ export const dictToQueryParams = (params: Record<string, string | number>): stri
   }
 
   return queryParamList.join("&");
-};
+}
+
+export function typedDataArrayToBytesArray(typedDataArray: Array<TypedData>): Array<Hex> {
+  const result: Array<Hex> = [];
+  typedDataArray.forEach(function (typedData: TypedData) {
+    result.push(typedDataToBytes(typedData));
+  });
+  return result;
+}
+
+export function typedDataToBytes(typedData: TypedData): Hex {
+  return encodeAbiParameters(parseAbiParameters(typedData.interface), typedData.data);
+}

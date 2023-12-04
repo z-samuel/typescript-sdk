@@ -22,6 +22,7 @@ module.exports = {
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",
         "@typescript-eslint/no-unused-vars": "error",
+        '@typescript-eslint/no-unsafe-argument': 'off', // causing a lot of IDE false positives.
 
         // import rules
         "import/newline-after-import": "error",

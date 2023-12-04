@@ -74,5 +74,53 @@ describe("IP Asset Functions", () => {
         expect(response.ipAssetId).not.empty;
       }
     });
+
+    it("should not throw error when creating an IP Asset with a hook", async () => {
+      const waitForTransaction: boolean = true;
+      const response = await expect(
+        client.ipAsset.create({
+          name: "Test",
+          type: 0,
+          ipOrgId: "0x2554E198752d0F086c8b885CbCc5d663365673C2",
+          owner: senderAddress,
+          contentHash: "",
+          mediaUrl: "",
+          preHookData: [
+            {
+              interface: "address",
+              data: ["0xf398C12A45Bc409b6C652E25bb0a3e702492A4ab"],
+            },
+          ],
+          txOptions: {
+            waitForTransaction: waitForTransaction,
+          },
+        }),
+      ).to.not.be.rejected;
+
+      expect(response.txHash).to.be.a("string");
+      expect(response.txHash).not.empty;
+
+      if (waitForTransaction) {
+        expect(response.ipAssetId).to.be.a("string");
+        expect(response.ipAssetId).not.empty;
+      }
+    });
+
+    it("should throw error when creating an IP Asset with a hook, without hook data", async () => {
+      const waitForTransaction: boolean = true;
+      const response = await expect(
+        client.ipAsset.create({
+          name: "Test",
+          type: 0,
+          ipOrgId: "0x2554E198752d0F086c8b885CbCc5d663365673C2",
+          owner: senderAddress,
+          contentHash: "",
+          mediaUrl: "",
+          txOptions: {
+            waitForTransaction: waitForTransaction,
+          },
+        }),
+      ).to.be.rejected;
+    });
   });
 });

@@ -9,7 +9,6 @@ if (typeof process !== "undefined") {
 }
 
 export const storyProtocolAbi = storyProtocolJson;
-
 export const storyProtocolReadable = formatAbi(storyProtocolAbi);
 
 export const storyProtocolConfig = {

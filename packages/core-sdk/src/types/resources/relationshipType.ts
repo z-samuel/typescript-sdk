@@ -1,4 +1,5 @@
 import { QueryOptions, TxOptions } from "../options";
+import { TypedData } from "../common";
 import { RelatedElements } from "./relationship";
 
 export type RelationshipType = {
@@ -38,8 +39,8 @@ export type RegisterRelationshipTypeRequest = {
   relatedElements: RelatedElements;
   allowedSrcs: string[];
   allowedDsts: string[];
-  preHooksConfig: Record<string, unknown>[];
-  postHooksConfig: Record<string, unknown>[];
+  preHooksConfig?: Array<TypedData>;
+  postHooksConfig?: Array<TypedData>;
   txOptions?: TxOptions;
 };
 
