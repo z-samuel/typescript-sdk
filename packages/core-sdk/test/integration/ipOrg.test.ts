@@ -30,8 +30,8 @@ describe("IPOrg Functions", () => {
       const waitForTransaction: boolean = true;
       const response = await expect(
         client.ipOrg.create({
-          name: "Star Wars",
-          symbol: "STAR",
+          name: "Alice In Wonderland",
+          symbol: "AIW",
           owner: senderAddress,
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
@@ -53,8 +53,8 @@ describe("IPOrg Functions", () => {
       const waitForTransaction: boolean = true;
       const response = await expect(
         client.ipOrg.create({
-          name: "Star Wars",
-          symbol: "STAR",
+          name: "Alice In Wonderland",
+          symbol: "AIW",
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
             waitForTransaction: waitForTransaction,

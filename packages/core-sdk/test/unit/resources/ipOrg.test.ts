@@ -38,8 +38,8 @@ describe(`Test IPOrgClient`, function () {
 
       await expect(
         ipOrgClient.create({
-          name: "Star Wars",
-          symbol: "STAR",
+          name: "Alice In Wonderland",
+          symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
@@ -57,8 +57,8 @@ describe(`Test IPOrgClient`, function () {
 
       await expect(
         ipOrgClient.create({
-          name: "Star Wars",
-          symbol: "STAR",
+          name: "Alice In Wonderland",
+          symbol: "AIW",
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
             waitForTransaction: false,
@@ -89,8 +89,8 @@ describe(`Test IPOrgClient`, function () {
       });
       await expect(
         ipOrgClient.create({
-          name: "Star Wars",
-          symbol: "STAR",
+          name: "Alice In Wonderland",
+          symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
@@ -104,8 +104,8 @@ describe(`Test IPOrgClient`, function () {
       rpcMock.simulateContract = sinon.stub().rejects(new Error("revert"));
       await expect(
         ipOrgClient.create({
-          name: "Star Wars",
-          symbol: "STAR",
+          name: "Alice In Wonderland",
+          symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
@@ -137,8 +137,8 @@ describe(`Test IPOrgClient`, function () {
       });
       try {
         await ipOrgClient.create({
-          name: "Star Wars",
-          symbol: "STAR",
+          name: "Alice In Wonderland",
+          symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
           ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
           txOptions: {
