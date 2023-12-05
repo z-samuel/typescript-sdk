@@ -34,7 +34,7 @@ describe("Test HookReadOnlyClient", function () {
             registryKey: "0xac909466a23bec9adaf8b5f1cdfec2fb87df8a07765d813250eee97ecd862dcf",
             registeredAt: "1700289864",
             txHash: "0xfe06c299ab53f44a98e925d4d50904783284de80d105afc3ab73b2908322fe93",
-            hookType: HookType.POST_ACTION,
+            hookType: HookType.PostAction,
           },
         },
       });
@@ -78,7 +78,7 @@ describe("Test HookReadOnlyClient", function () {
             registryKey: "0xac909466a23bec9adaf8b5f1cdfec2fb87df8a07765d813250eee97ecd862dcf",
             registeredAt: "1700289864",
             txHash: "0xfe06c299ab53f44a98e925d4d50904783284de80d105afc3ab73b2908322fe93",
-            hookType: HookType.POST_ACTION,
+            hookType: HookType.PostAction,
           },
         ],
       },

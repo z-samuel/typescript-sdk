@@ -4,7 +4,7 @@ import { createMock } from "../testUtils";
 import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient, WalletClient, Account } from "viem";
-import { IPAssetType, IPOrgClient } from "../../../src";
+import { IPOrgClient } from "../../../src";
 
 chai.use(chaiAsPromised);
 chai.config.truncateThreshold = 0;
@@ -41,7 +41,7 @@ describe(`Test IPOrgClient`, function () {
           name: "Alice In Wonderland",
           symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          ipAssetTypes: ["Story", "Character"],
           txOptions: {
             waitForTransaction: false,
           },
@@ -59,7 +59,7 @@ describe(`Test IPOrgClient`, function () {
         ipOrgClient.create({
           name: "Alice In Wonderland",
           symbol: "AIW",
-          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          ipAssetTypes: ["Story", "Character"],
           txOptions: {
             waitForTransaction: false,
           },
@@ -92,7 +92,7 @@ describe(`Test IPOrgClient`, function () {
           name: "Alice In Wonderland",
           symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          ipAssetTypes: ["Story", "Character"],
           txOptions: {
             waitForTransaction: true,
           },
@@ -107,7 +107,7 @@ describe(`Test IPOrgClient`, function () {
           name: "Alice In Wonderland",
           symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          ipAssetTypes: ["Story", "Character"],
           txOptions: {
             waitForTransaction: false,
           },
@@ -140,7 +140,7 @@ describe(`Test IPOrgClient`, function () {
           name: "Alice In Wonderland",
           symbol: "AIW",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
-          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          ipAssetTypes: ["Story", "Character"],
           txOptions: {
             waitForTransaction: true,
           },

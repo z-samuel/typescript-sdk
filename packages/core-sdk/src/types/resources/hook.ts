@@ -1,4 +1,5 @@
 import { QueryOptions } from "../options";
+import { HookType } from "../../enums/HookType";
 
 /**
  * Core data model for Hook.
@@ -9,7 +10,7 @@ export type Hook = {
   id: string;
   moduleId: string;
   interface?: string;
-  hookType: number;
+  hookType: HookType;
   registryKey: string;
   registeredAt: string; // ISO 8601
   txHash: string;

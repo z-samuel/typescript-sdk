@@ -1,31 +1,14 @@
 import { QueryOptions, TxOptions } from "../options";
 import { TypedData } from "../common";
 
-enum Relatables {
-  UNDEFINED,
-  IPA,
-  IPORG_ENTRY,
-  LICENSE,
-  ADDRESS,
-  EXTERNAL_NFT,
-}
-
-export interface RelatedElements {
-  src: Relatables;
-  dst: Relatables;
-}
-
 export type Relationship = {
   id: string;
   type: string; // i.e. "APPEARS_IN"
   typeId: string;
   srcContract: string;
   srcTokenId: string;
-  srcName?: string;
   dstContract: string;
   dstTokenId: string;
-  dstName?: string;
-  ttl?: number; // based in seconds
   registeredAt: string; // ISO 8601
   txHash: string;
 };

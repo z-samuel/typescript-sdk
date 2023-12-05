@@ -2,6 +2,6 @@
  * @public
  */
 export enum HookType {
-  PRE_ACTION,
-  POST_ACTION,
+  PreAction = 0,
+  PostAction = 1,
 }

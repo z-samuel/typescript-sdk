@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { StoryClient, StoryConfig, IPAssetType, Client } from "../../src";
+import { StoryClient, StoryConfig, Client } from "../../src";
 import * as dotenv from "dotenv";
 import { sepolia } from "viem/chains";
 import { getAddress, Hex, http } from "viem";
@@ -33,7 +33,7 @@ describe("IPOrg Functions", () => {
           name: "Alice In Wonderland",
           symbol: "AIW",
           owner: senderAddress,
-          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          ipAssetTypes: ["Story", "Character"],
           txOptions: {
             waitForTransaction: waitForTransaction,
           },
@@ -55,7 +55,7 @@ describe("IPOrg Functions", () => {
         client.ipOrg.create({
           name: "Alice In Wonderland",
           symbol: "AIW",
-          ipAssetTypes: [IPAssetType.STORY.toString(), IPAssetType.CHARACTER.toString()],
+          ipAssetTypes: ["Story", "Character"],
           txOptions: {
             waitForTransaction: waitForTransaction,
           },

@@ -1,6 +1,6 @@
 import { QueryOptions, TxOptions } from "../options";
 import { TypedData } from "../common";
-import { RelatedElements } from "./relationship";
+import { Relatables } from "../../enums/Relatables";
 
 export type RelationshipType = {
   type: string;
@@ -33,12 +33,17 @@ export type ListRelationshipTypesResponse = {
   relationshipTypes: RelationshipType[];
 };
 
+export type RelatedElements = {
+  src: Relatables;
+  dst: Relatables;
+};
+
 export type RegisterRelationshipTypeRequest = {
   ipOrgId: string;
   relType: string;
   relatedElements: RelatedElements;
-  allowedSrcs: string[];
-  allowedDsts: string[];
+  allowedSrcIpAssetTypes: number[]; // the number is the index of the ip asset type array defined in ip org
+  allowedDstIpAssetTypes: number[];
   preHooksConfig?: Array<TypedData>;
   postHooksConfig?: Array<TypedData>;
   txOptions?: TxOptions;

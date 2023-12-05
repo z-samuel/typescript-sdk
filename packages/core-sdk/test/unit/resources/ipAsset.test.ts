@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
-import { IPAssetType, IPAssetClient, AddressZero } from "../../../src";
+import { IPAssetClient, AddressZero } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient, WalletClient, Account } from "viem";
@@ -40,7 +40,7 @@ describe("Test IpAssetClient", function () {
 
         await ipAssetClient.create({
           name: "The Empire Strikes Back",
-          type: IPAssetType.STORY,
+          typeIndex: 0,
           ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
           preHookData: [
@@ -74,7 +74,7 @@ describe("Test IpAssetClient", function () {
 
         await ipAssetClient.create({
           name: "The Empire Strikes Back",
-          type: IPAssetType.STORY,
+          typeIndex: 0,
           ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
           txOptions: {
             waitForTransaction: false,
@@ -115,7 +115,7 @@ describe("Test IpAssetClient", function () {
 
         const response = await ipAssetClient.create({
           name: "The Empire Strikes Back",
-          type: IPAssetType.STORY,
+          typeIndex: 0,
           ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
           txOptions: {
@@ -138,7 +138,7 @@ describe("Test IpAssetClient", function () {
       await expect(
         ipAssetClient.create({
           name: "The Empire Strikes Back",
-          type: IPAssetType.STORY,
+          typeIndex: 0,
           ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
           owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
           txOptions: {
@@ -156,7 +156,7 @@ describe("Test IpAssetClient", function () {
         expect(
           await ipAssetClient.create({
             name: "The Empire Strikes Back",
-            type: IPAssetType.STORY,
+            typeIndex: 0,
             ipOrgId: "fake org id",
             owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
             txOptions: {

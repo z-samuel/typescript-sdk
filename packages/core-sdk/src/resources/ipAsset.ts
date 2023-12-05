@@ -35,7 +35,7 @@ export class IPAssetClient extends IPAssetReadOnlyClient {
           {
             owner: getAddress(request.owner || this.wallet.account!.address),
             name: request.name,
-            ipOrgAssetType: parseToBigInt(request.type),
+            ipOrgAssetType: parseToBigInt(request.typeIndex),
             hash: toHex(request.contentHash || "", { size: 32 }),
             mediaUrl: request.mediaUrl || "",
           },

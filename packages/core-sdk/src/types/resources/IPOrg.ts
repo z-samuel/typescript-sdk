@@ -12,7 +12,7 @@ export type IPOrg = {
   owner: string;
   baseUri?: string;
   contractUri?: string;
-  ipAssetTypes: string[];
+  ipAssetTypes: Array<string>;
   createdAt: string; // ISO 8601
   txHash: string;
 };

@@ -1,8 +1,8 @@
 export { StoryClient } from "./client";
-export { IPAssetType } from "./enums/IPAssetType";
 export { ResourceType } from "./enums/ResourceType";
 export { HookType } from "./enums/HookType";
 export { ActionType } from "./enums/ActionType";
+export { Relatables } from "./enums/Relatables";
 export { HookReadOnlyClient } from "./resources/hookReadOnly";
 export { IPAssetClient } from "./resources/ipAsset";
 export { IPAssetReadOnlyClient } from "./resources/ipAssetReadOnly";

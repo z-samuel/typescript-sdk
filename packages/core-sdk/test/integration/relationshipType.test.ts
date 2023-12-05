@@ -22,8 +22,8 @@ describe("Relationship Type Functions", () => {
       src: 1,
       dst: 1,
     },
-    allowedSrcs: ["1"],
-    allowedDsts: ["1"],
+    allowedSrcIpAssetTypes: [1],
+    allowedDstIpAssetTypes: [1],
     txOptions: {
       waitForTransaction: false,
     },

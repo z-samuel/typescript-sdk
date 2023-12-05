@@ -52,11 +52,8 @@ describe("Test RelationshipReadOnlyClient", function () {
             typeId: "type-5678",
             srcContract: "0xSourceContractAddress",
             srcTokenId: "srcToken123",
-            srcName: "Source Name",
             dstContract: "0xDestContractAddress",
             dstTokenId: "dstToken456",
-            dstName: "Destination Name",
-            ttl: 3600, // 1 hour in seconds
             registeredAt: "2023-01-01T00:00:00Z", // ISO 8601 format
             txHash: "0xTransactionHash",
           },
@@ -109,11 +106,8 @@ describe("Test RelationshipReadOnlyClient", function () {
               typeId: "type-5678",
               srcContract: "0xSourceContractAddress",
               srcTokenId: "srcToken123",
-              srcName: "Source Name",
               dstContract: "0xDestContractAddress",
               dstTokenId: "dstToken456",
-              dstName: "Destination Name",
-              ttl: 3600,
               registeredAt: "2023-01-01T00:00:00Z",
               txHash: "0xTransactionHash",
             },

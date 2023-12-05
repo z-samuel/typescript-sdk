@@ -43,6 +43,7 @@ describe("Transaction client integration tests", () => {
       expect(transaction).to.have.property("resourceId");
       if (transaction.resourceType !== ResourceType.Relationship) {
         expect(transaction).to.have.property("ipOrgId");
+        expect(transaction.ipOrgId).to.be.a("string");
       }
       expect(transaction.id).to.be.a("string");
       expect(transaction.txHash).to.be.a("string");
@@ -50,7 +51,6 @@ describe("Transaction client integration tests", () => {
       expect(transaction.initiator).to.be.a("string");
       expect(transaction.resourceType).to.be.a("string");
       expect(transaction.resourceId).to.be.a("string");
-      expect(transaction.ipOrgId).to.be.a("string");
 
       const transaction2 = response.transactions[1];
       expect(transaction2).to.have.property("id");
@@ -61,6 +61,7 @@ describe("Transaction client integration tests", () => {
       expect(transaction2).to.have.property("resourceId");
       if (transaction.resourceType !== ResourceType.Relationship) {
         expect(transaction2).to.have.property("ipOrgId");
+        expect(transaction2.ipOrgId).to.be.a("string");
       }
       expect(transaction2.id).to.be.a("string");
       expect(transaction2.txHash).to.be.a("string");
@@ -68,7 +69,6 @@ describe("Transaction client integration tests", () => {
       expect(transaction2.initiator).to.be.a("string");
       expect(transaction2.resourceType).to.be.a("string");
       expect(transaction2.resourceId).to.be.a("string");
-      expect(transaction2.ipOrgId).to.be.a("string");
     });
 
     it("should return a list of transactions successfully without options", async () => {

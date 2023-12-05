@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { AxiosInstance } from "axios";
 import { createMock } from "../testUtils";
 import * as sinon from "sinon";
-import { IPAssetType, IPAssetReadOnlyClient } from "../../../src";
+import { IPAssetReadOnlyClient } from "../../../src";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { PublicClient } from "viem";
@@ -31,7 +31,7 @@ describe("Test IpAssetReadOnlyClient", function () {
           ipAsset: {
             id: "1",
             name: "The Empire Strikes Back",
-            type: IPAssetType.STORY,
+            type: 0,
             ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
             owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
             metadataUrl: "https://arweave.net/R7-xPDAMqOhUSw3CM_UwXI7zdpQkzCCCUq3smzxyAaU",
@@ -47,7 +47,7 @@ describe("Test IpAssetReadOnlyClient", function () {
 
       expect(response.ipAsset.ipOrgId).to.equal("0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7");
       expect(response.ipAsset.name).to.equal("The Empire Strikes Back");
-      expect(response.ipAsset.type).to.equal(IPAssetType.STORY);
+      expect(response.ipAsset.type).to.equal(0);
     });
 
     it("should throw error", async function () {
@@ -78,7 +78,7 @@ describe("Test IpAssetReadOnlyClient", function () {
           {
             id: "1",
             name: "The Empire Strikes Back",
-            type: IPAssetType.STORY,
+            type: 0,
             ipOrgId: "0xB32BdE3fBfddAd30a8d824178F00F0adB43DF2e7",
             owner: "0x4f9693ac46f2c7e2f48dd14d8fe1ab44192cd57d",
             metadataUrl: "https://arweave.net/R7-xPDAMqOhUSw3CM_UwXI7zdpQkzCCCUq3smzxyAaU",

@@ -31,7 +31,7 @@ describe("IP Asset Functions", () => {
       const response = await expect(
         client.ipAsset.create({
           name: "Test",
-          type: 0,
+          typeIndex: 0,
           ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           owner: senderAddress,
           contentHash: "",
@@ -56,7 +56,7 @@ describe("IP Asset Functions", () => {
       const response = await expect(
         client.ipAsset.create({
           name: "Test",
-          type: 0,
+          typeIndex: 0,
           ipOrgId: "0x1eBb43775fCC45CF05eaa96182C8762220e17941",
           contentHash: "",
           mediaUrl: "",
@@ -80,7 +80,7 @@ describe("IP Asset Functions", () => {
       const response = await expect(
         client.ipAsset.create({
           name: "Test",
-          type: 0,
+          typeIndex: 0,
           ipOrgId: "0x2554E198752d0F086c8b885CbCc5d663365673C2",
           owner: senderAddress,
           contentHash: "",
@@ -111,7 +111,7 @@ describe("IP Asset Functions", () => {
       const response = await expect(
         client.ipAsset.create({
           name: "Test",
-          type: 0,
+          typeIndex: 0,
           ipOrgId: "0x2554E198752d0F086c8b885CbCc5d663365673C2",
           owner: senderAddress,
           contentHash: "",
