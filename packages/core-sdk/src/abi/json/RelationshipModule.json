@@ -9,7 +9,7 @@
         "type": "uint256"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "string",
         "name": "relType",
         "type": "string"
@@ -46,7 +46,7 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "string",
         "name": "relType",
         "type": "string"
