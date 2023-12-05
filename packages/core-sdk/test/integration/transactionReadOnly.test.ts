@@ -41,7 +41,7 @@ describe("Transaction client integration tests", () => {
       expect(transaction).to.have.property("initiator");
       expect(transaction).to.have.property("resourceType");
       expect(transaction).to.have.property("resourceId");
-      if (transaction.resourceType !== ResourceType.Relationship) {
+      if (transaction.resourceType !== ResourceType.Relationship.valueOf()) {
         expect(transaction).to.have.property("ipOrgId");
         expect(transaction.ipOrgId).to.be.a("string");
       }
@@ -59,7 +59,7 @@ describe("Transaction client integration tests", () => {
       expect(transaction2).to.have.property("initiator");
       expect(transaction2).to.have.property("resourceType");
       expect(transaction2).to.have.property("resourceId");
-      if (transaction.resourceType !== ResourceType.Relationship) {
+      if (transaction.resourceType !== ResourceType.Relationship.valueOf()) {
         expect(transaction2).to.have.property("ipOrgId");
         expect(transaction2.ipOrgId).to.be.a("string");
       }
