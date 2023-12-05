@@ -1,5 +1,5 @@
 import { QueryOptions, TxOptions } from "../options";
-import { TypedData } from "../typedData";
+import { TypedData } from "../common";
 
 /**
  * Core data model for IP Asset.

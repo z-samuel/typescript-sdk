@@ -5,6 +5,7 @@ import {
   StoryReadOnlyConfig,
   ReadOnlyClient,
   ListTransactionRequest,
+  ResourceType,
 } from "../../src";
 import * as dotenv from "dotenv";
 
@@ -40,7 +41,9 @@ describe("Transaction client integration tests", () => {
       expect(transaction).to.have.property("initiator");
       expect(transaction).to.have.property("resourceType");
       expect(transaction).to.have.property("resourceId");
-      expect(transaction).to.have.property("ipOrgId");
+      if (transaction.resourceType !== ResourceType.Relationship) {
+        expect(transaction).to.have.property("ipOrgId");
+      }
       expect(transaction.id).to.be.a("string");
       expect(transaction.txHash).to.be.a("string");
       expect(transaction.createdAt).to.be.a("string");
@@ -56,7 +59,9 @@ describe("Transaction client integration tests", () => {
       expect(transaction2).to.have.property("initiator");
       expect(transaction2).to.have.property("resourceType");
       expect(transaction2).to.have.property("resourceId");
-      expect(transaction2).to.have.property("ipOrgId");
+      if (transaction.resourceType !== ResourceType.Relationship) {
+        expect(transaction2).to.have.property("ipOrgId");
+      }
       expect(transaction2.id).to.be.a("string");
       expect(transaction2.txHash).to.be.a("string");
       expect(transaction2.createdAt).to.be.a("string");
