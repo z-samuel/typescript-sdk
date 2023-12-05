@@ -1,0 +1,13 @@
+[
+  "registerIPAsset",
+  "IPAssetRegistered",
+  "registerIpOrg",
+  "IPOrgRegistered",
+  "createLicenseNft",
+  "createIpaBoundLicense",
+  "LicenseRegistered",
+  "createRelationship",
+  "RelationshipCreated",
+  "addRelationshipType",
+  "RelationshipTypeSet"
+]
