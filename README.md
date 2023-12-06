@@ -9,25 +9,27 @@ Suppose you already have a node project or created a new node project. First, yo
 
 Use `npm`:
 ```
-npm install --save @story-protocol/core-sdk
+npm install --save @story-protocol/core-sdk viem
 ```
 
 Use `pnpm`:
 ```
-pnpm install @story-protocol/core-sdk
+pnpm install @story-protocol/core-sdk viem
 ```
 
 Use `yarn`:
 ```
-yarn add @story-protocol/core-sdk
+yarn add @story-protocol/core-sdk viem
 ```
+
+Besides the Story Protocol SDK package `@story-protocol/core-sdk`, we also require the package `viem` (https://www.npmjs.com/package/viem) to access the DeFi wallet accounts.
 
 ### Setup the `.env` file for your project
 
 The second steps is to create a file named `.env` in the root directory of the project with the following environment variables:
 
 ```
-NEXT_PUBLIC_API_BASE_URL=https://stag.api.storyprotocol.net
+NEXT_PUBLIC_API_BASE_URL=
 
 NEXT_PUBLIC_STORY_PROTOCOL_CONTRACT=
 NEXT_PUBLIC_IP_ASSET_REGISTRY_CONTRACT=
@@ -90,9 +92,6 @@ export const realonlyClient = StoryClient.newReadOnlyClient({});
 export const client = StoryClient.newClient({account});
 ```
 
-Here we need access accounts through the package `viem` (https://www.npmjs.com/package/viem). The package should already been installed automatically with Story Protocol core SDK.
-
-
 ### Use `Client` or `ReadOnlyClient` to access Story Protocol
 
 Now you can use the `ReadOnlyClient` instance to perform read-only operations with Story Protocol resources, and `Client` instance to perform both read-only and write operations. `ReadOnlyClient` and `Client` are the aggregators for accessing the resources. Here are the definition of the two interfaces:
@@ -140,10 +139,10 @@ For manual testing of the core-sdk, set up a separate web project. The guide bel
 Under the `typescript-sdk/packages/core-sdk` directory:
 * Navigate to the `core-sdk` directory.
 * Execute `npm run build` to build your latest code.
-* Run `yalc publish`. You should see a message like `@story-protocol/core-sdk@0.1.0-rc.7 published in store.` (Note: The version number may vary).
+* Run `yalc publish`. You should see a message like `@story-protocol/core-sdk@<version> published in store.` (Note: The version number may vary).
 
-To set up your testing environment (e.g., a new Next.js project), use `yalc add @story-protocol/core-sdk@0.1.0-rc.7` (ensure the version number is updated accordingly).
-* Run `pnpm install`. This installs `@story-protocol/core-sdk@0.1.0-rc.7` with your local changes.
+To set up your testing environment (e.g., a new Next.js project), use `yalc add @story-protocol/core-sdk@<version>` (ensure the version number is updated accordingly).
+* Run `pnpm install`. This installs `@story-protocol/core-sdk@<version>` with your local changes.
 
 ### Steps to Refresh the Changes
 Under the `typescript-sdk/packages/core-sdk` directory:
