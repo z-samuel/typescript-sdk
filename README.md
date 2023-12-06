@@ -57,16 +57,10 @@ Next, we need create a client to access Story Protocol by using private key or f
 Here is the way to create a Story Protocol client with the private key:
 
 ```typescript
-import { createWalletClient, custom } from 'viem'
-import { sepolia } from 'viem/chains'
+import { privateKeyToAccount } from "viem/accounts";
 
-const walletClient = createWalletClient({
-  chain: sepolia,
-  transport: custom(window.ethereum)
-})
-
-// Retrieve the first account for eth_requestAccounts method
-const account = await walletClient.requestAddresses()[0]
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x";
+const account = privateKeyToAccount(PRIVATE_KEY as `0x${string}`);
 
 // Instantiate the Story Client for readonly operations, using default 
 export const realonlyClient = StoryClient.newReadOnlyClient({});
@@ -79,10 +73,16 @@ export const client = StoryClient.newClient({account});
 Here is the way to create a Story Protocol with wallet app:
 
 ```typescript
-import { privateKeyToAccount } from "viem/accounts";
+import { createWalletClient, custom } from 'viem'
+import { sepolia } from 'viem/chains'
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x";
-const account = privateKeyToAccount(PRIVATE_KEY as `0x${string}`);
+const walletClient = createWalletClient({
+  chain: sepolia,
+  transport: custom(window.ethereum)
+})
+
+// Retrieve the first account for eth_requestAccounts method
+const account = await walletClient.requestAddresses()[0]
 
 // Instantiate the Story Client for readonly operations, using default 
 export const realonlyClient = StoryClient.newReadOnlyClient({});
