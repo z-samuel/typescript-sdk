@@ -94,34 +94,9 @@ export const client = StoryClient.newClient({account});
 
 ### Use `Client` or `ReadOnlyClient` to access Story Protocol
 
-Now you can use the `ReadOnlyClient` instance to perform read-only operations with Story Protocol resources, and `Client` instance to perform both read-only and write operations. `ReadOnlyClient` and `Client` are the aggregators for accessing the resources. Here are the definition of the two interfaces:
+Now you can use the `ReadOnlyClient` instance to perform read-only operations with Story Protocol resources, and `Client` instance to perform both read-only and write operations. `ReadOnlyClient` and `Client` are the aggregators for accessing the resources. You can refer to [SDK document](https://docs.storyprotocol.xyz/docs/overview-1) to learn how to use these clients interact with Story Protocol.
 
-```Typescript
-export interface ReadOnlyClient {
-  hook: HookReadOnlyClient;
-  module: ModuleReadOnlyClient;
-  ipOrg: IPOrgReadOnlyClient;
-  license: LicenseReadOnlyClient;
-  transaction: TransactionReadOnlyClient;
-  ipAsset: IPAssetReadOnlyClient;
-  relationship: RelationshipReadOnlyClient;
-  relationshipType: RelationshipTypeReadOnlyClient;
-}
-
-export interface Client {
-  hook: HookClient;
-  module: ModuleClient;
-  ipOrg: IPOrgClient;
-  license: LicenseClient;
-  transaction: TransactionClient;
-  ipAsset: IPAssetClient;
-  relationship: RelationshipClient;
-  relationshipType: RelationshipTypeClient;
-  platform: PlatformClient;
-}
-```
-
-You can refer to [SDK document](https://docs.storyprotocol.xyz/docs/overview-1) to learn how to use these clients interact with Story Protocol. You can also refer to the [Story Protocol Example Repostory](https://github.com/storyprotocol/my-story-protocol-example/) to learn with the SDK example.
+You can also refer to the [Story Protocol Example Repostory](https://github.com/storyprotocol/my-story-protocol-example/) to learn with the SDK example.
 
 ## How To Build and Test Story Protocol SDK
 
